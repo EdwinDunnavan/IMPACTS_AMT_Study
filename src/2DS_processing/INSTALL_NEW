@@ -1,0 +1,66 @@
+Put the code into one directory, and compile the three CPP files:
+
+# UPDATE: 04/17/2024
+After OS change due to NSSL IT, there are some changes to the location of the directories. Installed CGAL libraries directly in /home/edwin.dunnavan/. Include is in include/ and libraries are in lib64/. 
+
+LEE NOTE:
+-lCGAL and -lgmp refer to the library directories within the -I and -L paths
+
+
+Steps for compiling on JCarlin1:
+In a terminal:
+1.) Change gcc version to 9. This is apparently now necessary for R2021.
+        scl enable gcc-toolset-9 "bash"
+
+2.) export LD_LIBRARY_PATH=/home/edwin.dunnavan/lib64/
+
+3.) Compiling mex code in UIOPS directory
+
+                Run this section
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+mex CGAL_minR.cpp
+mex CGAL_EllipseSize.cpp -I/home/edwin.dunnavan/include/ -L/home/edwin.dunnavan/lib64/ -I/home/edwin.dunnavan/boost_1_81_0/ -L/home/edwin.dunnavan/boost_1_81_0/ -lgmp -lCGAL
+mex CGAL_RectSize.cpp -I/home/edwin.dunnavan/include/ -L/home/edwin.dunnavan/lib64/ -I/home/edwin.dunnavan/boost_1_81_0/ -L/home/edwin.dunnavan/boost_1_81_0/ -lgmp -lCGAL
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+-----------------------------------------------------
+
+
+% OLD
+%%mex CGAL_RectSize.cpp -I/home/edwin.dunnavan/CGAL-4.14/include/ -L/home/edwin.dunnavan/CGAL-4.14/lib/ -I/home/edwin.dunnavan/boost_1_41_0/ -I/home/edwin.dunnavan/boost_1_41_0/ -lgmp
+%%mex CGAL_EllipseSize.cpp -I/home/edwin.dunnavan/CGAL-4.14/include/ -L/home/edwin.dunnavan/CGAL-4.14/lib/ -I/home/edwin.dunnavan/boost_1_81_0/ -L/home/edwin.dunnavan/boost_1_81_0/ -lgmp -lCGAL
+
+-------------------------------------------------------------------------
+LEE NOTE: Some errors that crop up when trying to mex
+- When trying to mex CGAL_EllipseSize.ccp
+    Error using mex
+    ------------------------------
+    /opt/rh/devtoolset-9/root/usr/libexec/gcc/x86_64-redhat-linux/9/ld: /tmp/mex_2665016390924810_5914/CGAL_EllipseSize.o: in
+    function `mexFunction':
+    CGAL_EllipseSize.cpp:(.text+0x776): undefined reference to `CGAL::Random::Random()'
+    /opt/rh/devtoolset-9/root/usr/libexec/gcc/x86_64-redhat-linux/9/ld: /tmp/mex_2665016390924810_5914/CGAL_EllipseSize.o: in
+    function `_GLOBAL__sub_I_CGAL_EllipseSize.cpp':
+    CGAL_EllipseSize.cpp:(.text.startup+0xb6): undefined reference to `CGAL::Random::Random()'
+    collect2: error: ld returned 1 exit status
+    ------------------------------
+
+    This seems to indicate that the -lCGAL isn't being used for a shared CGAL library. Try including -lCGAL at end.
+
+  --------------------------------
+ Invalid MEX-file '/home/edwin.dunnavan/Documents/UIOPS/CGAL_EllipseSize.mexa64': libCGAL.so.13: cannot open shared object file: No such
+file or directory
+  --------------------------------
+
+    This seems to be an LD_LIBRARY_PATH error. Seems like the CGAL libs are located in the /home/edwin.dunnavan/CGAL-4.14/lib directory
+    Need to do: export LD_LIBRARY_PATH=/home/edwin.dunnavan/lib64/ in terminal and then restart matlab
+
+
+
+mex CGAL_minR.cpp
+mex CGAL_EllipseSize.cpp -I/opt/local/include -L/opt/local/lib -lCGAL -lgmp
+mex CGAL_RectSize.cpp -I/opt/local/include -L/opt/local/lib -lCGAL -lgmp
+
+Steps to run the code:
+1. read_binary()
+2. runImgProc()
+3. runSizeDist()
