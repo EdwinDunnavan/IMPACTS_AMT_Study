@@ -1,5 +1,10 @@
 
+%{
 % generate_IMPACTS_figures.m
+
+Description: This script generates figures 
+
+%}
 
 %% Set up paths based on Github Parent location
 scriptPath = mfilename('fullpath');

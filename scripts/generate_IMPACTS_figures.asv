@@ -1,43 +1,32 @@
 
+%{
 % generate_IMPACTS_figures.m
 
+Description: This script generates figures 
+
+%}
+
+%% Set up paths based on Github Parent location
 scriptPath = mfilename('fullpath');
 scriptDir  = fileparts(scriptPath);
 projectDir = fileparts(scriptDir);
 srcDir     = fullfile(projectDir,'src/');
-utilsDir   = fullfile(srcDir,'utils/');
-FiguresDir = fullfile(projectDir,'Figures','IMPACTS_Observations/');
+utilsDir   = fullfile(srcDir,'utils');
+FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
 DataDir    = fullfile(projectDir,'Data','processed/');
 
+addpath(utilsDir)
+addpath(srcDir)
 
-addpath utilsDir
-addpath srcDir
-
-
-% Read QC'd .mat ellipse fit data
-m = load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'));
-
+load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat')
 
 habit_fraction = false;
 joint_dist = true;
-
-load_data = false;
-
-%outdir = '/localdata/edunnavan/P3_probe_data/IMPACTS/Figures/Joint_Distributions/AreaRatio_AspectRatio/Below_0C/';
-
-%outdir = '/localdata/edunnavan/P3_probe_data/IMPACTS/Figures/Joint_Distributions/';
 
 outdir = FiguresDir;
 
 outdir_joint = {'AspectRatio_EllipseAngle/','Dmajor_AspectRatio/','EllipseAngle_Dmajor/','AreaRatio_AspectRatio/',...
                 'Dmajor_AreaRatio/','EllipseAngle_AreaRatio/'};
-
-%outdir_joint = {'AspectRatio_EllipseAngle/'};
-
-%outdir_ranges = {'Below_neg_10C/','Below_neg_5C/','Below_0C/','Between_neg_5C_neg_10C/','Between_0C_neg_5C/'};
-
-%outdir_ranges = {'Between_neg10_neg_20C/'};
-
 
 dates_2020 = {'20200118','20200125','20200201','20200205','20200207','20200213'...
          '20200218','20200220'};
@@ -47,9 +36,6 @@ dates_2023 = {'20230113','20230115','20230119','20230123','20230125','20230129',
 
 dates = [dates_2020,dates_2022,dates_2023];
 
-%Tc_max = -10;
-%Tc_min = -20;
-
 %Tc_max = [-18,-12,-8,-3,0];
 %Tc_min = [-9999,-18,-12,-8,-3];
 
@@ -58,42 +44,9 @@ Tc_min = -9999;
 
 outdir_ranges = {'Below_neg_18C/'};
 
-%Tc_max = [-12,-8,-3,0];
-%Tc_min = [-18,-12,-8,-3];
-
-%outdir_ranges = {'Between_neg12_neg18C/',...
-%                 'Between_neg8_neg12C/','Between_neg3_neg8C/','Between_0C_neg_3C/'};
-
-%Tc_max = [-10 -5 0 -5 0];
-%Tc_min = [-9999 -9999 -9999 -10 -5];
-
-%EllipseAngle = true;
-%Dmajor = false;
-%AspectRatio = true;
-%AreaRatio = true;
-
-%habit = 'i';
-
 habit = {'all','i','d','h','g','l','a','o','s'};
 habit_names = {'All','Irregular','Dendrite','Hexagonal','Graupel','Linear','Aggregate','Oriented','Sphere'};
 
-probe_type = '2DS';
-
-if load_data
-
-m = struct;
-
-for ff = 1 : length(dates)
-
-    fprintf('Processing case %i out of %i\n',ff,length(dates))
-
-    m.(strcat('f',dates{ff})) =  read_impacts_ellipse(dates{ff},probe_type,'entire_in');
-
-
-
-end
-
-end
 
 %% Plot/Save Figures
 fnames = fieldnames(m);
@@ -114,7 +67,6 @@ for ff = 1 : length(dates)
     fprintf('Saving figure for date %s | %i out of %i\n',dates{ff},ff,length(dates))
 
 if joint_dist
-%plot_ellipse_joint(m.(fnames{ff}),'save_fig',true,'outdir','/localdata/edunnavan/P3_probe_data/IMPACTS/Figures/Joint_Distributions/Between_0C_neg_5C/','habit',habit,'Temp_max',Tc_max,'Temp_min',Tc_min,'show_fig',false);
 
 out_temp = strcat(outdir,outdir_joint{dd},outdir_ranges{tt},habit_names{hh},'/');
 
@@ -167,13 +119,7 @@ switch outdir_joint{dd}
 
 end
 
-
-
-
 plot_ellipse_joint(m.(fnames{ff}),'save_fig',true,'outdir',out_temp,'habit',habit{hh},'EllipseAngle',EllipseAngle,'Dmajor',Dmajor,'AspectRatio',AspectRatio,'AreaRatio',AreaRatio,'Temp_max',Tc_max(tt),'Temp_min',Tc_min(tt),'show_fig',false);
-
-
-
 
 end
 

@@ -13,13 +13,13 @@ Description: This script takes STL particle file(s), fits minimum-volume
 tic
 
 %N_generate = 5e4;
-Nsim = 5e5;
+Nsim = 1e3;
 
 %generate_hexagonal = false;
 fit_ellipsoids = true;
 simulate_data = true;
 
-size_switch = 'sample'; % sample - Sample sizes from hexagonal stl files.
+size_switch = 'gamma'; % sample - Sample sizes from hexagonal stl files.
                         % fixed - fixed size in mm
                         % gamma - Use gamma distribution to specify sizes.
                    
@@ -39,11 +39,11 @@ particles2sim = 'random'; % all - simulate all particles in directory once
 %% Orientations
 
 % Random
-% phimean = 0;
-% thetamean = 90;
-% kappa = 0.001;
-% psimean = 0;
-% varpsi = 0.001;
+phimean = 0;
+thetamean = 90;
+kappa = 0.001;
+psimean = 0;
+varpsi = 0.001;
 
 % IRREGULAR IMPACTS 2020
 %phimean = 45;
@@ -51,11 +51,11 @@ particles2sim = 'random'; % all - simulate all particles in directory once
 %kappa = 4;
 
 % COLUMNS IMPACTS 2020
-phimean = 80;
-thetamean = 115.506;
-kappa = 3;
-psimean = 0;
-varpsi = 0.001;
+%phimean = 80;
+%thetamean = 115.506;
+%kappa = 3;
+%psimean = 0;
+%varpsi = 0.001;
 
 % Plates flutter IMPACTS 2020
 %phimean = 0;
@@ -117,31 +117,7 @@ pix_size = 0.01;
 
 test_folder = 'IMPACTS_2020_N1e4_habit_new/';
 
-% folder for stl particles
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagon_column_mu4_Dm1_newparam/';
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_plot_irreg_example/';
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagon_column_mu4_Dm1_newparam_test3/';
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_plot_irreg_example_new/';
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_Irregular_2020_nu8_AR75/';
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagonal_columns_AV70/';
-
 folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_CappedColumns/';
-
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagonal_plate_D74/';
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_irreg_paper_test_AR75/';
-
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagonal_plate_AV70/';
-
-
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_BR08/';
 
 if ~isfolder(folder)
 
@@ -151,7 +127,6 @@ end
 
 % File(s) for original STL files
 fdir = dir(strcat(folder,'particle_*_orig.stl'));
-
 
 %% Create stl particle and ellipsoid properties and write corresponding netcdf output
 if fit_ellipsoids
