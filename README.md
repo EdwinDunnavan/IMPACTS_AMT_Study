@@ -1,3 +1,6 @@
+<p align="center">
+    <img src="assets/P3_WFF_IMPACTS_with_column_ex_rotated_newcoords.png" alt="P3 aircraft image with 2D-S location/coordinates and STL/ellipsoid projection coordinates." width="100%">
+<p>
 # IMPACTS_AMT_Study
 This repository contains source code, in situ 2D-S measurements, 
 and plotting/utilities for the *Atmospheric Measurement Techniques* article
@@ -63,11 +66,11 @@ sea level (Alt_MSL). The "TwoDS" field has
 
 ## How to generate a folder of rotated/projected STL particles
 
-## How to read simulated STL/ellipsoid models and plot
+## How to read simulated STL/ellipsoid models and plot figures
 There are two steps to reading in a folder of STL modeled particles. The first
 is to read in the folder 
 
 ```matlab
->> particle_folder = './DataOAP_ellipsoid/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/';
->> stemp = read_stl_data('/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/');
+particle_folder = './Data/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/';
+stemp = read_stl_data('./Simulations/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/');
 ```
