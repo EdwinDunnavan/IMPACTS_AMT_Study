@@ -1,6 +1,7 @@
 <p align="center">
     <img src="assets/P3_WFF_IMPACTS_with_column_ex_rotated_newcoords.png" alt="P3 aircraft image with 2D-S location/coordinates and STL/ellipsoid projection coordinates." width="100%">
 <p>
+
 # IMPACTS_AMT_Study
 This repository contains source code, in situ 2D-S measurements, 
 and plotting/utilities for the *Atmospheric Measurement Techniques* article
