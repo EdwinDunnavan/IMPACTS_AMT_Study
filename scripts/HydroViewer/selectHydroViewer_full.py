@@ -344,15 +344,15 @@ entireStatus = sys.argv[18]
 
 
 # ---------- Initialize Particle Criteria ----------
-if startTime=='None':
-    startTime = int(time[0])
-else:
-    startTime = int(startTime)
+#if startTime=='None':
+#    startTime = int(time[0])
+#else:
+startTime = int(startTime)
 
-if endTime=='None':
-    endTime = int(time[-1])
-else:
-    endTime = int(endTime)
+#if endTime=='None':
+#    endTime = int(time[-1])
+#else:
+endTime = int(endTime)
 
 if rejStatus!='None':
     rejStatus = np.array(rejStatus.split(','), dtype=np.uint8)
@@ -434,7 +434,16 @@ plt.ioff()
 
 # Find all proc files with corresponding imgdata 
 
-IMPACTS_dir = '/localdata/edunnavan/P3_probe_data/IMPACTS/';
+# HARDCODE IN RELATIVE PATH
+
+IMPACTS_dir = '/localdata/edunnavan/P3_probe_data/IMPACTS/'
+
+from pathlib import Path
+
+github_dir = Path(__file__).resolve().parent.parent
+
+IMPACTS_dir = str(github_dir / 'Data' / 'sample_raw' )
+
 
 if probeName=='2DS':
 

@@ -76,8 +76,6 @@ end
 pdf_print(strcat(outdir_full,'/IMPACTS_2DS_','AspectRatio_EllipseAngle_',fexten),'-dpdf')
 close(fig)
 
-return
-
 
 %% Plot Dmajor / Aspect Ratio
 [fig,~] = plot_ellipse_joint(m,'save_fig',false,'Temp_max',Tc_max,'Temp_min',Tc_min,'habit',habit,...

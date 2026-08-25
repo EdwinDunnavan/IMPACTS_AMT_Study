@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul  8 13:17:13 2024
-
-@author: edwin.dunnavan
+Modified from SHPSG (https://github.com/budizhao/SHPSG)
+Original code copyright (c) [2020] Budi Zhao
+Licensed under the MIT License
+Modifications made by Edwin Lee Dunnavan (CIWRO) for "Universality of ice particle shapes
+and orientations as revealed by the 2D-S in situ optical array probe" in 
+Atmospheric Measurement Technique"", 2026
 """
 
 import numpy as np
@@ -32,11 +35,14 @@ def draw_gamma_rnd(mu,Dm,Dlow,Dhigh,size):
 
 size_switch = 'gamma'
 
-npar = 10000 # particle number for each parameter group
+npar = 1000 # particle number for each parameter group
 
 #data_folder = 'C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Simulations\\SHPSG\\Simulation2\\'
 
-data_folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_irreg_paper_test_AR75/';
+# PAPER ORIG!
+#data_folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_irreg_paper_test_AR75/'
+
+data_folder = '/localdata/edunnavan/IMPACTS_aircraft_study/Simulations/Irregular_Test/'
 
 #data_folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_Irregular_2020_nu8_AR75/';
 

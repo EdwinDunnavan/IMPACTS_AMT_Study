@@ -1,5 +1,10 @@
 
-% plot_simulation_marginal.m
+%{
+ plot_simulation_marginal.m
+
+ Generates Figure 19
+
+%} 
 
 fdir = '/localdata/edunnavan/Simulations/OAP_ellipsoid/';
 folders = {'Simulation_BR03/','Simulation_BR04/','Simulation_BR08/','Simulation_Dendrite_2/'};
