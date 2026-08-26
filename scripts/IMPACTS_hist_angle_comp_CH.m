@@ -1,5 +1,7 @@
 % histogram_IMPACTS_angle_comp.m
 
+paths = get_project_paths();
+
 bins = -90:5:90;
 
 Tmin = -8;
@@ -16,7 +18,9 @@ AreaRatio_max = 0.8;
 
 dbin = bins(2)-bins(1);
 
-m = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\IMPACTS_2020_2023_ellipse_data.mat');
+m = load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat');
+
+%m = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\IMPACTS_2020_2023_ellipse_data.mat');
 
 % load CH data 4k
  %m_CH = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\CH_2DS_simulations_4k.mat','-mat','m_CH');

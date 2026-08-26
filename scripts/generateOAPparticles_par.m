@@ -119,6 +119,8 @@ test_folder = 'IMPACTS_2020_N1e4_habit_new/';
 
 folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_CappedColumns/';
 
+folder = '';
+
 if ~isfolder(folder)
 
 mkdir(folder)

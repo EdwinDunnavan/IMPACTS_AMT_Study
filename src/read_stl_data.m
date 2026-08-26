@@ -4,6 +4,13 @@ function obj = read_stl_data(folder)
 %% get netcdf file names
 fdir = dir(strcat(folder,'stl_ellipsoids*.nc'));
 
+if isempty(fdir)
+
+    error('Folder does not exist!')
+
+end
+
+
 N = length(fdir);
 
 obj.index = [];

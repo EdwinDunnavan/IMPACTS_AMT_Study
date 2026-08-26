@@ -7,18 +7,22 @@
 %}
 
 %% Set up paths based on Github Parent location
-scriptPath = mfilename('fullpath');
-scriptDir  = fileparts(scriptPath);
-projectDir = fileparts(scriptDir);
-srcDir     = fullfile(projectDir,'src/');
-utilsDir   = fullfile(srcDir,'utils');
-FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
-DataDir    = fullfile(projectDir,'Data','processed/');
+paths = get_project_paths();
 
-addpath(utilsDir)
-addpath(srcDir)
+DataDir = paths.data;
 
-load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat')
+% scriptPath = mfilename('fullpath');
+% scriptDir  = fileparts(scriptPath);
+% projectDir = fileparts(scriptDir);
+% srcDir     = fullfile(projectDir,'src/');
+% utilsDir   = fullfile(srcDir,'utils');
+% FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
+% DataDir    = fullfile(projectDir,'Data','processed/');
+% 
+% addpath(utilsDir)
+% addpath(srcDir)
+
+load(paths.ellipse_file,'-mat')
 
 
 %% Generate bivariate beta distribution contour plots

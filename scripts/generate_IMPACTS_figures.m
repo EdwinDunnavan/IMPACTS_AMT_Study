@@ -7,18 +7,24 @@ Description: This script generates figures
 %}
 
 %% Set up paths based on Github Parent location
-scriptPath = mfilename('fullpath');
-scriptDir  = fileparts(scriptPath);
-projectDir = fileparts(scriptDir);
-srcDir     = fullfile(projectDir,'src/');
-utilsDir   = fullfile(srcDir,'utils');
-FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
-DataDir    = fullfile(projectDir,'Data','processed/');
+paths = get_project_paths();
 
-addpath(utilsDir)
-addpath(srcDir)
+DataDir = paths.data;
+FiguresDir = fullfile(paths.figures, 'Joint_Distributions', 'IMPACTS_Observations');
+utilsDir = paths.utils;
 
-load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat')
+% scriptPath = mfilename('fullpath');
+% scriptDir  = fileparts(scriptPath);
+% projectDir = fileparts(scriptDir);
+% srcDir     = fullfile(projectDir,'src/');
+% utilsDir   = fullfile(srcDir,'utils');
+% FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
+% DataDir    = fullfile(projectDir,'Data','processed/');
+% 
+% addpath(utilsDir)
+% addpath(srcDir)
+
+load(paths.ellipse_file,'-mat')
 
 habit_fraction = false;
 joint_dist = true;
@@ -123,10 +129,10 @@ plot_ellipse_joint(m.(fnames{ff}),'save_fig',true,'outdir',out_temp,'habit',habi
 
 end
 
-if habit_fraction
-
-plot_habit_fractions(m.(fnames{ff}),'save_fig',true,'outdir','/localdata/edunnavan/P3_probe_data/IMPACTS/Figures/Habit_Fractions/','show_fig',false);
-end
+% if habit_fraction
+% 
+% plot_habit_fractions(m.(fnames{ff}),'save_fig',true,'outdir','/localdata/edunnavan/P3_probe_data/IMPACTS/Figures/Habit_Fractions/','show_fig',false);
+% end
 
 
 end
