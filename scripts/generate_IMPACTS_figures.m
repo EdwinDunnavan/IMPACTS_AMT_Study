@@ -13,17 +13,6 @@ DataDir = paths.data;
 FiguresDir = fullfile(paths.figures, 'Joint_Distributions', 'IMPACTS_Observations');
 utilsDir = paths.utils;
 
-% scriptPath = mfilename('fullpath');
-% scriptDir  = fileparts(scriptPath);
-% projectDir = fileparts(scriptDir);
-% srcDir     = fullfile(projectDir,'src/');
-% utilsDir   = fullfile(srcDir,'utils');
-% FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
-% DataDir    = fullfile(projectDir,'Data','processed/');
-% 
-% addpath(utilsDir)
-% addpath(srcDir)
-
 load(paths.ellipse_file,'-mat')
 
 habit_fraction = false;
