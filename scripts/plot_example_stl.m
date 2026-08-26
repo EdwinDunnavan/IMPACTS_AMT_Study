@@ -12,12 +12,13 @@ projections and fitted ellipses in the X-Y and X-Z projection planes.
 paths = get_project_paths();
 
 sim_example = 'Irregular_Test';
+test_example = 'Random_Gamma_Example';
 
-sim_dir = fullfile(paths.simulations,sim_example);
+sim_dir = fullfile(paths.simulations,sim_example,test_example,'/');
 
 ind = 1;
 
 %stemp = read_stl_data('/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/');
-stemp = read_stl_data(sim_example);
-sobj_2 = read_stl_particle(fullfile(stemp.folder,stemp.test_folder),ind);
+stemp = read_stl_data(sim_dir);
+sobj_2 = read_stl_particle(sim_dir,ind);
 plot_stl_particle(sobj_2);
