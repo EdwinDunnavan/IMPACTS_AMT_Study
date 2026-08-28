@@ -14,7 +14,7 @@ function m = fwd_project_ellipsoids(varargin)
     % NEW: 2D-S Physical Instrument Post-Processing Thresholds
     use_instrument_filter = true;
     W_array       = 1.28;  % 2D-S Array width in mm (Entire-in cutoff)
-    Dthresh       = 0.3;   % Major axis threshold (mm)
+    Dthresh       = 0.35;   % Major axis threshold (mm)
     ar_thresh     = 0.1;   % Aspect ratio threshold
     area_thresh   = 0.2;   % Area ratio threshold
     NPixel_thresh = 800;   % Minimum pixels (1 pixel = 10um x 10um = 1e-4 mm^2)
@@ -25,25 +25,32 @@ function m = fwd_project_ellipsoids(varargin)
    % Lmin = 0.35;
     
     %nu = 8; % ORIG
-    nu = 3;
+    nu = 1;
     %Dmean = 0.6; % ORIG
 
-    Dmean = 0.8;
+    Dmean = 2.0;
     
     % Irregular Defaults
     pba = 0.75;
-    pcb = 0.75;
-    abatog = 0.6;
+    pcb = 0.75; % ORIG
+    %abatog = 0.6; % ORIG
+    abatog = 0.85;
     
     %ar_scale = 2.0;% ORIG
 
-    ar_scale = 0.5;
+   % ar_scale = 0.5; % ORIG
+   % ar_scale = 0.65; 
+%    ar_scale = 0.92; 
+    ar_scale = 0.75;
     %ar_min = 0.5; % ORIG
-    ar_min = 0.3;
+    ar_min = 0.2;
 
    % ar_exponent = -0.15; % NEW: Power-law exponent for Aspect Ratio (b/a)
 
-    ar_exponent = -0.25; % NEW: Power-law exponent for Aspect Ratio (b/a)
+    ar_exponent = [];
+    %ar_exponent = -0.15;
+  %  ar_exponent = -0.25; % NEW: Power-law exponent for Aspect Ratio (b/a)
+   % ar_exponent = 0.35; % NEW: Power-law exponent for Aspect Ratio (b/a)
     
     % Powerlaw Defaults (Triggered if a0 and ds are assigned)
     a0 = [];
@@ -109,7 +116,9 @@ function m = fwd_project_ellipsoids(varargin)
 
     %% 3. Pre-Calculations
     [phimean, thetamean, ~, ~] = ret_angle_3D_proj(ang_xz, ang_xy);
-    pd = truncate(makedist('Gamma','a',nu,'b',Dmean/nu),0.35,4);
+    %pd = truncate(makedist('Gamma','a',nu,'b',Dmean/nu),0.35,4);
+
+    pd = truncate(makedist('Gamma','a',nu,'b',Dmean/nu),0.3,5);
 
     %% 4. Rejection Sampling Loop
     % Preallocate exact target sizes for speed
@@ -117,9 +126,11 @@ function m = fwd_project_ellipsoids(varargin)
     L_xy        = zeros(1, N); 
     ar_xy       = zeros(1, N); 
     EllipAng_xy = zeros(1, N);
+    AR_xy       = zeros(1, N);
     L_xz        = zeros(1, N); 
     ar_xz       = zeros(1, N); 
     EllipAng_xz = zeros(1, N);
+    AR_xz       = zeros(1, N);
 
     n_valid = 0; % Index tracker for stored samples
 
@@ -140,8 +151,13 @@ function m = fwd_project_ellipsoids(varargin)
                 pba_dyn = repmat(pba, 1, N);
             end
 
+            %pcb_dyn = pba_dyn;
+
+
             pbmin = pba_dyn ./ (1 - pba_dyn);
-            pcmin = pba_dyn .* pcb ./ (1 - pcb);
+            pcmin =  pba_dyn .* pcb ./ (1 - pcb); % ORIG
+
+           % pcmin = pba_dyn .* pcb_dyn ./ (1 - pcb_dyn);
 
             % ORIG
             %pbmin = pba ./ (1-pba);
@@ -150,6 +166,11 @@ function m = fwd_project_ellipsoids(varargin)
             abamin = max(pbmin, pcmin);
             abamax = 20;
 
+           % a_ba = abatog .* abamax + (1-abatog) .* abamin;
+           % b_ba = ((1./pba_dyn)-1) .* a_ba;
+           % b_cb = ((1./pcb_dyn)-1) .* a_ba ./ pba_dyn;
+
+            %ORIG
             a_ba = abatog .* abamax + (1-abatog) .* abamin;
             b_ba = ((1./pba)-1) .* a_ba;
             b_cb = ((1./pcb)-1) .* a_ba ./ pba;
@@ -311,9 +332,11 @@ function m = fwd_project_ellipsoids(varargin)
             L_xy(insert_range)        = L_xy_t(valid_idx);
             ar_xy(insert_range)       = ar_xy_t(valid_idx);
             EllipAng_xy(insert_range) = EllipAng_xy_t(valid_idx);
+            AR_xy(insert_range)       = AR_xy_t(valid_idx);
             L_xz(insert_range)        = L_xz_t(valid_idx);
             ar_xz(insert_range)       = ar_xz_t(valid_idx);
             EllipAng_xz(insert_range) = EllipAng_xz_t(valid_idx);
+            AR_xz(insert_range)       = AR_xz_t(valid_idx);
             
             % Advance the tracker
             n_valid = n_valid + num_to_add;
@@ -321,44 +344,44 @@ function m = fwd_project_ellipsoids(varargin)
     end
 
     %% 5. Sample Beta Distribution for Effective Density (Area Ratio)
-    if ~isempty(AR_exponent)
-        % --- NEW: SIZE-DEPENDENT POWER-LAW BETA DISTRIBUTION ---
-        % Calculate size-dependent mean: mu = alpha * D^beta
-        % AR_scale acts as the coefficient, AR_exponent as the power
-        D_major = 2 .* a_tot; 
-        rho_mu = AR_scale .* (D_major) .^ AR_exponent;
-        
-        % Constrain mean to valid Beta bounds
-        rho_mu(rho_mu > 0.99) = 0.99; 
-        rho_mu(rho_mu < AR_min) = AR_min;
-        
-        % Calculate precision parameter (nu = alpha + beta) based on fractional variance. 
-        % Because Var = mu*(1-mu)/(nu+1), setting nu constant keeps the spread 
-        % mathematically symmetric and physically bounded across all sizes.
-        nu_rho = max((1 / rhovar_frac) - 1, 2); 
-        
-        % Generate unique alpha and beta parameters for every single particle
-        alpha_rho = rho_mu .* nu_rho;
-        beta_rho  = (1 - rho_mu) .* nu_rho;
-        
-        AR_xy = betarnd(alpha_rho, beta_rho);
-        AR_xz = betarnd(alpha_rho, beta_rho);
-        
-    else
-        % --- LEGACY: EXPONENTIAL SCALING APPROACH ---
-        rhovar_max = (rhomean^2 - rhomean^3) / (rhomean+1);
-        rhovar = min(rhovar_frac .* rhovar_max, 20);
-
-        alpha_rho = rhomean * ((rhomean * (1-rhomean) / rhovar) - 1);
-        beta_rho = (1-rhomean) * ((rhomean * (1-rhomean) / rhovar) - 1);
-
-        fAR = exp(-a_tot ./ AR_scale);
-        fAR(fAR > 1) = 1;
-        fAR(fAR < AR_min) = AR_min;
-
-        AR_xy = fAR .* betarnd(alpha_rho, beta_rho, [1 N]);
-        AR_xz = fAR .* betarnd(alpha_rho, beta_rho, [1 N]);
-    end
+    % if ~isempty(AR_exponent)
+    %     % --- NEW: SIZE-DEPENDENT POWER-LAW BETA DISTRIBUTION ---
+    %     % Calculate size-dependent mean: mu = alpha * D^beta
+    %     % AR_scale acts as the coefficient, AR_exponent as the power
+    %     D_major = 2 .* a_tot; 
+    %     rho_mu = AR_scale .* (D_major) .^ AR_exponent;
+    % 
+    %     % Constrain mean to valid Beta bounds
+    %     rho_mu(rho_mu > 0.99) = 0.99; 
+    %     rho_mu(rho_mu < AR_min) = AR_min;
+    % 
+    %     % Calculate precision parameter (nu = alpha + beta) based on fractional variance. 
+    %     % Because Var = mu*(1-mu)/(nu+1), setting nu constant keeps the spread 
+    %     % mathematically symmetric and physically bounded across all sizes.
+    %     nu_rho = max((1 / rhovar_frac) - 1, 2); 
+    % 
+    %     % Generate unique alpha and beta parameters for every single particle
+    %     alpha_rho = rho_mu .* nu_rho;
+    %     beta_rho  = (1 - rho_mu) .* nu_rho;
+    % 
+    %     AR_xy = betarnd(alpha_rho, beta_rho);
+    %     AR_xz = betarnd(alpha_rho, beta_rho);
+    % 
+    % else
+    %     % --- LEGACY: EXPONENTIAL SCALING APPROACH ---
+    %     rhovar_max = (rhomean^2 - rhomean^3) / (rhomean+1);
+    %     rhovar = min(rhovar_frac .* rhovar_max, 20);
+    % 
+    %     alpha_rho = rhomean * ((rhomean * (1-rhomean) / rhovar) - 1);
+    %     beta_rho = (1-rhomean) * ((rhomean * (1-rhomean) / rhovar) - 1);
+    % 
+    %     fAR = exp(-a_tot ./ AR_scale);
+    %     fAR(fAR > 1) = 1;
+    %     fAR(fAR < AR_min) = AR_min;
+    % 
+    %     AR_xy = fAR .* betarnd(alpha_rho, beta_rho, [1 N]);
+    %     AR_xz = fAR .* betarnd(alpha_rho, beta_rho, [1 N]);
+    % end
 
     % %% 6. Sample Beta Distribution for Effective Density (Area Ratio)
     % rhovar_max = (rhomean^2 - rhomean^3) / (rhomean+1);
