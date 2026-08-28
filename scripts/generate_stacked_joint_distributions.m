@@ -42,6 +42,7 @@ fprintf('Generating Observation Column...\n');
 plot_universal_joint(m, 'obs_multi', ...
     'target_fields', {'2020'}, ...
     'Temp_min', -99, 'Temp_max', -18, ... % PCGL boundaries
+    'habit','i',...
     shared_args{:});
 
 % Rename the output file so it's clear
@@ -49,14 +50,18 @@ plot_universal_joint(m, 'obs_multi', ...
 %         fullfile(outdir_comp, 'Col1_OBS_PCGL.pdf'));
 
 % %% Column 2: Simulated Ellipsoids
-% fprintf('Generating Ellipsoid Sim Column...\n');
-% plot_universal_joint(ellip_sim_data, 'sim', ...
-%     'habit', 'all', ... % Or whatever habit corresponds to irregulars
-%     shared_args{:});
-% 
+fprintf('Generating Ellipsoid Sim Column...\n');
+ellip_sim_data = fwd_project_ellipsoids();
+
+plot_universal_joint(ellip_sim_data, 'sim_ellipsoid', ...
+    'habit', 'all', ... % Or whatever habit corresponds to irregulars
+    shared_args{:});
+
 % movefile(fullfile(outdir_comp, 'Simulation_2DS_All_JointDists_Stack.pdf'), ...
 %          fullfile(outdir_comp, 'Col2_SIM_Ellipsoids.pdf'));
-% 
+
+
+
 % %% Column 3: Simulated STL Models
 % fprintf('Generating STL Sim Column...\n');
 % plot_universal_joint(stl_sim_data, 'sim', ...

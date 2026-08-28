@@ -2,23 +2,32 @@
 %% IMPACTS_boxchart.m
 
 %% Set up either boxplot and/or heatmap plotting
-plot_boxplots = true;
-plot_heatmap = false;
+plot_boxplots = false;
+plot_heatmap = true;
 
 %% Set up paths based on Github Parent location
-scriptPath = mfilename('fullpath');
-scriptDir  = fileparts(scriptPath);
-projectDir = fileparts(scriptDir);
-srcDir     = fullfile(projectDir,'src/');
-utilsDir   = fullfile(srcDir,'utils');
-FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
-DataDir    = fullfile(projectDir,'Data','processed/');
+paths = get_project_paths();
 
-addpath(utilsDir)
-addpath(srcDir)
+if ~exist('m','var')
+load(paths.ellipse_file,'-mat')
+end
+
+%scriptPath = mfilename('fullpath');
+%scriptDir  = fileparts(scriptPath);
+%projectDir = fileparts(scriptDir);
+%srcDir     = fullfile(projectDir,'src/');
+%utilsDir   = fullfile(srcDir,'utils');
+%FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
+%DataDir    = fullfile(projectDir,'Data','processed/');
+
+%addpath(utilsDir)
+%addpath(srcDir)
 
 %% Load Ellipse fit IMPACTS data
-load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat')
+
+%load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat')
+
+
 
 
 %% Read data
@@ -39,12 +48,6 @@ dates = [dates_2020, dates_2022, dates_2023];
 
 
 %% plot boxchart
-
-% For heatmaps
-%T1 = [-18,-12,-8,-3,0];
-%T2 = [-70,-18,-12,-8,-3];
-
-% For boxplots
 T1 = [0.];
 T2 = [-70.];
 
@@ -153,237 +156,7 @@ end
 
 end
 
-%% Plot habit heatmap
-
-if plot_heatmap
-
-layers = {'PCGL','DGL','PGL','NGL','AGG'};
-
-%habitV_new = habitV;
-
-habitV_new = squeeze(sum(habitV,3,'omitnan')); % Add up for all cases
-
-habitV_new(habitV_new==0) = NaN;
-
-habitV_total = sum(habitV_new,1,'omitnan'); % Add up for all temp levels
-
-habitH_new = squeeze(sum(habitH,3,'omitnan'));
-
-habitH_new(habitH_new==0) = NaN;
-
-habitH_total = sum(habitH_new,1,'omitnan');
-
-fig_hm = figure('units','normalized','position',[0.0344    0.2417    0.7240    0.5657]); 
-
-cat_grid = 1:8;
-layer_grid = 1:5;
-
-cat_grid_box = 0.5:1:8.5;
-layer_grid_box = 0.5:1:5.5;
-
-%ngrid = ndgrid(1:5,1:8);
-
-im2 = imagesc(habitV_new./sum(habitV_new,1,'omitnan')); % Sum all temperature regions.
-cbar = colorbar; 
-colormap(flipud(pink(12)))
-
-set(cbar,'ticklabelinterpreter','latex','linewidth',1.4)
-ylabel(cbar,'Fraction of Habit Category','interpreter','latex','fontsize',22,'rotation',270,'verticalalignment','bottom')
-
-clear gca
-
-set(gca,'xtick',1:1:8,'xticklabel',string(habit_cats))
-set(gca,'ytick',1:1:5,'yticklabel',layers);
-
-set(gca,'TickLength',[0 0])
-set(gca,'ticklabelinterpreter','latex','fontsize',20)
-
-clim(gca,[0 0.6])
-
-
-% Add horizontal grid boxe lines
-for ii = 1 : length(layer_grid_box)
-
-    hold on; 
-    plot([cat_grid_box(1) cat_grid_box(end)],[layer_grid_box(ii) layer_grid_box(ii)],'k');
-
-end
-
-% Add vertical grid box lines
-for jj = 1 : length(cat_grid_box)
-hold on;
-plot([cat_grid_box(jj) cat_grid_box(jj)],[layer_grid_box(1) layer_grid_box(end)],'k');
-
-
-end
-
-
-
-for ii = 1 : 5
-    for jj = 1 : 8
-
-        ctemp = im2.CData(ii,jj);
-
-        if ctemp<0.5
-
-            ctog = 0;
-
-        else
-            ctog = 1;
-
-        end
-
-        text(gca,cat_grid(jj),layer_grid(ii),string(addComma(int32(habitV_new(ii,jj)))),...
-            'VerticalAlignment','middle','HorizontalAlignment','center',...
-            'Interpreter','latex','fontsize',20,'Color',ctog.*[1 1 1])
-
-
-    end
-end
-
-
-title(gca,'Vertical','interpreter','latex','fontsize',42)
-
-
-set(gca,'XAxisLocation','top');
-
-    for jj = 1 : 8
-
-        text(gca,cat_grid(jj),5.8,string(addComma(int32(habitV_total(jj)))),...
-            'VerticalAlignment','middle','HorizontalAlignment','center',...
-            'Interpreter','latex','fontsize',20,'Color','k')
-
-
-    end
-
-
-%% Horizontal habit heatmap
-
-fig_hm = figure('units','normalized','position',[0.0344    0.2417    0.7240    0.5657]); 
-
-cat_grid = 1:8;
-layer_grid = 1:5;
-
-cat_grid_box = 0.5:1:8.5;
-layer_grid_box = 0.5:1:5.5;
-
-im2 = imagesc(habitH_new./sum(habitH_new,1,'omitnan'));
-cbar = colorbar; 
-colormap(flipud(pink(12)))
-
-
-set(cbar,'ticklabelinterpreter','latex','linewidth',1.4)
-ylabel(cbar,'Fraction of Habit Category','interpreter','latex','fontsize',22,'rotation',270,'verticalalignment','bottom')
-
-
-clear gca
-
-set(gca,'xtick',1:1:8,'xticklabel',string(habit_cats))
-set(gca,'ytick',1:1:5,'yticklabel',layers);
-
-set(gca,'TickLength',[0 0])
-
-set(gca,'ticklabelinterpreter','latex','fontsize',20)
-
-% Add horizontal grid boxe lines
-for ii = 1 : length(layer_grid_box)
-
-    hold on; 
-    plot([cat_grid_box(1) cat_grid_box(end)],[layer_grid_box(ii) layer_grid_box(ii)],'k');
-
-end
-
-% Add vertical grid box lines
-for jj = 1 : length(cat_grid_box)
-hold on;
-plot([cat_grid_box(jj) cat_grid_box(jj)],[layer_grid_box(1) layer_grid_box(end)],'k');
-
-
-end
-
-clim(gca,[0 0.6])
-
-for ii = 1 : 5
-    for jj = 1 : 8
-
-        ctemp = im2.CData(ii,jj);
-
-        if ctemp<0.5
-
-            ctog = 0;
-
-        else
-            ctog = 1;
-
-        end
-
-        text(gca,cat_grid(jj),layer_grid(ii),string(addComma(int32(habitH_new(ii,jj)))),...
-            'VerticalAlignment','middle','HorizontalAlignment','center',...
-            'Interpreter','latex','fontsize',20,'Color',ctog.*[1 1 1])
-
-
-    end
-end
-
-
-title(gca,'Horizontal','interpreter','latex','fontsize',42)
-
-
-set(gca,'XAxisLocation','top');
-
-    for jj = 1 : 8
-
-        text(gca,cat_grid(jj),5.8,string(addComma(int32(habitH_total(jj)))),...
-            'VerticalAlignment','middle','HorizontalAlignment','center',...
-            'Interpreter','latex','fontsize',20,'Color','k')
-
-
-    end
-
-end
-
-%heatmap(habitV_new,'XData',habit_cats,'YData',layers,'Title','Vertical','FontSize',14); 
-%set(gca,'ColorScaling','scaledrows','interpreter','latex','MissingDataColor','w','MissingDataLabel','No Counts');
-
-%axs = struct(gca);
-
-%cb = axs.Colorbar;
-
-%set(cb,'linewidth',1.4)
-
-%ylabel(cb,'Habit Fraction for Layer','interpreter','latex','fontsize',26,'rotation',270,'verticalalignment','bottom');
-
-
-
-
-%for tt = 1 : length(layers)
-
-%fig_hm = figure('units','normalized','position',[0.1172    0.0296    0.3229    0.8167]); 
-
-%ax_hm = tight_subplot(1,5,0.03,[0.03 0.05],[0.05 0.02]);
-
-
-%heatmap(squeeze(habitV_new(tt,:,:))','XData',habit_cats,'YData',dates,'Title',layers{tt},'FontSize',14); 
-%set(gca,'ColorScaling','scaledrows','interpreter','latex','MissingDataColor','w','MissingDataLabel','No Counts');
-
-%heatmap(squeeze(habitV_new(tt,:,:))','XData',habit_cats,'YData',dates,'Title',layers{tt},'FontSize',14); 
-%set(gca,'ColorScaling','scaledrows','interpreter','latex','MissingDataColor','w','MissingDataLabel','No Counts');
-
-
-%axs = struct(gca);
-
-%cb = axs.Colorbar;
-
-%set(cb,'linewidth',1.4)
-
-%ylabel(cb,'Habit Fraction for Case','interpreter','latex','fontsize',26,'rotation',270,'verticalalignment','bottom');
-
-%end
-
-
 %% Plot boxplots
-
-if plot_boxplots
 
 dates_cat = repmat(categorical(reshape([dates;dates],size(dates,1),[])),[maxHV,1]);
 
@@ -393,9 +166,6 @@ AreaRatio_arr = cell2mat(AreaRatio);
 
 gnum = ones(size(AR_arr));
 gnum(:,1:2:52) = 0;
-
-
-
 
 fig = figure('units','normalized','position',[0.0870    0.0250    0.7391    0.8361]); 
 
@@ -420,18 +190,9 @@ set(ax2,'xtick',-90:30:90,'xticklabel',{'-90$^{\circ}$','-60$^{\circ}$','-30$^{\
 xlim(ax2,[-100 100])
 title(ax2,'Ellipse Orientation','interpreter','latex','fontsize',20)
 
-
 %ax3 = subplot(1,3,3);
 b3 = groupedBoxchart(dates_cat(:),gnum(:),AreaRatio_arr(:),'ax',ax3,'Distance',2,'Orientation','horizontal','BoxWidth',1,'MarkerStyle','none');
 set(ax3,'ydir','reverse','TickLabelInterpreter','latex','fontsize',14,'linewidth',1.4)
 set(ax3,'xtick',0:0.2:1,'yticklabel','')
 xlim(ax3,[0,1.05])
 title(ax3,'Ellipse Area Ratio','interpreter','latex','fontsize',20)
-
-end
-
-
-function numOut = addComma(numIn)
-   jf=java.text.DecimalFormat; % comma for thousands, three decimal places
-   numOut= jf.format(numIn); % omit "char" if you want a string out
-end

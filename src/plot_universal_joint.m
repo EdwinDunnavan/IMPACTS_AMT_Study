@@ -102,6 +102,7 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
     stdData = struct('H', struct(), 'V', struct());
 
     switch dataType
+
         case 'sim'
             stdData.H.AR       = data.rb_xz_cgal ./ data.ra_xz_cgal;
             stdData.V.AR       = data.rb_xy_cgal ./ data.ra_xy_cgal;
@@ -113,10 +114,40 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
             stdData.V.area_ratio = data.area_ratio_xy_cgal;
             stdData.H.habit    = char(data.habit_xz); 
             stdData.V.habit    = char(data.habit_xy);
-            stdData.H.Temp     = zeros(size(stdData.H.AR));
-            stdData.V.Temp     = zeros(size(stdData.V.AR));
+            
+            % Use a safe dummy temperature that always passes the Temp filter
+            safe_temp = Tc_max - 1; 
+            stdData.H.Temp     = repmat(safe_temp, size(stdData.H.AR));
+            stdData.V.Temp     = repmat(safe_temp, size(stdData.V.AR));
+            
             file_prefix = 'Simulation_2DS_';
 
+        case 'sim_ellipsoid'
+            % Map theoretical ellipsoid simulation structure
+            stdData.H.AR         = data.ar_xz;
+            stdData.V.AR         = data.ar_xy;
+            stdData.H.EllipAng   = data.EllipAng_xz;
+            stdData.V.EllipAng   = data.EllipAng_xy;
+            stdData.H.Dmajor     = data.L_xz;
+            stdData.V.Dmajor     = data.L_xy;
+            stdData.H.area_ratio = data.AR_xz;
+            stdData.V.area_ratio = data.AR_xy;
+            
+            % Create a dummy habit that perfectly matches the requested filter
+            dummy_habit = habit;
+            if strcmp(dummy_habit, 'all')
+                dummy_habit = 'e'; % Arbitrary char since 'all' bypasses the check
+            end
+            
+            stdData.H.habit      = repmat(dummy_habit, size(stdData.H.AR)); 
+            stdData.V.habit      = repmat(dummy_habit, size(stdData.V.AR));
+            
+            % Use a safe dummy temperature that always passes the Temp filter
+            safe_temp = Tc_max - 1; 
+            stdData.H.Temp       = repmat(safe_temp, size(stdData.H.AR));
+            stdData.V.Temp       = repmat(safe_temp, size(stdData.V.AR));
+            
+            file_prefix = 'Simulation_Ellipsoid_';
         case 'obs_single'
             stdData = data;
             if isfield(stdData.H, 'time')

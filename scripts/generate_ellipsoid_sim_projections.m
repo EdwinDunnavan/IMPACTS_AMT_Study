@@ -9,20 +9,10 @@
 %% Set up paths based on Github Parent location
 paths = get_project_paths();
 
-DataDir = paths.data;
-
-% scriptPath = mfilename('fullpath');
-% scriptDir  = fileparts(scriptPath);
-% projectDir = fileparts(scriptDir);
-% srcDir     = fullfile(projectDir,'src/');
-% utilsDir   = fullfile(srcDir,'utils');
-% FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
-% DataDir    = fullfile(projectDir,'Data','processed/');
-% 
-% addpath(utilsDir)
-% addpath(srcDir)
-
 load(paths.ellipse_file,'-mat')
+
+%% Get Schima-identified irregular particles from 2020
+
 
 
 %% Generate bivariate beta distribution contour plots
