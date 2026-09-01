@@ -9,6 +9,14 @@ folder        = config.folder;
 test_folder   = config.test_folder;
 orientations  = config.orientations;
 
+use_instrument_filter = config.use_instrument_filter;
+W_array       = config.W_array;
+Dthresh       = config.Dthresh;
+ar_thresh     = config.ar_thresh;
+area_thresh   = config.area_thresh;
+NPixel_thresh = config.NPixel_thresh;
+pixel_area    = config.pixel_area;
+
 size_switch   = config.size_switch;
 particles2sim = config.particles2sim;
 simulate_data = config.simulate_data;
@@ -26,13 +34,13 @@ if strcmp(size_switch,'gamma')
  if isfield(config,'mu')
  mu = config.mu;
  else
-     mu = 0;
+     mu = 0.;
  end
 
  if isfield(config,'Dm')
     Dm = config.Dm;
  else
-     Dm = 1.5;
+     Dm = 2.0;
  end
 
  if isfield(config,'Dlow')
@@ -44,7 +52,7 @@ if strcmp(size_switch,'gamma')
  if isfield(config,'Dhigh')
      Dhigh = config.Dhigh;
  else
-     Dhigh = 3.0;
+     Dhigh = 5.0;
  end
 
 Dn = Dm./(mu+4);
@@ -168,7 +176,8 @@ end
 %file_subfile = strcat(folder,output_ellip);
 
 %% Write stl particle meshes + ellipsoids to netcdf files 
-writeparticle_init(strcat(folder,output_ellip),spart)
+%writeparticle_init(strcat(folder,output_ellip),spart)
+writeparticle_init(fullfile(folder,output_ellip),spart)
 
 end
 
@@ -182,7 +191,7 @@ if simulate_data
     %% Set up folder and delete old files for netcdf writing
     % output folder for rotated particle/ellipsoid statistics
     %output_folder = strcat(folder,test_folder,'/');
-    output_folder = fullfile(folder,test_folder);
+    output_folder = fullfile(folder,test_folder,'/');
 
     if isfolder(output_folder)
         % Overwrite netcdf files if rerunning simulations
@@ -390,8 +399,75 @@ for ff = 1 : Nt
     %% Resize particle based on PSD
     sobj = resize_stl_particle(sobj,spart.particle.max_dim(ff));  
 
+    %% STAGE 1: FAST ANALYTICAL PRE-FILTER
+    % Instantly discard particles that are impossibly small or out-of-bounds 
+    % using their enclosing ellipsoids before doing the expensive rasterization.
+    if use_instrument_filter
+        % Analytically project the scaled enclosing ellipsoid
+        [ra_xz_e, rb_xz_e, ang_xz_e] = ellipproj_axes(sobj.ellipsoid.a, sobj.ellipsoid.b, sobj.ellipsoid.c, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 2);
+        [ra_xy_e, rb_xy_e, ang_xy_e] = ellipproj_axes(sobj.ellipsoid.a, sobj.ellipsoid.b, sobj.ellipsoid.c, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 3);
+        
+        W_cross_xy_e = 2 * sqrt((ra_xy_e * sind(ang_xy_e))^2 + (rb_xy_e * cosd(ang_xy_e))^2);
+        W_cross_xz_e = 2 * sqrt((ra_xz_e * sind(ang_xz_e))^2 + (rb_xz_e * cosd(ang_xz_e))^2);
+        
+        % If the enclosing ellipsoid is 50% smaller than Dthresh OR exceeds W_array + 0.5mm, 
+        % the internal STL shadow has zero chance of passing the strict filter. 
+        if (2*ra_xy_e < Dthresh * 0.5) || (2*ra_xz_e < Dthresh * 0.5) || (W_cross_xy_e > W_array + 0.5) || (W_cross_xz_e > W_array + 0.5)
+            continue; % Early abort! Leaves NaNs in spart for this index.
+        end
+    end
+
+
     %% Calculate probe arrays and ellipse statistics
     sobj = particle2probe(sobj,pix_size);
+
+    %% STAGE 2: EXACT PHYSICAL FILTER
+    % Apply the smooth logistic thresholds using the true STL shadow metrics
+    if use_instrument_filter
+        % Extract STL Shadow parameters
+        ra_xy_t = sobj.particle.projection.xy.ra;
+        rb_xy_t = sobj.particle.projection.xy.rb;
+        ang_xy_t = sobj.particle.projection.xy.Ellip_ang;
+        L_xy_t = 2 .* ra_xy_t;
+        ar_xy_t = rb_xy_t ./ ra_xy_t;
+        Area_xy_t = sobj.particle.projection.area.xy;
+        AR_xy_t = Area_xy_t ./ (pi .* ra_xy_t .* rb_xy_t);
+        NPix_xy = Area_xy_t ./ pixel_area;
+
+        ra_xz_t = sobj.particle.projection.xz.ra;
+        rb_xz_t = sobj.particle.projection.xz.rb;
+        ang_xz_t = sobj.particle.projection.xz.Ellip_ang;
+        L_xz_t = 2 .* ra_xz_t;
+        ar_xz_t = rb_xz_t ./ ra_xz_t;
+        Area_xz_t = sobj.particle.projection.area.xz;
+        AR_xz_t = Area_xz_t ./ (pi .* ra_xz_t .* rb_xz_t);
+        NPix_xz = Area_xz_t ./ pixel_area;
+
+        % 1. Cross-track width
+        W_cross_xy = 2 .* sqrt((ra_xy_t .* sind(ang_xy_t)).^2 + (rb_xy_t .* cosd(ang_xy_t)).^2);
+        W_cross_xz = 2 .* sqrt((ra_xz_t .* sind(ang_xz_t)).^2 + (rb_xz_t .* cosd(ang_xz_t)).^2);
+
+        % 2. Calculate Probabilities
+        P_in_xy = max(0, W_array - W_cross_xy) ./ W_array;
+        P_in_xz = max(0, W_array - W_cross_xz) ./ W_array;
+
+        P_D_xy    = 1 ./ (1 + exp(-20 .* (L_xy_t - Dthresh)));
+        P_ar_xy   = 1 ./ (1 + exp(-50 .* (ar_xy_t - ar_thresh)));
+        P_AR_xy   = 1 ./ (1 + exp(-30 .* (AR_xy_t - area_thresh)));
+        P_NPix_xy = 1 ./ (1 + exp(-0.015 .* (NPix_xy - NPixel_thresh)));
+
+        P_D_xz    = 1 ./ (1 + exp(-20 .* (L_xz_t - Dthresh)));
+        P_ar_xz   = 1 ./ (1 + exp(-50 .* (ar_xz_t - ar_thresh)));
+        P_AR_xz   = 1 ./ (1 + exp(-30 .* (AR_xz_t - area_thresh)));
+        P_NPix_xz = 1 ./ (1 + exp(-0.015 .* (NPix_xz - NPixel_thresh)));
+
+        P_keep = P_in_xy * P_in_xz * P_D_xy * P_D_xz * P_ar_xy * P_ar_xz * P_AR_xy * P_AR_xz * P_NPix_xy * P_NPix_xz;
+
+        % Roll the dice
+        if rand() > P_keep
+            continue; % Discard and leave NaNs in spart for this index
+        end
+    end
 
     %% Save projection images as png files
     imwrite(sobj.particle.projection.grid.xz,strcat(output_folder_H,imtemp),'BitDepth',1);

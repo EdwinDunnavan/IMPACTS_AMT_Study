@@ -405,7 +405,10 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
                 set(xl1, 'Units', 'normalized'); p1 = get(xl1, 'Position'); set(xl1, 'Position', [p1(1), p1(2)+0.06, p1(3)]);
                 set(xl2, 'Units', 'normalized'); p2 = get(xl2, 'Position'); set(xl2, 'Position', [p2(1), p2(2)+0.06, p2(3)]);
             else
-                set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
+                if exist('yl1', 'var') && isgraphics(yl1)
+                    set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
+                end
+                %set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
             end
         end
 
@@ -534,7 +537,10 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
                 set(xl1, 'Units', 'normalized'); p1 = get(xl1, 'Position'); set(xl1, 'Position', [p1(1), p1(2)+0.06, p1(3)]);
                 set(xl2, 'Units', 'normalized'); p2 = get(xl2, 'Position'); set(xl2, 'Position', [p2(1), p2(2)+0.06, p2(3)]);
             else
-                set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
+                if exist('yl1', 'var') && isgraphics(yl1)
+                    set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
+                end
+                %set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
             end
         end
 
@@ -645,7 +651,10 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
                 set(xl1, 'Units', 'normalized'); p1 = get(xl1, 'Position'); set(xl1, 'Position', [p1(1), p1(2)+0.06, p1(3)]);
                 set(xl2, 'Units', 'normalized'); p2 = get(xl2, 'Position'); set(xl2, 'Position', [p2(1), p2(2)+0.06, p2(3)]);
             else
-                set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
+                if exist('yl1', 'var') && isgraphics(yl1)
+                    set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
+                end
+               % set(yl1, 'Units', 'normalized'); p_yl = get(yl1, 'Position'); set(yl1, 'Position', [p_yl(1)-0.05, p_yl(2), p_yl(3)]);
             end
         end
 

@@ -25,29 +25,56 @@ function m = fwd_project_ellipsoids(varargin)
    % Lmin = 0.35;
     
     %nu = 8; % ORIG
-    nu = 1;
+   % nu = 1;
+    nu = 0.2;
+
     %Dmean = 0.6; % ORIG
 
     Dmean = 2.0;
     
+    % Irregular Defaults NEW
+    % pba = 0.78;
+    % pcb = 0.78;
+    % abatog = 0.85;
+    % ar_scale = 0.75;
+    % ar_min = 0.2;
+    % ar_exponent = [];
+    % a0 = [];
+    % ds = [];
+    % pbmean = 1.0;
+    % ang_xz = -40;
+    % ang_xy = 45;
+    % kappa = 4; % NEW
+    % psimean = 0;
+    % varpsi = 0.001;
+    % rhomean = 0.5; % NOT USING IF AR_exponent is not empty
+    % rhovar_frac = 0.02;
+    % AR_min = 0.2;
+    % AR_scale = 0.6; 
+    % AR_exponent = -0.27;
+
     % Irregular Defaults
-    pba = 0.75;
-    pcb = 0.75; % ORIG
+   % pba = 0.75;
+   % pcb = 0.75; % ORIG
+    pba = 0.78;
+    pcb = 0.78;
     %abatog = 0.6; % ORIG
     abatog = 0.85;
     
     %ar_scale = 2.0;% ORIG
 
    % ar_scale = 0.5; % ORIG
-   % ar_scale = 0.65; 
+    ar_scale = 0.68; 
 %    ar_scale = 0.92; 
-    ar_scale = 0.75;
+
+  %  ar_scale = 0.75; % NEW
     %ar_min = 0.5; % ORIG
     ar_min = 0.2;
 
    % ar_exponent = -0.15; % NEW: Power-law exponent for Aspect Ratio (b/a)
 
     ar_exponent = [];
+    %ar_exponent = -0.10;
     %ar_exponent = -0.15;
   %  ar_exponent = -0.25; % NEW: Power-law exponent for Aspect Ratio (b/a)
    % ar_exponent = 0.35; % NEW: Power-law exponent for Aspect Ratio (b/a)
@@ -58,25 +85,42 @@ function m = fwd_project_ellipsoids(varargin)
     pbmean = 1.0;
 
     % Shared Orientation & Density Defaults
-    ang_xz = -35;
+   % ang_xz = -35; % ORIG
+    ang_xz = -40; % NEW
     ang_xy = 45;
-    kappa = 5;
+   % kappa = 5; % ORIG
+    kappa = 4; % NEW
     psimean = 0;
     varpsi = 0.001;
-    rhomean = 0.8;
+    %rhomean = 0.8; % ORIG
+   % rhomean = 0.6; % NEW
+    rhomean = 0.5; % NOT USING IF AR_exponent is not empty
    % rhovar_frac = 0.12;
-    rhovar_frac = 0.025;
+    %rhovar_frac = 0.025; % ORIG
+     rhovar_frac = 0.02;
     %AR_scale = 4/3; % ORIGINAL
-    AR_scale = 0.61;
-    %AR_min = 0.35;
+    %AR_scale = 0.61; % ORIG
+
     AR_min = 0.2;
-    AR_exponent = -0.29; % NEW: Power-law exponent for Area Ratio
+    
+    %AR_exponent = -0.29; % ORIG: Power-law exponent for Area Ratio
+
+    AR_scale = 0.6; 
+    AR_exponent = -0.27;
+
+    %AR_scale = 0.58; % NEW
+    %AR_exponent = -0.25; % NEW: Power-law exponent for Area Ratio
+
+   % Bimodal Orientation Defaults
+    pop_frac = 1.0; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
+    ang_xz_2 = -40;
+    ang_xy_2 = 0;
+    kappa_2 = 4;
 
     %% 2. Parse varargin
     for nn = 1 : 2 : length(varargin)
         switch varargin{nn}
             case 'N',           N = varargin{nn+1};
-            %case 'Lmin',        Lmin = varargin{nn+1};
             case 'nu',          nu = varargin{nn+1};
             case 'Dmean',       Dmean = varargin{nn+1};
             case 'pba',         pba = varargin{nn+1};
@@ -87,9 +131,13 @@ function m = fwd_project_ellipsoids(varargin)
             case 'a0',          a0 = varargin{nn+1};
             case 'ds',          ds = varargin{nn+1};
             case 'pbmean',      pbmean = varargin{nn+1};
+            case 'pop_frac', pop_frac = varargin{nn+1};
             case 'ang_xz',      ang_xz = varargin{nn+1};
             case 'ang_xy',      ang_xy = varargin{nn+1};
+            case 'ang_xz_2',      ang_xz_2 = varargin{nn+1};
+            case 'ang_xy_2',      ang_xy_2 = varargin{nn+1};
             case 'kappa',       kappa = varargin{nn+1};
+            case 'kappa_2',       kappa_2 = varargin{nn+1};
             case 'psimean',     psimean = varargin{nn+1};
             case 'varpsi',      varpsi = varargin{nn+1};
             case 'rhomean',     rhomean = varargin{nn+1};
@@ -116,6 +164,7 @@ function m = fwd_project_ellipsoids(varargin)
 
     %% 3. Pre-Calculations
     [phimean, thetamean, ~, ~] = ret_angle_3D_proj(ang_xz, ang_xy);
+    [phimean2, thetamean2, ~, ~] = ret_angle_3D_proj(ang_xz_2, ang_xy_2);
     %pd = truncate(makedist('Gamma','a',nu,'b',Dmean/nu),0.35,4);
 
     pd = truncate(makedist('Gamma','a',nu,'b',Dmean/nu),0.3,5);
@@ -211,7 +260,23 @@ function m = fwd_project_ellipsoids(varargin)
         mu_tot = [x, y, z];
         mu = mu_tot ./ norm(mu_tot);
 
-        RandVMF = randVMF(N, mu, kappa);
+        RandVMF1 = randVMF(N, mu, kappa);
+
+        % -- Secondary Population --
+        x2 = sind(thetamean2) .* cosd(phimean2);
+        y2 = sind(thetamean2) .* sind(phimean2);
+        z2 = cosd(thetamean2);
+        mu2 = [x2, y2, z2] ./ norm([x2, y2, z2]);
+        RandVMF2 = randVMF(N, mu2, kappa_2);
+
+        % -- Mix the Populations --
+        % Generate a random mask based on the specified fraction
+        is_pop1 = rand(N, 1) < pop_frac;
+
+        % Initialize with Pop 2, overwrite with Pop 1 where true
+        RandVMF = RandVMF2;
+        RandVMF(is_pop1, :) = RandVMF1(is_pop1, :);
+
         xrand = RandVMF(:,1)';
         yrand = RandVMF(:,2)';
         zrand = RandVMF(:,3)';
@@ -239,7 +304,8 @@ function m = fwd_project_ellipsoids(varargin)
             rho_mu = AR_scale .* (2 .* a) .^ AR_exponent;
             rho_mu(rho_mu > 0.99) = 0.99; rho_mu(rho_mu < AR_min) = AR_min;
             nu_rho = max((1 / rhovar_frac) - 1, 2); 
-            alpha_rho = rho_mu .* nu_rho; beta_rho  = (1 - rho_mu) .* nu_rho;
+            alpha_rho = rho_mu .* nu_rho; 
+            beta_rho  = (1 - rho_mu) .* nu_rho;
             AR_xy_t = betarnd(alpha_rho, beta_rho);
             AR_xz_t = betarnd(alpha_rho, beta_rho);
         else

@@ -2,6 +2,10 @@
 
 paths = get_project_paths();
 
+if ~exist('m','var')
+load(paths.ellipse_file,'-mat')
+end
+
 bins = -90:5:90;
 
 Tmin = -8;
@@ -18,7 +22,7 @@ AreaRatio_max = 0.8;
 
 dbin = bins(2)-bins(1);
 
-m = load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat');
+%m = load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat');
 
 %m = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\IMPACTS_2020_2023_ellipse_data.mat');
 
@@ -71,26 +75,26 @@ for ff = 1 : length(dates_2020)
 
     fdate_temp = strcat("f",dates_2020{ff});
 
-    D_H_cond =  (m.m.(fdate_temp).H.Dmajor>=Dmin)&(m.m.(fdate_temp).H.Dmajor<=Dmax);
-    D_V_cond =  (m.m.(fdate_temp).V.Dmajor>=Dmin)&(m.m.(fdate_temp).V.Dmajor<=Dmax);
+    D_H_cond =  (m.(fdate_temp).H.Dmajor>=Dmin)&(m.(fdate_temp).H.Dmajor<=Dmax);
+    D_V_cond =  (m.(fdate_temp).V.Dmajor>=Dmin)&(m.(fdate_temp).V.Dmajor<=Dmax);
 
-    AR_H_cond = (m.m.(fdate_temp).H.AR>=ARmin)&(m.m.(fdate_temp).H.AR<=ARmax);
-    AR_V_cond = (m.m.(fdate_temp).V.AR>=ARmin)&(m.m.(fdate_temp).V.AR<=ARmax);
+    AR_H_cond = (m.(fdate_temp).H.AR>=ARmin)&(m.(fdate_temp).H.AR<=ARmax);
+    AR_V_cond = (m.(fdate_temp).V.AR>=ARmin)&(m.(fdate_temp).V.AR<=ARmax);
 
-    ARatio_H_cond =  ((m.m.(fdate_temp).H.area_ratio>=AreaRatio_min)&((m.m.(fdate_temp).H.area_ratio<=AreaRatio_max)));
-    ARatio_V_cond =  ((m.m.(fdate_temp).V.area_ratio>=0.6)&((m.m.(fdate_temp).V.area_ratio<=0.8)));
+    ARatio_H_cond =  ((m.(fdate_temp).H.area_ratio>=AreaRatio_min)&((m.(fdate_temp).H.area_ratio<=AreaRatio_max)));
+    ARatio_V_cond =  ((m.(fdate_temp).V.area_ratio>=0.6)&((m.(fdate_temp).V.area_ratio<=0.8)));
 
-    habit_H_cond = (m.m.(fdate_temp).H.habit=='l');
-    habit_V_cond = (m.m.(fdate_temp).V.habit=='l');
+    habit_H_cond = (m.(fdate_temp).H.habit=='l');
+    habit_V_cond = (m.(fdate_temp).V.habit=='l');
 
-    temp_H_cond = ((m.m.(fdate_temp).H.Temp>Tmin) & (m.m.(fdate_temp).H.Temp<=Tmax));
-    temp_V_cond = ((m.m.(fdate_temp).V.Temp>Tmin) & (m.m.(fdate_temp).V.Temp<=Tmax));
+    temp_H_cond = ((m.(fdate_temp).H.Temp>Tmin) & (m.(fdate_temp).H.Temp<=Tmax));
+    temp_V_cond = ((m.(fdate_temp).V.Temp>Tmin) & (m.(fdate_temp).V.Temp<=Tmax));
 
     total_H_cond = AR_H_cond&temp_H_cond&ARatio_H_cond&D_H_cond;
     total_V_cond = AR_V_cond&temp_V_cond&ARatio_V_cond&D_V_cond;
 
-    columns_2020_H = columns_2020_H + histcounts(m.m.(fdate_temp).H.EllipAng(total_H_cond),bins);
-    columns_2020_V = columns_2020_V + histcounts(m.m.(fdate_temp).V.EllipAng(total_V_cond),bins);
+    columns_2020_H = columns_2020_H + histcounts(m.(fdate_temp).H.EllipAng(total_H_cond),bins);
+    columns_2020_V = columns_2020_V + histcounts(m.(fdate_temp).V.EllipAng(total_V_cond),bins);
 
 end
 
@@ -99,26 +103,26 @@ for ff = 1 : length(dates_2023)
 
     fdate_temp = strcat("f",dates_2023{ff});
 
-    D_H_cond =  (m.m.(fdate_temp).H.Dmajor>=Dmin)&(m.m.(fdate_temp).H.Dmajor<=Dmax);
-    D_V_cond =  (m.m.(fdate_temp).V.Dmajor>=Dmin)&(m.m.(fdate_temp).V.Dmajor<=Dmax);
+    D_H_cond =  (m.(fdate_temp).H.Dmajor>=Dmin)&(m.(fdate_temp).H.Dmajor<=Dmax);
+    D_V_cond =  (m.(fdate_temp).V.Dmajor>=Dmin)&(m.(fdate_temp).V.Dmajor<=Dmax);
 
-    AR_H_cond = (m.m.(fdate_temp).H.AR>=ARmin)&(m.m.(fdate_temp).H.AR<=ARmax);
-    AR_V_cond = (m.m.(fdate_temp).V.AR>=ARmin)&(m.m.(fdate_temp).V.AR<=ARmax);
+    AR_H_cond = (m.(fdate_temp).H.AR>=ARmin)&(m.(fdate_temp).H.AR<=ARmax);
+    AR_V_cond = (m.(fdate_temp).V.AR>=ARmin)&(m.(fdate_temp).V.AR<=ARmax);
 
-    ARatio_H_cond =  ((m.m.(fdate_temp).H.area_ratio>=AreaRatio_min)&((m.m.(fdate_temp).H.area_ratio<=AreaRatio_max)));
-    ARatio_V_cond =  ((m.m.(fdate_temp).V.area_ratio>=AreaRatio_min)&((m.m.(fdate_temp).V.area_ratio<=AreaRatio_max)));
+    ARatio_H_cond =  ((m.(fdate_temp).H.area_ratio>=AreaRatio_min)&((m.(fdate_temp).H.area_ratio<=AreaRatio_max)));
+    ARatio_V_cond =  ((m.(fdate_temp).V.area_ratio>=AreaRatio_min)&((m.(fdate_temp).V.area_ratio<=AreaRatio_max)));
 
-    habit_H_cond = (m.m.(fdate_temp).H.habit=='l');
-    habit_V_cond = (m.m.(fdate_temp).V.habit=='l');
+    habit_H_cond = (m.(fdate_temp).H.habit=='l');
+    habit_V_cond = (m.(fdate_temp).V.habit=='l');
 
-    temp_H_cond = ((m.m.(fdate_temp).H.Temp>Tmin) & (m.m.(fdate_temp).H.Temp<=Tmax));
-    temp_V_cond = ((m.m.(fdate_temp).V.Temp>Tmin) & (m.m.(fdate_temp).V.Temp<=Tmax));
+    temp_H_cond = ((m.(fdate_temp).H.Temp>Tmin) & (m.(fdate_temp).H.Temp<=Tmax));
+    temp_V_cond = ((m.(fdate_temp).V.Temp>Tmin) & (m.(fdate_temp).V.Temp<=Tmax));
 
     total_H_cond = AR_H_cond&temp_H_cond&ARatio_H_cond&D_H_cond;
     total_V_cond = AR_V_cond&temp_V_cond&ARatio_V_cond&D_V_cond;
 
-    columns_2023_H = columns_2023_H + histcounts(m.m.(fdate_temp).H.EllipAng(total_H_cond),bins);
-    columns_2023_V = columns_2023_V + histcounts(m.m.(fdate_temp).V.EllipAng(total_V_cond),bins);
+    columns_2023_H = columns_2023_H + histcounts(m.(fdate_temp).H.EllipAng(total_H_cond),bins);
+    columns_2023_V = columns_2023_V + histcounts(m.(fdate_temp).V.EllipAng(total_V_cond),bins);
 
 end
 
@@ -195,8 +199,6 @@ std_theta_V_2023 =   rad2deg(0.5.*sqrt(-2.*log(R_V_2023)));
 % 
 % z_V_2020 = -1.*(m_CH.V.IMPACTS_2020.z-cen_2020(3));
 % z_V_2023 = -1.*(m_CH.V.IMPACTS_2023.z-cen_2023(3));
-
-
 
 corder = colororder();
 

@@ -2,7 +2,9 @@
 function obj = read_stl_data_init(folder)
 
 %% get netcdf file names
-fdir = dir(strcat(folder,'stl_ellipsoids*.nc'));
+%fdir = dir(strcat(folder,'stl_ellipsoids*.nc'));
+
+fdir = dir(fullfile(folder,'stl_ellipsoids*.nc'));
 
 N = length(fdir);
 
