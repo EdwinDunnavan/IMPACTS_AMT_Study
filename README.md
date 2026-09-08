@@ -74,14 +74,14 @@ There are two ways to create a new directory of STL models. The first approach i
 use the "generate_hexagonal.m" Matlab script which creates hexagonal columns with
 sizes and aspect ratios governed by a gamma size distribution and various parameterizations,
 respectively. The second STL generation method is with the use of the SHPSG library
-() which is modified and included in this repository in /src/Ellipsoid_STL_projections/STL_generation/. 
+(SHPSG_IMPACTS.py) which is modified and included in this repository in /STL_models/STL_generation/. 
 The easiest way to create a directory of randomly generated "irregular" particles is to run the
-"SHPSG_IMPACTS.py" python script. Users can activate the OAP_venv virtual environment and then directly
+"SHPSG_IMPACTS.py" python script and by modifying the parameters and paths in that script. Linux users can activate the OAP_venv virtual environment and then directly
 run the script after modifying the IMPACTS_SHPSG.py parameters
 
 ```bash
 source ./environments/bin/activate
-cd ./src/Ellipsoid_STL_projections/STL_generation
+cd ./STL_models/STL_generation
 python3 SPSG_IMPACTS.py
 ```
   

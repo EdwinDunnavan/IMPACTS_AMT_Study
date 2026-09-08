@@ -6,7 +6,12 @@
 % stl_sim_data = read_stl_data(...);
 % ellip_sim_data = read_stl_data(...); % or however you load the ellipsoids
 
-fyear = '2023';
+N_sim = 1e5;
+%fyear = {'2020'};
+fyear = {'2022','2023'};
+%habit_type = 'irregular';
+habit_type = 'linear';
+use_instrument_filter = true;
 
 paths = get_project_paths();
 
@@ -14,92 +19,278 @@ if ~exist('m','var')
 load(paths.ellipse_file,'-mat')
 end
 
+pops = struct();
+
 % Define output directory specifically for this figure's panels
 outdir_comp = paths.figures;
 
-N_sim = 1e6;
+switch habit_type
 
-if strcmp(fyear,'2020')
-% Irregular Defaults 2020 NEW
-use_instrument_filter = true;
-pba = 0.75;
-pcb = 0.75;
-abatog = 0.6;
-ar_scale = 0.75;
-ar_min = 0.2;
-ar_exponent = [];
-a0 = [];
-ds = [];
-pbmean = 1.0;
-ang_xz = -40;
-ang_xy = 45;
-kappa = 4; % NEW
-psimean = 0;
-varpsi = 0.001;
-rhovar_frac = 0.02;
-AR_min = 0.2;
-AR_scale = 0.6; 
-AR_exponent = -0.27;
+    case 'irregular'
+    
+        habit = 'i';
+        Temp_min = -99;
+        Temp_max = -18;
 
-pop_frac = 1.0; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
-ang_xz_2 = -40;
-ang_xy_2 = -80;
-kappa_2 = 5;
+        % pba = 0.75;
+        % pcb = 0.75;
+        % abatog = 0.6;
+        % ar_scale = 0.75;
+        % ar_min = 0.2;
+        % ar_exponent = [];
+        % a0 = [];
+        % ds = [];
+        % pbmean = 1.0;
+        % 
+        % rhovar_frac = 0.02;
+        % AR_min = 0.2;
+        % %AR_scale = 0.6;
+        % %AR_exponent = -0.27;
+        % 
+        % AR_scale = 0.62;
+        % AR_exponent = -0.27;
+        % %AR_exponent = [];
+        % 
+        % % BEST SO FAR
+        % %AR_scale = 0.65;
+        % %AR_exponent = -0.35;
+        
+    case 'linear'
 
+        habit = 'l';
+        Temp_min = -8;
+        Temp_max = -3;
 
-else
-
-% Irregular Defaults 2023 NEW
-use_instrument_filter = true;
-pba = 0.75;
-pcb = 0.75;
-abatog = 0.6;
-ar_scale = 0.75;
-ar_min = 0.2;
-ar_exponent = [];
-a0 = [];
-ds = [];
-pbmean = 1.0;
-ang_xz = -40;
-ang_xy = 0;
-kappa = 4; % NEW
-psimean = 0;
-varpsi = 0.001;
-rhovar_frac = 0.02;
-AR_min = 0.2;
-AR_scale = 0.6; 
-AR_exponent = -0.27;
-pop_frac = 0.53; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
-ang_xz_2 = -40;
-ang_xy_2 = -80;
-kappa_2 = 4;
+        % pba = [];
+        % pcb = [];
+        % abatog = [];
+        % ar_scale = [];
+        % ar_min = [];
+        % ar_exponent = [];
+        % a0 = 0.1973;
+        % ds = 0.414;
+        % pbmean = 1.0;
+        % 
+        % rhovar_frac = 0.02;
+        % AR_min = 0.2;
+        % AR_scale = 0.6; 
+        % AR_exponent = -0.27;
 
 end
 
-sim_args = {'N', N_sim,...
-                   'use_instrument_filter', use_instrument_filter,...
-                   'pba',pba,...
-                   'pcb',pcb,...
-                   'abatog',abatog,...
-                   'ar_scale',ar_scale,...
-                   'ar_min',ar_min,...
-                   'ar_exponent',ar_exponent,...
-                   'a0',a0,...
-                   'ds',ds,...
-                   'pbmean',pbmean,...
-                   'ang_xz',ang_xz,...
-                   'ang_xy',ang_xy,...
-                   'kappa',kappa,...
-                   'pop_frac',pop_frac,...
-                   'ang_xz_2',ang_xz_2,...
-                   'ang_xy_2',ang_xy_2,...
-                   'kappa_2',kappa_2,...
-                   'psimean',psimean,...
-                   'varpsi',varpsi...
-                   'rhovar_frac',rhovar_frac,...
-                   'AR_min',AR_min,...
-                   'AR_scale',AR_scale,...
-                   'AR_exponent',AR_exponent};
+
+switch true
+
+    case (any(strcmp(fyear,'2020')) && (habit=='i'))
+
+        nu = 0.2;
+        Dmean = 2.0;
+
+        ang_xz = -40;
+        ang_xy = 45;
+        kappa = 4; % NEW
+        psimean = 0;
+        varpsi = 0.001;
+        
+        pop_frac = 1.0; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
+        ang_xz_2 = -40;
+        ang_xy_2 = -80;
+        kappa_2 = 5;
+
+    % --- 2020: POPULATION 1: Irregular ---
+        pops(1).pop_frac    = 0.95;
+        pops(1).nu          = 0.2;
+        pops(1).Dmean       = 2.0;
+        %pops(1).AR_scale    = 0.62;
+        pops(1).AR_scale    = 0.59;
+        pops(1).AR_exponent = -0.27;
+        pops(1).AR_min      = 0.2;
+        pops(1).pba         = 0.75;
+        pops(1).pba_exponent= [];
+        pops(1).pcb         = 0.75;
+        pops(1).pcb_exponent= [];
+        pops(1).abatog      = 0.6;
+        pops(1).rhovar_frac = 0.015;
+        pops(1).ang_xz      = -40;
+        pops(1).ang_xy      = 45;
+        pops(1).kappa       = 4.0;
+        pops(1).psimean     = 0;
+        pops(1).varpsi      = 0.001;
+
+        % --- POPULATION 2: Columns (The Bump/Elbow) ---
+        pops(2).pop_frac    = 1-pops(1).pop_frac;
+        pops(2).nu          = 4.0;
+        pops(2).Dmean       = 0.4; 
+        pops(2).AR_scale    = 0.75; % Dense/Solid
+        pops(2).AR_exponent = -0.15;  
+        pops(2).AR_min      = 0.2;
+        pops(2).pba         = 0.65;
+        pops(2).pba_exponent= [];
+        pops(2).pcb         = 0.65;
+        pops(2).pcb_exponent= [];
+        %pops(2).abatog      = 0.85;
+        pops(2).abatog      = 0.95;
+        %pops(2).rhovar_frac = 0.02;
+        pops(2).rhovar_frac = 0.015;
+        %pops(2).ang_xz      = -50;
+        pops(2).ang_xz      = -75;
+        %pops(2).ang_xy      = -80;
+        pops(2).ang_xy      = 80;
+        pops(2).kappa       = 10;
+        pops(2).psimean     = 0;
+        pops(2).varpsi      = 0.001;
+
+    case (any(strcmp(fyear,{'2022','2023'})) && (habit=='i'))
+
+% --- 2022-2023: POPULATION 1: Irregular ---
+        pops(1).pop_frac    = 0.70;
+        pops(1).nu          = 0.2;
+        pops(1).Dmean       = 0.5;
+        %pops(1).AR_scale    = 0.62;
+        pops(1).AR_scale    = 0.59;
+        pops(1).AR_exponent = -0.27;
+        pops(1).AR_min      = 0.2;
+        pops(1).pba         = 0.78;
+        pops(1).pba_exponent= [];
+        pops(1).pcb         = 0.78;
+        pops(1).pcb_exponent= [];
+        pops(1).abatog      = 0.6;
+        pops(1).rhovar_frac = 0.015;
+        %pops(1).rhovar_frac = 0.05;
+        pops(1).ang_xz      = -40;
+        %pops(1).ang_xy      = -5;
+        pops(1).ang_xy      = -10;
+
+        %pops(1).ang_xy      = -85;
+        %pops(1).kappa       = 4;
+        pops(1).kappa       = 3;
+        pops(1).psimean     = 0;
+        pops(1).varpsi      = 0.001;
+
+
+        % --- POPULATION 2: Columns (The Bump/Elbow) ---
+        pops(2).pop_frac    = 1-pops(1).pop_frac;
+        pops(2).nu          = 4.0;
+
+        pops(2).Dmean       = 0.4;
+        %pops(2).Dmean       = 0.35; 
+        %pops(2).AR_scale    = 0.68; % Dense/Solid
+        %pops(2).AR_scale    = 0.72;
+
+        % ORIG
+        %pops(2).AR_scale    = 0.65;
+        %pops(2).AR_exponent = -0.15;  
+
+        % NEW
+        pops(2).AR_scale    = 0.65;
+        pops(2).AR_exponent = -0.05;
+
+
+        pops(2).AR_min      = 0.2;
+        %pops(2).pba         = 0.8; % Not bad
+        %pops(2).pcb         = 0.7; % Not bad
+        %pops(2).pba         = 0.75;
+        pops(2).pba         = 0.70;
+        pops(2).pba_exponent= [];
+        %pops(2).pcb         = 0.75;
+        pops(2).pcb         = 0.70;
+        pops(2).pcb_exponent= [];
+        pops(2).abatog      = 1.0;
+        
+        % NEW
+        pops(2).rhovar_frac = 0.05;
+
+        %pops(2).rhovar_frac = 0.075;
+
+        %pops(2).ang_xz      = -50;
+        pops(2).ang_xz      = -75;
+        %pops(2).ang_xy      = -45;
+        pops(2).ang_xy      = -75;
+
+        pops(2).kappa       = 50;
+        pops(2).psimean     = 0;
+        pops(2).varpsi      = 0.001;
+
+
+    case (any(strcmp(fyear,'2020')) && (habit=='l'))
+
+    % --- 2020: POPULATION 1: Columns ---
+        pops(1).pop_frac    = 1.0;
+        pops(1).nu          = 3;
+        pops(1).Dmean       = 0.75;
+        pops(1).AR_scale    = 0.65;
+        pops(1).AR_exponent = -0.2;
+        pops(1).AR_min      = 0.2;
+        pops(1).pba         = 0.2201;
+        pops(1).pba_exponent = -0.5;
+        pops(1).pcb         = 0.95;
+        pops(1).pcb_exponent = [];
+        pops(1).abatog      = 0.5;
+        pops(1).rhovar_frac = 0.03;
+        pops(1).ang_xz      = -70;
+        pops(1).ang_xy      = 80;
+        pops(1).kappa       = 8.0;
+        pops(1).psimean     = 0;
+        pops(1).varpsi      = 0.001;
+        pops(1).ar_min      = 0.1;
+
+    case (any(strcmp(fyear,{'2022','2023'})) && (habit=='l'))
+
+    % --- 2022-2023: POPULATION 1: Columns ---
+        pops(1).pop_frac    = 1.0;
+        pops(1).nu          = 3;
+        pops(1).Dmean       = 0.75;
+        pops(1).AR_scale    = 0.65;
+        pops(1).AR_exponent = -0.2;
+        pops(1).AR_min      = 0.2;
+        pops(1).pba         = 0.2201;
+        pops(1).pba_exponent = -0.5;
+        pops(1).pcb         = 0.95;
+        pops(1).pcb_exponent = [];
+        pops(1).abatog      = 0.5;
+        pops(1).rhovar_frac = 0.03;
+        pops(1).ang_xz      = -80;
+        pops(1).ang_xy      = -70;
+        pops(1).kappa       = 8.0;
+        pops(1).psimean     = 0;
+        pops(1).varpsi      = 0.001;
+        pops(1).ar_min      = 0.1;
+
+end
+
+
+
+sim_args_pop = {'N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops};
+
+
+% sim_args = {'N', N_sim,...
+%                    'use_instrument_filter', use_instrument_filter,...
+%                    'nu',nu,...
+%                    'Dmean',Dmean,...
+%                    'nu_2',nu_2,...
+%                    'Dmean_2',Dmean_2,...
+%                    'pba',pba,...
+%                    'pcb',pcb,...
+%                    'abatog',abatog,...
+%                    'ar_scale',ar_scale,...
+%                    'ar_min',ar_min,...
+%                    'ar_exponent',ar_exponent,...
+%                    'a0',a0,...
+%                    'ds',ds,...
+%                    'pbmean',pbmean,...
+%                    'ang_xz',ang_xz,...
+%                    'ang_xy',ang_xy,...
+%                    'kappa',kappa,...
+%                    'pop_frac',pop_frac,...
+%                    'ang_xz_2',ang_xz_2,...
+%                    'ang_xy_2',ang_xy_2,...
+%                    'kappa_2',kappa_2,...
+%                    'psimean',psimean,...
+%                    'varpsi',varpsi...
+%                    'rhovar_frac',rhovar_frac,...
+%                    'AR_min',AR_min,...
+%                    'AR_scale',AR_scale,...
+%                    'AR_exponent',AR_exponent};
 
 
 % Define shared axis formatting so everything perfectly aligns across the 3 PDFs
@@ -124,12 +315,12 @@ shared_args = {
     %'ratio_ticklabels', {'0', '0.2', '0.4', '0.6', '0.8', '1.0'}
 };
 
-%% Column 1: Observations (PCGL)
+%% Column 1: Observations
 fprintf('Generating Observation Column...\n');
 plot_universal_joint(m, 'obs_multi', ...
-    'target_fields', {fyear}, ...
-    'Temp_min', -99, 'Temp_max', -18, ... % PCGL boundaries
-    'habit','i',...
+    'target_fields', fyear, ...
+    'Temp_min', Temp_min, 'Temp_max', Temp_max, ... % PCGL boundaries
+    'habit',habit,...
     shared_args{:});
 
 % Rename the output file so it's clear
@@ -138,7 +329,10 @@ plot_universal_joint(m, 'obs_multi', ...
 
 % %% Column 2: Simulated Ellipsoids
 fprintf('Generating Ellipsoid Sim Column...\n');
-ellip_sim_data = fwd_project_ellipsoids(sim_args{:});
+% ORIG
+%ellip_sim_data = fwd_project_ellipsoids_ORIG(sim_args{:});
+ellip_sim_data = fwd_project_ellipsoids(sim_args_pop{:});
+
 
 plot_universal_joint(ellip_sim_data, 'sim_ellipsoid', ...
     'habit', 'all', ... % Or whatever habit corresponds to irregulars

@@ -1,9 +1,48 @@
 ########## HYDROMETEOR VIEWER ##########
+
+'''
+To use selectHydroViewer_full.py, just run it from your terminal with this argument structure
+
+TEMPLATE:
+python3 selectHydroViewer_full.py Date 2DS Channel StartTime EndTime 48 DMin DMax ARMin ARMax AreaRatioMin AreaRatioMax AngleMin AngleMax InterArival Habit CenterIn Edge
+
+where
+
+Date: Date of IOP in YYYMMDD format
+2DS: Instrument (keep set at 2DS)
+Channel: Horizontal (i.e., H) or Vertical (i.e., V)
+StartTime: Start time of images in hhmmss format
+EndTime: End time of images in hhmmss format
+DMin: Minimum ellipse Dmajor (in mm)
+DMax: Maximum ellipse Dmajor (in mm)
+ARMin: Minimum ellipse aspect ratio
+ARMax: Maximum ellipse aspect ratio
+AreaRatioMin: Minimum ellipse area ratio
+AreaRatioMax: Maximum ellipse area ratio
+AngleMin: Minimum ellipse angle from the horizontal (in degrees)
+AngleMax: Maximum ellipse angle from the horizontal (in degrees)
+InterArrival: Minimum interarrival time (in seconds)
+Habit: Habit type(s) to use in particle plotting (use commas to specify multiple habits).
+        77 - zero image; 67 - center-out image; 116 - tiny; 111- oriented; 108 - linear; 97 - aggregate;
+        103 - graupel; 115 - sphere; 104 - hexagonal; 105 - irregular; 100 - dendrite
+        all - plots all habits;
+CenterIn: (1) If center of particle is within buffer strip, (0) If center of particle is not within buffer strip.
+Edge: int
+    If particle is touching buffer strip (set to 0 for particle being entirely inside buffer width)
+
+-------------------------------------------------------
+Example:
+    
+    python3 selectHydroViewer_full.py 20230228 2DS H 000000 235959 48 0.5 5.0 0.1 1.0 0.4 1.0 -90 90 1e-5 all 1 0
+
+
+'''
+
 # IMPORT PACKAGES
 import sys
 import numpy as np
 import xarray as xr
-from PIL import Image, ImageDraw
+from PIL import Image #, ImageDraw
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 
@@ -63,7 +102,7 @@ def load_partData(inFile, probeName):
         AR_ellipse[dell>0] = delw[dell>0]/dell[dell>0]
 
     else:
-        drec = np.empty(len(time))*np.nan
+        #drec = np.empty(len(time))*np.nan
         dell = np.empty(len(time))*np.nan
     area = ds1['image_area'].values
     perim = ds1['image_perimeter'].values
@@ -317,10 +356,11 @@ habitStatus: float tuple
     Array of habit type to use in particle plotting.
         77 - zero image; 67 - center-out image; 116 - tiny; 111- oriented; 108 - linear; 97 - aggregate;
         103 - graupel; 115 - sphere; 104 - hexagonal; 105 - irregular; 100 - dendrite
+        all - plots all habits;
 centerStatus: int
     If center of particle is within buffer strip
 entireStatus: int
-    If entire particle is within buffer strip
+    If particle is touching buffer strip (set to 0 for particle being entirely inside buffer width)
 
 '''
 dateFile = sys.argv[1]
@@ -435,14 +475,13 @@ plt.ioff()
 # Find all proc files with corresponding imgdata 
 
 # HARDCODE IN RELATIVE PATH
-
 IMPACTS_dir = '/localdata/edunnavan/P3_probe_data/IMPACTS/'
 
-from pathlib import Path
+#from pathlib import Path
 
-github_dir = Path(__file__).resolve().parent.parent
+#github_dir = Path(__file__).resolve().parent.parent
 
-IMPACTS_dir = str(github_dir / 'Data' / 'sample_raw' )
+#IMPACTS_dir = str(github_dir / 'Data' / 'sample_raw' )
 
 
 if probeName=='2DS':

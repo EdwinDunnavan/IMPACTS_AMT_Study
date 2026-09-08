@@ -30,7 +30,7 @@ fyear = '2020';
 
 fprintf('Extracting 2020 Irregular Observations...\n');
 fnames = fieldnames(m);
-f_names = fnames(startsWith(fnames, 'f',fyear));
+f_names = fnames(startsWith(fnames, strcat('f',fyear)));
 
 obs_H_AR = [];
 obs_V_AR = [];
@@ -71,26 +71,49 @@ N_sim = 1e6; % Reduced slightly for speed, bump to 1e6 for final
 bins_1d = 0.3:0.005:1.0;
 bins_2d = 0.2:0.01:1.0;
 
+
 % Irregular Defaults NEW
 use_instrument_filter = false;
-%pba = 0.78;
-%pcb = 0.78;
-%abatog = 0.85;
-ar_scale = 0.75;
-ar_min = 0.2;
-ar_exponent = [];
-a0 = [];
-ds = [];
-pbmean = 1.0;
-ang_xz = -40;
-ang_xy = 45;
-kappa = 4; % NEW
-%psimean = 0;
-%varpsi = 0.001;
-rhovar_frac = 0.02;
-AR_min = 0.2;
-AR_scale = 0.6; 
-AR_exponent = -0.27;
+
+pops(1).pop_frac = 1.0; 
+pops(1).nu = 0.2; 
+pops(1).Dmean = 2.0;
+pops(1).ar_min = 0.2;
+pops(1).AR_scale = 0.6;
+pops(1).AR_min  = 0.2;
+pops(1).AR_exponent = -0.27; 
+pops(1).AR_asymp = [];
+pops(1).AR_amp = [];
+pops(1).k_decay = [];
+pops(1).pba_exponent = [];
+pops(1).pcb_exponent = [];
+pops(1).abatog = 0.6; 
+pops(1).rhovar_frac = 0.02;
+pops(1).ang_xz = -40; 
+pops(1).ang_xy = 45; 
+pops(1).kappa = 4;
+
+
+% Irregular Defaults NEW
+% use_instrument_filter = false;
+% %pba = 0.78;
+% %pcb = 0.78;
+% %abatog = 0.85;
+% ar_scale = 0.75;
+% ar_min = 0.2;
+% ar_exponent = [];
+% a0 = [];
+% ds = [];
+% pbmean = 1.0;
+% ang_xz = -40;
+% ang_xy = 45;
+% kappa = 4; % NEW
+% %psimean = 0;
+% %varpsi = 0.001;
+% rhovar_frac = 0.02;
+% AR_min = 0.2;
+% AR_scale = 0.6; 
+% AR_exponent = -0.27;
 
 sim_args = {'N', N_sim,...
                    'use_instrument_filter', use_instrument_filter,...
@@ -157,16 +180,47 @@ for row = 1:3
     % Base arguments to feed into simulator
    % sim_args = {'N', N_sim, 'pba', pba_target, 'pcb', pcb_target, 'use_instrument_filter', false, 'abatog', abatog};
     
+    pops(1).pba = pba_target;
+    pops(1).pcb = pcb_target;
+    pops(1).abatog = abatog;
+
     % Run the 4 Orientations
-    sim_base   = fwd_project_ellipsoids(sim_args{:},  'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-                                                                                   'psimean', 0,  'varpsi', 0.001);
-    sim_par     = fwd_project_ellipsoids(sim_args{:}, 'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-                                                                                 'psimean', 0,  'varpsi', 10);
-    sim_skew  = fwd_project_ellipsoids(sim_args{:},  'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-                                                                                  'psimean', 45, 'varpsi', 10);
-    sim_orth    = fwd_project_ellipsoids(sim_args{:}, 'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-                                                                                 'psimean', 90, 'varpsi', 10);
+    % 1. Base (No rolling variance)
+    pops(1).psimean = 0; 
+    pops(1).varpsi = 0.001;
+    sim_base = fwd_project_ellipsoids('N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops);
     
+    % 2. Parallel Roll
+    pops(1).psimean = 0; 
+    pops(1).varpsi = 10;
+    sim_par = fwd_project_ellipsoids('N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops);
+    
+    % 3. Skewed Roll
+    pops(1).psimean = 45; 
+    pops(1).varpsi = 10;
+    sim_skew = fwd_project_ellipsoids('N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops);
+    
+    % 4. Orthogonal Roll
+    pops(1).psimean = 90; 
+    pops(1).varpsi = 10;
+    sim_orth = fwd_project_ellipsoids('N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops);
+
+    
+    %% ORIGINAL
+
+    % sim_base   = fwd_project_ellipsoids(sim_args{:},  'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
+    %                                                                                'psimean', 0,  'varpsi', 0.001);
+    % 
+    % sim_par    = fwd_project_ellipsoids(sim_args{:}, 'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
+    %                                                                              'psimean', 0,  'varpsi', 10);
+    % 
+    % sim_skew   = fwd_project_ellipsoids(sim_args{:},  'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
+    %                                                                               'psimean', 45, 'varpsi', 10);
+    % 
+    % sim_orth   = fwd_project_ellipsoids(sim_args{:}, 'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
+    %                                                                              'psimean', 90, 'varpsi', 10);
+
+    %% Plotting
     % Plot Horizontal (Col 1)
     hold(ax_H, 'on');
     histogram(ax_H, obs_H_AR, bins_1d, 'Normalization', 'pdf', 'DisplayStyle', 'bar', 'EdgeColor', 'none', 'FaceColor', c_obs);

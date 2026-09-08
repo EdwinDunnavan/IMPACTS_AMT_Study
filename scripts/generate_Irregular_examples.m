@@ -12,23 +12,24 @@ DataDir = paths.data;
 utilsDir = paths.utils;
 simDir = paths.simulations;
 
-addpath paths
-
 %% Set up folder and config
-particleDir = 'Irregular_Test'; % Directory where STL particle files and particle parameter .nc file are located.
+particleDir = 'Irregular_10k'; % Directory where STL particle files and particle parameter .nc file are located.
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Irregular_2020';
+test_folder = 'Irregular_2020_100k';
 
-Nsim = 1e3;
+Nsim = 1e5;
 fit_ellipsoids = false;
 simulate_data = true;
+save_pngs = false;
+save_images = false;
+save_meshes = false;
 
 size_switch = 'gamma'; % sample - Sample sizes from hexagonal stl files.
                         % fixed - fixed size in mm
                         % gamma - Use gamma distribution to specify sizes.
                    
 
-particles2sim = 'all'; % all - simulate all particles in directory once
+particles2sim = 'random'; % all - simulate all particles in directory once
                        % random - Randomly select particle from directory
                        % and simulate Nsim number of times
 
@@ -45,7 +46,7 @@ kappa = 4; % NEW
 psimean = 0;
 varpsi = 0.001;
 
- [phimean, thetamean, ~, ~] = ret_angle_3D_proj(ang_xz, ang_xy);
+[phimean, thetamean, ~, ~] = ret_angle_3D_proj(ang_xz, ang_xy);
 
 % phimean = 0;
 % thetamean = 90;
@@ -65,6 +66,10 @@ folder = fullfile(simDir,particleDir);
 
 config = struct();
 
+config.save_pngs = save_pngs;
+config.save_images = save_images;
+config.save_meshes = save_meshes;
+
 config.Nsim = Nsim;
 config.folder = folder;
 config.test_folder = test_folder;
@@ -73,6 +78,8 @@ config.simulate_data = simulate_data;
 config.size_switch = size_switch;
 config.particles2sim = particles2sim;
 config.orientations = orientations;
+
+
 
 %% Instrument Filters for 2D-S
 config.use_instrument_filter = true;

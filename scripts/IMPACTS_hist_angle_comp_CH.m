@@ -6,6 +6,8 @@ if ~exist('m','var')
 load(paths.ellipse_file,'-mat')
 end
 
+DataDir = paths.data;
+
 bins = -90:5:90;
 
 Tmin = -8;
@@ -28,7 +30,9 @@ dbin = bins(2)-bins(1);
 
 % load CH data 4k
  %m_CH = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\CH_2DS_simulations_4k.mat','-mat','m_CH');
-  m_CH = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\CH_2DS_simulations_4k_newcoords.mat','-mat','m_CH');
+  %m_CH = load('C:\\Users\\edwin.dunnavan\\Documents\\IMPACTS\\Cases\\CH_2DS_simulations_4k_newcoords.mat','-mat','m_CH');
+ m_CH = load(fullfile(DataDir,'CH_2DS_simulations_4k_newcoords.mat'),'-mat');
+
  m_CH = m_CH.m_CH;
 
 % OLD data 1k
@@ -304,5 +308,5 @@ for ii = 1 : length(ax)
 
 end
 
-leg_hist = legend(ax(1),'CFD trajectories','IMPACTS ellipse fits','interpreter','latex','fontsize',18,'location','northwest');
+leg_hist = legend(ax(1),'CFD trajectories','IMPACTS ellipse fits','interpreter','latex','fontsize',18,'location','northeast');
 leg_scatt = legend(ax(5),'2020','2023','Location','best','interpreter','latex','fontsize',20);
