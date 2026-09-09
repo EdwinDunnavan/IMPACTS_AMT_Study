@@ -12,13 +12,13 @@ DataDir = paths.data;
 utilsDir = paths.utils;
 simDir = paths.simulations;
 
-%% Set up folder and config
+%% IRREGULAR: Set up folder and config
 particleDir = 'Irregular_10k_random'; % Directory where STL particle files and particle parameter .nc file are located.
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Irregular_2020_1e5';
+test_folder = 'Irregular_2020_1e6';
 
-Nsim = 1e5;
-fit_ellipsoids = true;
+Nsim = 1e6;
+fit_ellipsoids = false;
 simulate_data = true;
 save_pngs = false;
 save_images = false;

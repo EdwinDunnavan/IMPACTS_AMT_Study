@@ -1,11 +1,6 @@
 %% make_comparison_figure.m
 % Generates the three 6-row PDF columns for the Obs vs Sim comparison.
 
-% 1. Load Data (assuming you have paths set up)
-% load(obs_data_file);
-% stl_sim_data = read_stl_data(...);
-% ellip_sim_data = read_stl_data(...); % or however you load the ellipsoids
-
 N_sim = 1e5;
 %fyear = {'2020'};
 fyear = {'2022','2023'};

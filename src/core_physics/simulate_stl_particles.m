@@ -33,6 +33,8 @@ psimean = orientations.psimean;
 varpsi = orientations.varpsi;
 
 %% Set up size distribution or specify size
+%nD = []; % Dummy initialization for non-gamma runs
+%gamma_size_cells = {};
 if strcmp(size_switch,'gamma')
 
  if isfield(config,'mu')
@@ -75,6 +77,8 @@ if ~isfolder(folder)
 mkdir(folder)
 
 end
+
+
 
 % File(s) for original STL files
 fdir = dir(fullfile(folder,'particle_*_orig.stl'));
@@ -125,6 +129,8 @@ if isfolder(folder)
 
 end
 
+
+%% Loop over all subfiles
 parfor pp = 1 : length(subfiles)
 
 %for pp = 1 : length(subfiles)
@@ -261,6 +267,17 @@ switch particles2sim
 
 end
 
+%% Pre-generate and slice sizes to eliminate parfor broadcast overhead
+if strcmp(size_switch, 'gamma')
+    % Generate all sizes at once 
+    all_gamma_sizes = nD.random(1, N);
+    % Slice into a cell array exactly matching the subfile chunks
+    gamma_size_cells = mat2cell(all_gamma_sizes, 1, sublengths);
+else
+    % Dummy empty cell array to satisfy parfor parser for other modes
+    gamma_size_cells = cell(1, length(subfiles));
+end
+
 
 %% Read stl netcdf data for all particles
 sdata =read_stl_data_init(folder);
@@ -283,9 +300,9 @@ parfor pp = 1 : length(subfiles)
     %H_folder = output_folder_H;
     %V_folder = output_folder_V;
 
-    if strcmp(size_switch,'gamma')
-    nD_part = nD;
-    end
+    %if strcmp(size_switch,'gamma')
+    %nD_part = nD;
+    %end
 
     %fdir_temp = fdir;
 
@@ -302,7 +319,10 @@ parfor pp = 1 : length(subfiles)
 
         case 'gamma'
 
-            spart.particle.max_dim = nD_part.random(1,Nt);
+            % Assign the exact pre-calculated chunk for this worker
+            spart.particle.max_dim = gamma_size_cells{pp};
+
+            %spart.particle.max_dim = nD.random(1,Nt); % ORIG
 
         case 'fixed' % Fixed maximum dimension
 
