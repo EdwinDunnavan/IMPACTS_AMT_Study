@@ -52,6 +52,22 @@ import os
 
 import fnmatch
 
+from pathlib import Path
+
+def get_project_paths():
+    """ Dynamically resolve project directories relative to this script using pathlib. """
+    # Resolve the absolute path and step up to the project root 
+    # (.parent.parent assumes this script is inside /scripts/ or /src/)
+    project_root = Path(__file__).resolve().parent.parent.parent
+    
+    # Map out the directories using the / operator
+    paths = {
+        'root': project_root,
+        'images': project_root / 'Data' / 'sample_raw'
+    }
+    return paths
+
+
 # IMAGE BUFFER & PLOTTING FUNCTIONS
 def probe_defaults(probeName):
     invalidSlice = np.array([-1., -1., -1., -1., -1., -1., -1., -1.])
@@ -318,366 +334,359 @@ def image_buffer(buf, probeName, boundaryInd): # generate matrix of 1's and 0's 
     return (imageData)
 
 # ===== MAIN SCRIPT ===== #
-'''
-Main script that calls subroutines to plot particles meeting user-specified criteria.
 
-Parameters
-----------
-dateFile: str
-    Date of IOP in yyyymmdd.
-probeName: str
-    Probe type ('2DS' or 'HVPS'). Used in determining image decryption methods specific to the manufacturer.
-probeOrient: str
-    Probe Orientation. Either 'H' or 'V'.
-startTime: str
-    Flight time to begin the plotting job in HHMMSS.
-endTime: str
-    Flight time to end the plotting job in HHMMSS.
-rejStatus: float tuple
-    Array of rejection status values (from image_auto_reject variable) of which to plot particles.
-        48 - accepted; 97 - aspect ratio > 6; 116 - aspect ratio > 5 + image touching edge;
-        112 - < 25% shadowed diodes in rectangle encompassing particle; 104, 72, 117 - hollow particle;
-        115 - split image; 122 - zero area image; 102 - zero area image
-minD: float
-    Minimum particle size (mm) of which to plot particles.
-maxD: float
-    Maximum particle size (mm) of which to plot particles.
-minAR: float
-    Minimum particle ellipse fit aspect ratio of which to plot particles
-maxAR: float
-    Maximum particle ellipse fit aspect ratio of which to plot particles
-minAng: float
-    Minimum particle ellipse fit angle (in degrees) of which to plot particles
-maxAng: float
-    Maximum particle ellipse fit angle (in degrees) of which to plot particles
-intArrThresh: float
-    Minimum inter-arrival time (s) of which to plot particles.
-habitStatus: float tuple
-    Array of habit type to use in particle plotting.
-        77 - zero image; 67 - center-out image; 116 - tiny; 111- oriented; 108 - linear; 97 - aggregate;
-        103 - graupel; 115 - sphere; 104 - hexagonal; 105 - irregular; 100 - dendrite
-        all - plots all habits;
-centerStatus: int
-    If center of particle is within buffer strip
-entireStatus: int
-    If particle is touching buffer strip (set to 0 for particle being entirely inside buffer width)
+if __name__=='__main__':
 
-'''
-dateFile = sys.argv[1]
-probeName = sys.argv[2]
-probeOrient = sys.argv[3]
-startTime = sys.argv[4]
-endTime = sys.argv[5]
-rejStatus = sys.argv[6]
-minD = sys.argv[7]
-maxD = sys.argv[8]
-minAR = sys.argv[9]
-maxAR = sys.argv[10]
-minArea = sys.argv[11]
-maxArea = sys.argv[12]
-minAng = sys.argv[13]
-maxAng = sys.argv[14]
-intArrThresh = sys.argv[15]
-habitStatus = sys.argv[16]
-centerStatus = sys.argv[17]
-entireStatus = sys.argv[18]
-
-
-# ---------- Initialize Particle Criteria ----------
-#if startTime=='None':
-#    startTime = int(time[0])
-#else:
-startTime = int(startTime)
-
-#if endTime=='None':
-#    endTime = int(time[-1])
-#else:
-endTime = int(endTime)
-
-if rejStatus!='None':
-    rejStatus = np.array(rejStatus.split(','), dtype=np.uint8)
-
-if minD=='None':
-    minD = 0.
-else:
-    minD = np.float(minD)
-
-if maxD=='None':
-    maxD = 999.
-else:
-    maxD = np.float(maxD)
-
-if minAR=='None':
-    minAR = 0.
-else:
-    minAR = np.float(minAR)
-
-if maxAR=='None':
-    maxAR = 1.0
-else:
-    maxAR = np.float(maxAR)
-
-if minArea=='None':
-    minArea = 0.
-else:
-    minArea = np.float(minArea)
-
-if maxArea=='None':
-    maxArea = 1.0
-else:
-    maxArea = np.float(maxArea)
-
-if minAng=='None':
-    minAng = -90.
-else:
-    minAng = np.float(minAng)
-
-if maxAng=='None':
-    maxAng = 90.
-else:
-    maxAng = np.float(maxAng)
-
-if intArrThresh=='None':
-    intArrThresh = -999.
-else:
-    intArrThresh = np.float(intArrThresh)
+    '''
+    Main script that calls subroutines to plot particles meeting user-specified criteria.
     
-if habitStatus!='None' and habitStatus!='all':
-    habitStatus = np.array(habitStatus.split(','), dtype=np.uint8)
-
-if centerStatus=='None':
-    centerStatus = 0
-else:
-    centerStatus = np.int(centerStatus)
-
-if entireStatus=='None':
-    entireStatus = 1
-else:
-    entireStatus = np.int(entireStatus)   
-
-print('----- USER DEFINED VALUES -----')
-print('startTime = {}; endTime = {}\nminD = {} mm; maxD = {} mm\nminAR={}; maxAR={};\nminAreaRatio={}; maxAreaRatio={};\nminAng={};maxAng={};\nintArrThresh = {} s;\ncenter_in = {}; entire_in = {},\n rejStatus = {}; habitStatus = {}'
-      .format(startTime, endTime, minD, maxD, minAR, maxAR, minArea, maxArea,minAng, maxAng, intArrThresh,centerStatus, entireStatus, rejStatus, habitStatus))
-print('-------------------------------')
-# --------------------------------------------------
+    Parameters
+    ----------
+    dateFile: str
+        Date of IOP in yyyymmdd.
+    probeName: str
+        Probe type ('2DS' or 'HVPS'). Used in determining image decryption methods specific to the manufacturer.
+    probeOrient: str
+        Probe Orientation. Either 'H' or 'V'.
+    startTime: str
+        Flight time to begin the plotting job in HHMMSS.
+    endTime: str
+        Flight time to end the plotting job in HHMMSS.
+    rejStatus: float tuple
+        Array of rejection status values (from image_auto_reject variable) of which to plot particles.
+            48 - accepted; 97 - aspect ratio > 6; 116 - aspect ratio > 5 + image touching edge;
+            112 - < 25% shadowed diodes in rectangle encompassing particle; 104, 72, 117 - hollow particle;
+            115 - split image; 122 - zero area image; 102 - zero area image
+    minD: float
+        Minimum particle size (mm) of which to plot particles.
+    maxD: float
+        Maximum particle size (mm) of which to plot particles.
+    minAR: float
+        Minimum particle ellipse fit aspect ratio of which to plot particles
+    maxAR: float
+        Maximum particle ellipse fit aspect ratio of which to plot particles
+    minAng: float
+        Minimum particle ellipse fit angle (in degrees) of which to plot particles
+    maxAng: float
+        Maximum particle ellipse fit angle (in degrees) of which to plot particles
+    intArrThresh: float
+        Minimum inter-arrival time (s) of which to plot particles.
+    habitStatus: float tuple
+        Array of habit type to use in particle plotting.
+            77 - zero image; 67 - center-out image; 116 - tiny; 111- oriented; 108 - linear; 97 - aggregate;
+            103 - graupel; 115 - sphere; 104 - hexagonal; 105 - irregular; 100 - dendrite
+            all - plots all habits;
+    centerStatus: int
+        If center of particle is within buffer strip
+    entireStatus: int
+        If particle is touching buffer strip (set to 0 for particle being entirely inside buffer width)
     
-
-if probeName=='2DS':
-    diodesize = 0.01
-
-if probeName == 'HVPS':
-    diodesize = 0.15
-
-plt.ioff()
-
-[boundary, boundaryTime, invalidSlice, bufferShape] = probe_defaults(probeName)
-
-# Find all proc files with corresponding imgdata 
-
-# HARDCODE IN RELATIVE PATH
-IMPACTS_dir = '/localdata/edunnavan/P3_probe_data/IMPACTS/'
-
-#from pathlib import Path
-
-#github_dir = Path(__file__).resolve().parent.parent
-
-#IMPACTS_dir = str(github_dir / 'Data' / 'sample_raw' )
-
-
-if probeName=='2DS':
-
-   fileDir = IMPACTS_dir+dateFile+'/'+probeName+'/'
-
-   #proc_files = glob(fileDir+'proc3.*'+probeOrient+'.nc')
-
-
-   proc_files = glob(fileDir+'proc_5.*'+probeOrient+'.nc')
-
-
-   plotDirectory = IMPACTS_dir+dateFile+'/'+probeName+'/Images/'
-
-
-elif probeName=='HVPS':
-
-
-   if probeOrient == 'H':
-
-      HVPS_name = 'HVPSA'
-
-   elif probeOrient == 'V':
-
-      HVPS_name = 'HVPSB'
-
-
-   fileDir = IMPACTS_dir+dateFile+'/'+probeName+'/'+HVPS_name+'/'
-
-   plotDirectory = IMPACTS_dir+dateFile+'/'+probeName+'/'+HVPS_name+'/Images/'
-
-   #proc_files = glob(fileDir+'proc5.*.nc')
-
-   proc_files = glob(fileDir+'proc_5.*.nc')
-
-if not os.path.isdir(plotDirectory):
-    os.mkdir(plotDirectory)
-
-# Put in loop here
-for ff in range(len(proc_files)):
-
-    particleFile = proc_files[ff]
+    '''
+    dateFile = sys.argv[1]
+    probeName = sys.argv[2]
+    probeOrient = sys.argv[3]
+    startTime = sys.argv[4]
+    endTime = sys.argv[5]
+    rejStatus = sys.argv[6]
+    minD = sys.argv[7]
+    maxD = sys.argv[8]
+    minAR = sys.argv[9]
+    maxAR = sys.argv[10]
+    minArea = sys.argv[11]
+    maxArea = sys.argv[12]
+    minAng = sys.argv[13]
+    maxAng = sys.argv[14]
+    intArrThresh = sys.argv[15]
+    habitStatus = sys.argv[16]
+    centerStatus = sys.argv[17]
+    entireStatus = sys.argv[18]
     
-    #timestamp_temp = particleFile[particleFile.find('proc3.')+6:particleFile.find('proc3.')+18]
     
-    #order_temp = particleFile[particleFile.find(timestamp_temp+'.')+13:particleFile.find('.'+probeName)]
+    # ---------- Initialize Particle Criteria ----------
+    #if startTime=='None':
+    #    startTime = int(time[0])
+    #else:
+    startTime = int(startTime)
     
-    #timestamp_temp = particleFile[particleFile.find('proc5.')+6:particleFile.find('proc5.')+14]
-
-    # proc_new
-    #timestamp_temp = particleFile[particleFile.find('proc_new.')+9:particleFile.find('proc_5.')+21]
-
-    timestamp_temp = particleFile[particleFile.find('proc_5.')+7:particleFile.find('proc_5.')+19]
-
-    #order_temp = particleFile[particleFile.find(timestamp_temp+'.')+9:particleFile.find('.'+probeName)]
-
-    # proc_new
-    #order_temp = particleFile[particleFile.find(timestamp_temp+'.')+13:particleFile.find('.'+probeName)]
-
-    order_temp = particleFile[particleFile.find(timestamp_temp+'.')+13:particleFile.find('.'+probeName)]
-
+    #if endTime=='None':
+    #    endTime = int(time[-1])
+    #else:
+    endTime = int(endTime)
+    
+    if rejStatus!='None':
+        rejStatus = np.array(rejStatus.split(','), dtype=np.uint8)
+    
+    if minD=='None':
+        minD = 0.
+    else:
+        minD = np.float(minD)
+    
+    if maxD=='None':
+        maxD = 999.
+    else:
+        maxD = np.float(maxD)
+    
+    if minAR=='None':
+        minAR = 0.
+    else:
+        minAR = np.float(minAR)
+    
+    if maxAR=='None':
+        maxAR = 1.0
+    else:
+        maxAR = np.float(maxAR)
+    
+    if minArea=='None':
+        minArea = 0.
+    else:
+        minArea = np.float(minArea)
+    
+    if maxArea=='None':
+        maxArea = 1.0
+    else:
+        maxArea = np.float(maxArea)
+    
+    if minAng=='None':
+        minAng = -90.
+    else:
+        minAng = np.float(minAng)
+    
+    if maxAng=='None':
+        maxAng = 90.
+    else:
+        maxAng = np.float(maxAng)
+    
+    if intArrThresh=='None':
+        intArrThresh = -999.
+    else:
+        intArrThresh = np.float(intArrThresh)
+        
+    if habitStatus!='None' and habitStatus!='all':
+        habitStatus = np.array(habitStatus.split(','), dtype=np.uint8)
+    
+    if centerStatus=='None':
+        centerStatus = 0
+    else:
+        centerStatus = np.int(centerStatus)
+    
+    if entireStatus=='None':
+        entireStatus = 1
+    else:
+        entireStatus = np.int(entireStatus)   
+    
+    print('----- USER DEFINED VALUES -----')
+    print('startTime = {}; endTime = {}\nminD = {} mm; maxD = {} mm\nminAR={}; maxAR={};\nminAreaRatio={}; maxAreaRatio={};\nminAng={};maxAng={};\nintArrThresh = {} s;\ncenter_in = {}; entire_in = {},\n rejStatus = {}; habitStatus = {}'
+          .format(startTime, endTime, minD, maxD, minAR, maxAR, minArea, maxArea,minAng, maxAng, intArrThresh,centerStatus, entireStatus, rejStatus, habitStatus))
+    print('-------------------------------')
+    # --------------------------------------------------
+        
+    
     if probeName=='2DS':
-        #imageFile = fileDir+'imgData_'+timestamp_temp+'_'+order_temp+'.'+probeOrient+'.nc'
-
-        imageFile = fileDir+'imgData_'+timestamp_temp+'.2DS_'+order_temp+'.'+probeOrient+'.nc'
-
+        diodesize = 0.01
+    
+    if probeName == 'HVPS':
+        diodesize = 0.15
+    
+    plt.ioff()
+    
+    [boundary, boundaryTime, invalidSlice, bufferShape] = probe_defaults(probeName)
+    
+    paths = get_project_paths()
+    
+   # print(paths['images'])
+    #raise Exception()
+    
+    # Find all proc files with corresponding imgdata 
+    IMPACTS_dir = str(paths['images'])+os.sep
+    
+    #print(IMPACTS_dir)
+    #raise Exception()
+    
+    ## HARDCODE IN RELATIVE PATH
+    #IMPACTS_dir = '/localdata/edunnavan/P3_probe_data/IMPACTS/'
+    ##
+    
+    #from pathlib import Path
+    
+    #github_dir = Path(__file__).resolve().parent.parent
+    
+    #IMPACTS_dir = str(github_dir / 'Data' / 'sample_raw' )
+    
+    
+    if probeName=='2DS':
+    
+       fileDir = IMPACTS_dir+dateFile+'/'+probeName+'/'
+    
+    
+       proc_files = glob(fileDir+'proc_5.*'+probeOrient+'.nc')
+    
+    
+       plotDirectory = IMPACTS_dir+dateFile+'/'+probeName+'/Images/'
+    
+    
     elif probeName=='HVPS':
-        imageFile = fileDir+'imgData_'+timestamp_temp+'.HVPS_'+order_temp+'.V.nc'
-        #imageFile = fileDir+'imgData_'+dateFile+'_'+order_temp+'.HVPS.V.nc'
+    
+    
+       if probeOrient == 'H':
+    
+          HVPS_name = 'HVPSA'
+    
+       elif probeOrient == 'V':
+    
+          HVPS_name = 'HVPSB'
+    
+    
+       fileDir = IMPACTS_dir+dateFile+'/'+probeName+'/'+HVPS_name+'/'
+    
+       plotDirectory = IMPACTS_dir+dateFile+'/'+probeName+'/'+HVPS_name+'/Images/'
+    
+       proc_files = glob(fileDir+'proc_5.*.nc')
+    
+    if not os.path.isdir(plotDirectory):
+        os.mkdir(plotDirectory)
+    
+    # Put in loop here
+    for ff in range(len(proc_files)):
+    
+        particleFile = proc_files[ff]
+        
+        timestamp_temp = particleFile[particleFile.find('proc_5.')+7:particleFile.find('proc_5.')+19]
+    
+        order_temp = particleFile[particleFile.find(timestamp_temp+'.')+13:particleFile.find('.'+probeName)]
+    
+        if probeName=='2DS':
 
-    print('Particle File: ',particleFile)
-    print('ImgData File: ',imageFile)
-
-    [time, frame, partNum, pos, xpos, ypos, center_in, entire_in, length, longestY, width, dmax, dell, delw, ang, AR, area, perim, reject, habit, intArr] = load_partData(
-        particleFile, probeName) # load Particle Data
+            imageFile = fileDir+'imgData_'+timestamp_temp+'.2DS_'+order_temp+'.'+probeOrient+'.nc'
     
-    AreaRatio = area/(0.25*np.pi*dell*delw)
-
-    # particle indices meeting user criteria
-    partInds = get_partInds(time, dmax, AR, AreaRatio, ang, reject, habit, intArr, center_in, entire_in, startTime, endTime, minD, maxD, minAR, maxAR,minArea,maxArea, minAng, maxAng, intArrThresh, rejStatus,
-                            habitStatus,centerStatus,entireStatus)
-    frameInds = frame[partInds] # frame number of particles meeting user criteria
-    partnumInds = partNum[partInds]
-    timeInds = time[partInds]
-
-    if len(partInds)==0:
-        continue
+        elif probeName=='HVPS':
+            imageFile = fileDir+'imgData_'+timestamp_temp+'.HVPS_'+order_temp+'.V.nc'
     
-    print('Found {} particles that match your criteria.'.format(len(partInds)))
-    print('Constructing image buffers. Estimating ~ {} files will be generated.'.format(
-        int(np.ceil((np.sum(length[partInds])+len(partInds))/1700))))
+        print('Particle File: ',particleFile)
+        print('ImgData File: ',imageFile)
     
-    uniqueFrames = np.unique(frameInds)
+        [time, frame, partNum, pos, xpos, ypos, center_in, entire_in, length, longestY, width, dmax, dell, delw, ang, AR, area, perim, reject, habit, intArr] = load_partData(
+            particleFile, probeName) # load Particle Data
+        
+        AreaRatio = area/(0.25*np.pi*dell*delw)
     
-    imgPointer = 0
-    imgNum = 1
-    imgNew = np.ones(bufferShape) # set up image buffer (1's mean unshadowed pixels)
+        # particle indices meeting user criteria
+        partInds = get_partInds(time, dmax, AR, AreaRatio, ang, reject, habit, intArr, center_in, entire_in, startTime, endTime, minD, maxD, minAR, maxAR,minArea,maxArea, minAng, maxAng, intArrThresh, rejStatus,
+                                habitStatus,centerStatus,entireStatus)
+        frameInds = frame[partInds] # frame number of particles meeting user criteria
+        partnumInds = partNum[partInds]
+        timeInds = time[partInds]
     
+        if len(partInds)==0:
+            continue
+        
+        print('Found {} particles that match your criteria.'.format(len(partInds)))
+        print('Constructing image buffers. Estimating ~ {} files will be generated.'.format(
+            int(np.ceil((np.sum(length[partInds])+len(partInds))/1700))))
+        
+        uniqueFrames = np.unique(frameInds)
+        
+        imgPointer = 0
+        imgNum = 1
+        imgNew = np.ones(bufferShape) # set up image buffer (1's mean unshadowed pixels)
+        
+        
+        #print('uniqueFrames = {}'.format(uniqueFrames))
+        
+        ellipse = []
+        xcen = []
+        ycen = []
     
-    #print('uniqueFrames = {}'.format(uniqueFrames))
+        num_iter = 0
     
-    ellipse = []
-    xcen = []
-    ycen = []
-
-    num_iter = 0
-
-    part_count = 0
-
-    img_count = 0
+        part_count = 0
     
+        img_count = 0
+        
+        
+        # LOOP THROUGH FRAMES FOR PLOTTING
+        for iter in range(len(uniqueFrames)):
+            partSubinds = partInds[frameInds==uniqueFrames[iter]] # good particles for current frame in plotting loop
+            partnumSubinds = partnumInds[frameInds==uniqueFrames[iter]]
+            timeSubinds = timeInds[frameInds==uniqueFrames[iter]]
+            data = get_imageData(imageFile, uniqueFrames[iter])
+            [partCount, boundaryInd, partStart, partEnd] = get_slice_endpoints(probeName, data, boundary, boundaryTime, invalidSlice)
+            img = image_buffer(data, probeName, boundaryInd)    
+        
+            print('Number of ellipses = {}'.format(len(ellipse)))
+            print('partSubinds = {}'.format(partSubinds))
+            print('timeSubinds = {}'.format(timeSubinds))
+        
+            for particles in range(len(partSubinds)): # Loop through all particles in frame
     
-    # LOOP THROUGH FRAMES FOR PLOTTING
-    for iter in range(len(uniqueFrames)):
-        partSubinds = partInds[frameInds==uniqueFrames[iter]] # good particles for current frame in plotting loop
-        partnumSubinds = partnumInds[frameInds==uniqueFrames[iter]]
-        timeSubinds = timeInds[frameInds==uniqueFrames[iter]]
-        data = get_imageData(imageFile, uniqueFrames[iter])
-        [partCount, boundaryInd, partStart, partEnd] = get_slice_endpoints(probeName, data, boundary, boundaryTime, invalidSlice)
-        img = image_buffer(data, probeName, boundaryInd)    
-    
-        print('Number of ellipses = {}'.format(len(ellipse)))
-        print('partSubinds = {}'.format(partSubinds))
-        print('timeSubinds = {}'.format(timeSubinds))
-    
-        for particles in range(len(partSubinds)): # Loop through all particles in frame
-
-            #print('particles={}/{} | iter = {}/{} / switch = {}'.format(particles+1,len(partSubinds),iter+1,len(uniqueFrames),((iter+1==len(uniqueFrames)) and (particles+1==len(partSubinds)))))
-    
-            img_sub = np.array(255*img[partStart[partnumSubinds[particles]-1]:partEnd[partnumSubinds[particles]-1]+2,:],
-                               dtype=np.uint8)
-            
-            if (imgPointer+img_sub.shape[0]<bufferShape[0]): # current particle fits within buffer
-                if imgPointer==0: # indicates we're starting a new image buffer to plot
-                    imgTimeStart = timeSubinds[particles]
-                imgNew[imgPointer:imgPointer+img_sub.shape[0],:] = img_sub
-
-                img_count += 1
-    
-                ellipse.append(Ellipse(xy=(xpos[partSubinds[particles]]+imgPointer,ypos[partSubinds[particles]]),\
-                                           width = dell[partSubinds[particles]]/diodesize,height=delw[partSubinds[particles]]/diodesize,\
-                                           angle=(ang[partSubinds[particles]]),fill=None,edgecolor='red'))
-
-                xcen.append(xpos[partSubinds[particles]]+imgPointer)
-                ycen.append(ypos[partSubinds[particles]])
-    
-                imgPointer = imgPointer + img_sub.shape[0]; # advance plotting strip pointer
-    
-            if ((imgPointer+img_sub.shape[0]>=bufferShape[0]) or (np.remainder(imgNum+1,1000)==0) or ((iter+1==len(uniqueFrames)) and (particles+1==len(partSubinds)))): # current particle DOES NOT fit within buffer, save current one and begin new one
-                imgTimeEnd = timeSubinds[particles]
-    
-                #fileStr = '{}{}fr{:02d}.{}_{}.pdf'.format(plotDirectory, probeName, imgNum, imgTimeStart, imgTimeEnd)
-    
-                fileStr_base = '{}{}_{}_{}_{}_{}_img'.format(probeName,probeOrient,dateFile,habitStatus,imgTimeStart,imgTimeEnd)
-
-                count_imgs = len(fnmatch.filter(os.listdir(plotDirectory),fileStr_base+'*'))
-
-                fileStr = plotDirectory+fileStr_base+str(count_imgs+1)
-
-                image = Image.fromarray(imgNew.T.astype(np.uint8))
-                fig,ax = plt.subplots(figsize=(1700/plt.rcParams['figure.dpi'],128/plt.rcParams['figure.dpi']))
+                #print('particles={}/{} | iter = {}/{} / switch = {}'.format(particles+1,len(partSubinds),iter+1,len(uniqueFrames),((iter+1==len(uniqueFrames)) and (particles+1==len(partSubinds)))))
+        
+                img_sub = np.array(255*img[partStart[partnumSubinds[particles]-1]:partEnd[partnumSubinds[particles]-1]+2,:],
+                                   dtype=np.uint8)
                 
-                ax.imshow(image,cmap='gray',origin='lower',resample=False)
-                #ax.invert_yaxis()
-                #ax.invert_xaxis()
-                plt.axis('off')
-                plt.tight_layout()
-                print('Saving image to file: {}'.format(fileStr))
-                print('Total Number of ellipses = {}'.format(len(ellipse)))
-                print('Total number of images = {}'.format(img_count))
-                # Plot all ellipses for particles in frame
+                if (imgPointer+img_sub.shape[0]<bufferShape[0]): # current particle fits within buffer
+                    if imgPointer==0: # indicates we're starting a new image buffer to plot
+                        imgTimeStart = timeSubinds[particles]
+                    imgNew[imgPointer:imgPointer+img_sub.shape[0],:] = img_sub
     
-                for ee in ellipse:
+                    img_count += 1
+        
+                    ellipse.append(Ellipse(xy=(xpos[partSubinds[particles]]+imgPointer,ypos[partSubinds[particles]]),\
+                                               width = dell[partSubinds[particles]]/diodesize,height=delw[partSubinds[particles]]/diodesize,\
+                                               angle=(ang[partSubinds[particles]]),fill=None,edgecolor='red'))
     
-                    ax.add_artist(ee)
+                    xcen.append(xpos[partSubinds[particles]]+imgPointer)
+                    ycen.append(ypos[partSubinds[particles]])
+        
+                    imgPointer = imgPointer + img_sub.shape[0]; # advance plotting strip pointer
+        
+                if ((imgPointer+img_sub.shape[0]>=bufferShape[0]) or (np.remainder(imgNum+1,1000)==0) or ((iter+1==len(uniqueFrames)) and (particles+1==len(partSubinds)))): # current particle DOES NOT fit within buffer, save current one and begin new one
+                    imgTimeEnd = timeSubinds[particles]
+        
+                    #fileStr = '{}{}fr{:02d}.{}_{}.pdf'.format(plotDirectory, probeName, imgNum, imgTimeStart, imgTimeEnd)
+        
+                    fileStr_base = '{}{}_{}_{}_{}_{}_img'.format(probeName,probeOrient,dateFile,habitStatus,imgTimeStart,imgTimeEnd)
     
-                fig.savefig(fileStr,bbox_inches='tight',pad_inches=0,format='pdf')
-                plt.close(fig)
-                imgPointer = 0; imgNum = imgNum + 1; imgNew = np.ones(bufferShape)
+                    count_imgs = len(fnmatch.filter(os.listdir(plotDirectory),fileStr_base+'*'))
     
-                imgTimeStart = timeSubinds[particles]
-                #imgNew[imgPointer:imgPointer+img_sub.shape[0],:] = img_sub
-                imgPointer = imgPointer + img_sub.shape[0]
+                    fileStr = plotDirectory+fileStr_base+str(count_imgs+1)
     
+                    image = Image.fromarray(imgNew.T.astype(np.uint8))
+                    fig,ax = plt.subplots(figsize=(1700/plt.rcParams['figure.dpi'],128/plt.rcParams['figure.dpi']))
+                    
+                    ax.imshow(image,cmap='gray',origin='lower',resample=False)
+                    #ax.invert_yaxis()
+                    #ax.invert_xaxis()
+                    plt.axis('off')
+                    plt.tight_layout()
+                    print('Saving image to file: {}'.format(fileStr))
+                    print('Total Number of ellipses = {}'.format(len(ellipse)))
+                    print('Total number of images = {}'.format(img_count))
+                    # Plot all ellipses for particles in frame
+        
+                    for ee in ellipse:
+        
+                        ax.add_artist(ee)
+        
+                    fig.savefig(fileStr,bbox_inches='tight',pad_inches=0,format='pdf')
+                    plt.close(fig)
+                    imgPointer = 0; imgNum = imgNum + 1; imgNew = np.ones(bufferShape)
+        
+                    imgTimeStart = timeSubinds[particles]
+                    #imgNew[imgPointer:imgPointer+img_sub.shape[0],:] = img_sub
+                    imgPointer = imgPointer + img_sub.shape[0]
+        
+        
+                    ellipse = []
+                    xcen = []
+                    ycen = []    
     
-                ellipse = []
-                xcen = []
-                ycen = []    
-
-                img_count = 0
+                    img_count = 0
+        
     
-
-                num_iter += 1
+                    num_iter += 1
+        
+                if np.remainder(imgNum+1,1000)==0:
     
-            if np.remainder(imgNum+1,1000)==0:
-
-                #if num_iter==0:
-
-                print('Finished plotting buffer # {}.'.format(imgNum))
+                    #if num_iter==0:
+    
+                    print('Finished plotting buffer # {}.'.format(imgNum))

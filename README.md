@@ -84,8 +84,17 @@ source ./environments/bin/activate
 cd ./STL_models/STL_generation
 python3 SPSG_IMPACTS.py
 ```
-  
+
+> [!WARNING]
+> SHPSG_IMPACTS.py uses some older scipy functions which might make it difficult to run using more recent scipy versions.
+
 ## How to generate a folder of rotated/projected STL particles
+
+
+<p align="center">
+    <img src="assets/Irregular_ex.gif" alt="An example irregular SHPSG-generated STL model with ellipsoid fit and H/V projections with fitted ellipses." width="100%">
+<p>
+
 
 ## How to read simulated STL/ellipsoid models and plot figures
 There are two steps to reading in a folder of STL modeled particles. The first
@@ -204,5 +213,5 @@ source environments/OAP_images_venv/bin/activate
 Then, users can generate buffer strips by using inline commands with python
 
 ```python
-python3 select_Hydroviewer_full.py 20200220 2DS H 000000 235959 48 0.5 3.0 0.2 1.0 0.4 1.0 -90 90 1e-5 all 1 0
+python3 selectHydroViewer_full.py 20230113 2DS V 000000 235959 48 0.5 5.0 0.1 1.0 0.4 1.0 -90 90 1e-5 all 1 0
 ```

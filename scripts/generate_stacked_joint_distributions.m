@@ -19,6 +19,7 @@ if ~exist('m','var')
 load(paths.ellipse_file,'-mat')
 end
 
+% Re-initialize pops struct.
 pops = struct();
 
 % Define output directory specifically for this figure's panels
@@ -28,53 +29,19 @@ switch habit_type
 
     case 'irregular'
     
+        % Schima-identified "Irregular" habit
         habit = 'i';
+        % PCGL temperature level
         Temp_min = -99;
         Temp_max = -18;
-
-        % pba = 0.75;
-        % pcb = 0.75;
-        % abatog = 0.6;
-        % ar_scale = 0.75;
-        % ar_min = 0.2;
-        % ar_exponent = [];
-        % a0 = [];
-        % ds = [];
-        % pbmean = 1.0;
-        % 
-        % rhovar_frac = 0.02;
-        % AR_min = 0.2;
-        % %AR_scale = 0.6;
-        % %AR_exponent = -0.27;
-        % 
-        % AR_scale = 0.62;
-        % AR_exponent = -0.27;
-        % %AR_exponent = [];
-        % 
-        % % BEST SO FAR
-        % %AR_scale = 0.65;
-        % %AR_exponent = -0.35;
         
     case 'linear'
 
+        % Schima-identified "Linear" habit
         habit = 'l';
+        % NGL temperature level
         Temp_min = -8;
         Temp_max = -3;
-
-        % pba = [];
-        % pcb = [];
-        % abatog = [];
-        % ar_scale = [];
-        % ar_min = [];
-        % ar_exponent = [];
-        % a0 = 0.1973;
-        % ds = 0.414;
-        % pbmean = 1.0;
-        % 
-        % rhovar_frac = 0.02;
-        % AR_min = 0.2;
-        % AR_scale = 0.6; 
-        % AR_exponent = -0.27;
 
 end
 

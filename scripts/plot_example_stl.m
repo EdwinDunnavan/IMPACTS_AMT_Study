@@ -18,7 +18,6 @@ sim_dir = fullfile(paths.simulations,sim_example,test_example,'/');
 
 ind = 1;
 
-%stemp = read_stl_data('/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/');
 stemp = read_stl_data(sim_dir);
 sobj_2 = read_stl_particle(sim_dir,ind);
 plot_stl_particle(sobj_2);

@@ -3,9 +3,18 @@
 %% Read in stl particle and minimum volume enclosing ellipsoid
 
 gif_filename = 'Irregular_ex.gif';
-folder = './Simulation_plot_irreg_example/';
 
-ellipsoid_switch = false;
+simulation_folder = 'Irregular_10k_random/';
+
+%folder = './Simulation_plot_irreg_example/';
+
+paths = get_project_paths();
+
+folder = fullfile(paths.simulations,simulation_folder);
+
+output_folder = fullfile(paths.figures,gif_filename);
+
+ellipsoid_switch = true;
 
 
 %% Read in stl particle and properties
@@ -107,7 +116,7 @@ sobj = read_stl_particle_init(sdata,ff);
 sobj = rotate_particle(sobj,sobj.ellipsoid.phi,sobj.ellipsoid.theta,sobj.ellipsoid.psi);
 
 %% Generate/read probe images
-sobj = particle2probe(sobj,pix_size);
+sobj = particle2probe(sobj,0.01);
 
 %% NOTE: try modifying so that rotations/scaling/etc are performed on direct read of particle from stl file
 temp = sobj.particle.TR;
@@ -257,11 +266,11 @@ for ff = 1 : length(im)
 
     if ff == 1 
 
-        imwrite(A,map,strcat(folder,gif_filename),'gif',LoopCount=0,DelayTime=1./30)
+        imwrite(A,map,output_folder,'gif',LoopCount=0,DelayTime=1./30)
 
     else
 
-        imwrite(A,map,strcat(folder,gif_filename),'gif',WriteMode='append',DelayTime=1./30)
+        imwrite(A,map,output_folder,'gif',WriteMode='append',DelayTime=1./30)
 
     end
 

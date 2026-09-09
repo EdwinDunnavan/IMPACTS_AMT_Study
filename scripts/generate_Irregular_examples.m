@@ -13,12 +13,12 @@ utilsDir = paths.utils;
 simDir = paths.simulations;
 
 %% Set up folder and config
-particleDir = 'Irregular_10k'; % Directory where STL particle files and particle parameter .nc file are located.
+particleDir = 'Irregular_10k_random'; % Directory where STL particle files and particle parameter .nc file are located.
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Irregular_2020_100k';
+test_folder = 'Irregular_2020_1e5';
 
 Nsim = 1e5;
-fit_ellipsoids = false;
+fit_ellipsoids = true;
 simulate_data = true;
 save_pngs = false;
 save_images = false;
@@ -78,8 +78,6 @@ config.simulate_data = simulate_data;
 config.size_switch = size_switch;
 config.particles2sim = particles2sim;
 config.orientations = orientations;
-
-
 
 %% Instrument Filters for 2D-S
 config.use_instrument_filter = true;
