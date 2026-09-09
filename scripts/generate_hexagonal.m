@@ -1,12 +1,16 @@
 %% generate_hexagonal.m
 
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagon_column_mu4_Dm1_newparam_test3/';
+%% Set up filename
+hexDir = 'Linear_MA94_10k';
 
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagonal_column_MA94/';
+%% Set up paths based on Github Parent location
+paths = get_project_paths();
 
-folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Hexagonal_columns_AV70/';
+DataDir = paths.data;
+utilsDir = paths.utils;
+simDir = paths.simulations;
 
-%folder = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Simulation_Column_AR4/';
+folder = fullfile(simDir,hexDir);
 
 if ~isfolder(folder)
 
@@ -18,13 +22,13 @@ end
 N_generate = 1e4;
 part_type = 'columns';
 
-nu = 4;
+nu = 3;
 mu = nu-1;
-Dbar = 0.5;
+Dbar = 0.75;
 Dm = (mu+4)./(mu+1).*Dbar; 
 %Dm = 1.;
 Dlow = 0.35;
-Dhigh = 3.0;
+Dhigh = 5.0;
 
 Dn = Dm./(mu+4);
 nu = mu+1;
@@ -45,17 +49,10 @@ switch part_type
 
     case 'columns'
 
-        W_samp = 0.001.*11.3.*(D_samp.*1000).^0.414; % Columns AV70
-        %W_samp = 0.001.*6.96.*(D_samp.*1000).^0.5; % Columns MA94
+        %W_samp = 0.001.*11.3.*(D_samp.*1000).^0.414; % Columns AV70
+        W_samp = 0.001.*6.96.*(D_samp.*1000).^0.5; % Columns MA94
 
         aspect_ratio = D_samp./W_samp;
-
-        %% My parameterization
-        %ARmin=0.15;
-        %ARmax=0.5;
-        %bet = (log(Dhigh./Dlow)).^(-1).*log(ARmin./ARmax);
-        %alph = ARmax.*Dlow.^(-bet);
-        %aspect_ratio = 1./(alph.*D_samp.^(bet));
 
 end
 
@@ -66,9 +63,9 @@ sobj = gen_stl_hexagonal(aspect_ratio(ii));
 
 sobj = resize_stl_particle(sobj,D_samp(ii));
 
-stlwrite(sobj.particle.TR,strcat(folder,sprintf('particle_%i_orig.stl',ii)));
+stlwrite(sobj.particle.TR,fullfile(folder,sprintf('particle_%i_orig.stl',ii)));
 
 end
 
 %% Write particle_params.nc file
-write_hexagon_params(strcat(folder,sprintf('particle_params.nc')),D_samp,aspect_ratio,mu,Dm,Dlow,Dhigh);
+write_hexagon_params(fullfile(folder,sprintf('particle_params.nc')),D_samp,aspect_ratio,mu,Dm,Dlow,Dhigh);
