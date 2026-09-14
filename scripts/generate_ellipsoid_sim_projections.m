@@ -2,7 +2,8 @@
 %{
  generate_ellipsoid_sim_projections.m
  
- Generates Figure 16
+ Generates Figure 16 which shows a myraid of marginal distribution aspect ratio tests
+ for different ellipsoid and orientation assumptions along with the 3D aspect ratios.
 
 %}
 
