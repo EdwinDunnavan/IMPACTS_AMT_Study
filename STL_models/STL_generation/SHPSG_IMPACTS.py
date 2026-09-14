@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     size_switch = 'random'
     
-    output_folder = 'Irregular_10k_random'
+    output_folder = 'Irregular_10k_random_NEW'
     
     npar = 10000 # particle number for each parameter group
     
@@ -158,18 +158,25 @@ if __name__ == '__main__':
     else:
     	D = np.ones((1,npar))
     
-    	Ei_min = 0.4  
-    	Ei_max = 0.75 
-    	Fi_min = 0.4 
-    	Fi_max = 0.75 
+    	Ei_min = 0.2  
+    	Ei_max = 0.9 
+    	Fi_min = 0.2 
+    	Fi_max = 0.9 
     
     	Ei = np.random.uniform(Ei_min,Ei_max,size=(1,npar))[0]
     	Fi = np.random.uniform(Fi_min,Fi_max,size=(1,npar))[0]
     
+        # ORIGINAL!!!
+    	#D2_8_min  = 1.0 
+    	#D9_15_min = 1.0
+    	#D2_8_max  = 1.0
+    	#D9_15_max = 1.0
+        
+        # Unlock roughness parameters with high upper bounds to overcome harmonic decay
     	D2_8_min  = 1.0 
+    	D2_8_max  = 5.0
     	D9_15_min = 1.0
-    	D2_8_max  = 1.0
-    	D9_15_max = 1.0
+    	D9_15_max = 10.0
     
     	D2_8 = np.random.uniform(D2_8_min,D2_8_max,size=(1,npar))[0]
     	D9_15 = np.random.uniform(D9_15_min,D9_15_max,size=(1,npar))[0]

@@ -1,11 +1,11 @@
 %% make_comparison_figure.m
 % Generates the three 6-row PDF columns for the Obs vs Sim comparison.
 
-N_sim = 1e5;
-%fyear = {'2020'};
-fyear = {'2022','2023'};
-%habit_type = 'irregular';
-habit_type = 'linear';
+N_sim = 1e6;
+fyear = {'2020'};
+%fyear = {'2022','2023'};
+habit_type = 'irregular';
+%habit_type = 'linear';
 use_instrument_filter = true;
 
 paths = get_project_paths();
@@ -45,39 +45,50 @@ switch true
 
     case (any(strcmp(fyear,'2020')) && (habit=='i'))
 
-        nu = 0.2;
+        %nu = 0.2;
+        nu = 1;
         Dmean = 2.0;
 
-        ang_xz = -40;
-        ang_xy = 45;
-        kappa = 4; % NEW
-        psimean = 0;
-        varpsi = 0.001;
-        
-        pop_frac = 1.0; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
-        ang_xz_2 = -40;
-        ang_xy_2 = -80;
-        kappa_2 = 5;
+        % ang_xz = -40;
+        % ang_xy = 45;
+        % kappa = 4; % NEW
+        % psimean = 0;
+        % varpsi = 0.001;
+        % 
+        % pop_frac = 1.0; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
+        % ang_xz_2 = -40;
+        % ang_xy_2 = -80;
+        % kappa_2 = 5;
 
     % --- 2020: POPULATION 1: Irregular ---
-        pops(1).pop_frac    = 0.95;
+        %pops(1).pop_frac    = 0.95;
+        pops(1).pop_frac    = 1.0;
         pops(1).nu          = 0.2;
         pops(1).Dmean       = 2.0;
-        %pops(1).AR_scale    = 0.62;
-        pops(1).AR_scale    = 0.59;
-        pops(1).AR_exponent = -0.27;
-        pops(1).AR_min      = 0.2;
+        %pops(1).AR_scale    = 0.59;
+       % pops(1).AR_exponent = -0.27;
+        pops(1).AR_scale = 0.59;
+        pops(1).AR_exponent = [];
+       % pops(1).AR_min      = 0.2;
+        pops(1).AR_min      = 0.1;
+        %pops(1).pba         = 0.75;
         pops(1).pba         = 0.75;
         pops(1).pba_exponent= [];
+        %pops(1).pcb         = 0.75;
         pops(1).pcb         = 0.75;
         pops(1).pcb_exponent= [];
         pops(1).abatog      = 0.6;
-        pops(1).rhovar_frac = 0.015;
-        pops(1).ang_xz      = -40;
+        %pops(1).abatog      = 0.85;
+        pops(1).rhovar_frac = 0.02;
+        %pops(1).rhovar_frac = 0.0175;
+        %pops(1).rhovar_frac = 0.015;
+        pops(1).ang_xz      = -48;
         pops(1).ang_xy      = 45;
-        pops(1).kappa       = 4.0;
+        pops(1).kappa       = 4.5;
+        %pops(1).kappa       = 5.0;
         pops(1).psimean     = 0;
         pops(1).varpsi      = 0.001;
+        pops(1).use_3D_density_scaling = true;
 
         % --- POPULATION 2: Columns (The Bump/Elbow) ---
         pops(2).pop_frac    = 1-pops(1).pop_frac;
@@ -220,40 +231,7 @@ switch true
 
 end
 
-
-
 sim_args_pop = {'N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops};
-
-
-% sim_args = {'N', N_sim,...
-%                    'use_instrument_filter', use_instrument_filter,...
-%                    'nu',nu,...
-%                    'Dmean',Dmean,...
-%                    'nu_2',nu_2,...
-%                    'Dmean_2',Dmean_2,...
-%                    'pba',pba,...
-%                    'pcb',pcb,...
-%                    'abatog',abatog,...
-%                    'ar_scale',ar_scale,...
-%                    'ar_min',ar_min,...
-%                    'ar_exponent',ar_exponent,...
-%                    'a0',a0,...
-%                    'ds',ds,...
-%                    'pbmean',pbmean,...
-%                    'ang_xz',ang_xz,...
-%                    'ang_xy',ang_xy,...
-%                    'kappa',kappa,...
-%                    'pop_frac',pop_frac,...
-%                    'ang_xz_2',ang_xz_2,...
-%                    'ang_xy_2',ang_xy_2,...
-%                    'kappa_2',kappa_2,...
-%                    'psimean',psimean,...
-%                    'varpsi',varpsi...
-%                    'rhovar_frac',rhovar_frac,...
-%                    'AR_min',AR_min,...
-%                    'AR_scale',AR_scale,...
-%                    'AR_exponent',AR_exponent};
-
 
 % Define shared axis formatting so everything perfectly aligns across the 3 PDFs
 shared_args = {
@@ -263,7 +241,7 @@ shared_args = {
     'show_fig', true, ...
     'save_fig', false, ...
     'outdir', outdir_comp, ...
-        'ang_ticks', -90:30:90, ...
+    'ang_ticks', -90:30:90, ...
     'ang_ticklabels', {'$-90^{\circ}$', '$-60^{\circ}$','$-30^{\circ}$', '$0^{\circ}$', '$30^{\circ}$', '$60^{\circ}$', '$90^{\circ}$'}, ...
     'AspectRatio_ticks',0.:0.2:1,...
     'AspectRatio_ticklabels',0.:0.2:1,...
@@ -292,12 +270,11 @@ plot_universal_joint(m, 'obs_multi', ...
 % %% Column 2: Simulated Ellipsoids
 fprintf('Generating Ellipsoid Sim Column...\n');
 % ORIG
-%ellip_sim_data = fwd_project_ellipsoids_ORIG(sim_args{:});
 ellip_sim_data = fwd_project_ellipsoids(sim_args_pop{:});
 
 
 plot_universal_joint(ellip_sim_data, 'sim_ellipsoid', ...
-    'habit', 'all', ... % Or whatever habit corresponds to irregulars
+    'habit', 'all', ... 
     shared_args{:});
 
 % movefile(fullfile(outdir_comp, 'Simulation_2DS_All_JointDists_Stack.pdf'), ...

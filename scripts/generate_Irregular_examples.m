@@ -13,11 +13,11 @@ utilsDir = paths.utils;
 simDir = paths.simulations;
 
 %% IRREGULAR: Set up folder and config
-particleDir = 'Irregular_10k_random'; % Directory where STL particle files and particle parameter .nc file are located.
+particleDir = 'Irregular_10k_random_NEW'; % Directory where STL particle files and particle parameter .nc file are located.
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Irregular_2020_1e6';
+test_folder = 'Irregular_2020_NEWFILTER_5e6';
 
-Nsim = 1e6;
+Nsim = 5e6;
 fit_ellipsoids = false;
 simulate_data = true;
 save_pngs = false;
@@ -33,16 +33,18 @@ particles2sim = 'random'; % all - simulate all particles in directory once
                        % random - Randomly select particle from directory
                        % and simulate Nsim number of times
 
-%mu = 0;
-mu = -0.8;
+mu = 0;
+%mu = -0.8;
 %Dm = 1.5;
 Dm = 2.0;
 Dlow = 0.35;
 Dhigh = 5.0;
 
-ang_xz = -40;
+%ang_xz = -40;
+ang_xz = -48;
 ang_xy = 45;
-kappa = 4; % NEW
+%kappa = 4; % NEW
+kappa = 4.5;
 psimean = 0;
 varpsi = 0.001;
 

@@ -4,6 +4,11 @@ function simulate_stl_particles(config)
 
 tic
 
+k_D = 50;
+k_ar = 50;
+k_AR = 30;
+k_N  = 0.1; 
+
 save_pngs   = config.save_pngs;
 save_images = config.save_images;
 save_meshes = config.save_meshes;
@@ -478,15 +483,28 @@ for ff = 1 : Nt
         P_in_xy = max(0, W_array - W_cross_xy) ./ W_array;
         P_in_xz = max(0, W_array - W_cross_xz) ./ W_array;
 
-        P_D_xy    = 1 ./ (1 + exp(-20 .* (L_xy_t - Dthresh)));
-        P_ar_xy   = 1 ./ (1 + exp(-50 .* (ar_xy_t - ar_thresh)));
-        P_AR_xy   = 1 ./ (1 + exp(-30 .* (AR_xy_t - area_thresh)));
-        P_NPix_xy = 1 ./ (1 + exp(-0.015 .* (NPix_xy - NPixel_thresh)));
+        %% NEW
+        P_D_xy    = 1 ./ (1 + exp(-k_D .* (L_xy_t - Dthresh)));
+        P_ar_xy   = 1 ./ (1 + exp(-k_ar .* (ar_xy_t - ar_thresh)));
+        P_AR_xy   = 1 ./ (1 + exp(-k_AR .* (AR_xy_t - area_thresh)));
+        P_NPix_xy = 1 ./ (1 + exp(-k_N .* (NPix_xy - NPixel_thresh)));
 
-        P_D_xz    = 1 ./ (1 + exp(-20 .* (L_xz_t - Dthresh)));
-        P_ar_xz   = 1 ./ (1 + exp(-50 .* (ar_xz_t - ar_thresh)));
-        P_AR_xz   = 1 ./ (1 + exp(-30 .* (AR_xz_t - area_thresh)));
-        P_NPix_xz = 1 ./ (1 + exp(-0.015 .* (NPix_xz - NPixel_thresh)));
+        P_D_xz    = 1 ./ (1 + exp(-k_D .* (L_xz_t - Dthresh)));
+        P_ar_xz   = 1 ./ (1 + exp(-k_ar .* (ar_xz_t - ar_thresh)));
+        P_AR_xz   = 1 ./ (1 + exp(-k_AR .* (AR_xz_t - area_thresh)));
+        P_NPix_xz = 1 ./ (1 + exp(-k_N .* (NPix_xz - NPixel_thresh)));  
+
+
+        %% ORIG
+        % P_D_xy    = 1 ./ (1 + exp(-20 .* (L_xy_t - Dthresh)));
+        % P_ar_xy   = 1 ./ (1 + exp(-50 .* (ar_xy_t - ar_thresh)));
+        % P_AR_xy   = 1 ./ (1 + exp(-30 .* (AR_xy_t - area_thresh)));
+        % P_NPix_xy = 1 ./ (1 + exp(-0.015 .* (NPix_xy - NPixel_thresh)));
+        % 
+        % P_D_xz    = 1 ./ (1 + exp(-20 .* (L_xz_t - Dthresh)));
+        % P_ar_xz   = 1 ./ (1 + exp(-50 .* (ar_xz_t - ar_thresh)));
+        % P_AR_xz   = 1 ./ (1 + exp(-30 .* (AR_xz_t - area_thresh)));
+        % P_NPix_xz = 1 ./ (1 + exp(-0.015 .* (NPix_xz - NPixel_thresh)));
 
         P_keep = P_in_xy * P_in_xz * P_D_xy * P_D_xz * P_ar_xy * P_ar_xz * P_AR_xy * P_AR_xz * P_NPix_xy * P_NPix_xz;
 

@@ -21,15 +21,6 @@ output_folder = fullfile(paths.figures,gif_filename);
 
 part_ind = 60;
 
-%t = linspace(0,2.*pi,60);
-
-%phi_series = 360.*(sin(t));
-%theta_series = 180.*(sin(t./4));
-%psi_series = 360.*(sin(t));
-
-%phi_series = ones(size(t)).*70;
-%theta_series = ones(size(t)).*45;
-%psi_series = rad2deg(t);
 
 %% Specify some arrays for producing rotations in gif
 t = linspace(0,1,60);
@@ -267,20 +258,6 @@ end
 drawnow
 frame = getframe(fig);
 im{ff}=frame2im(frame);
-
-%if ff == 1 
-%    pause(0.1)
-%% loop through all frames and save as gif
-    %gif(strcat(folder,gif_filename),'overwrite',true,'delaytime',1/20,'LoopCount',inf);
-%    exportgraphics(fig,strcat(folder,gif_filename))
-    %imwrite()
-
-%else 
-    %gif
-%    exportgraphics(fig,strcat(folder,gif_filename),'append',true)
-
-%end
-
 
 
 end

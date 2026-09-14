@@ -112,9 +112,19 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
             stdData.V.Dmajor   = 2 .* data.ra_xy_cgal;
             stdData.H.area_ratio = data.area_ratio_xz_cgal;
             stdData.V.area_ratio = data.area_ratio_xy_cgal;
-            stdData.H.habit    = char(data.habit_xz); 
-            stdData.V.habit    = char(data.habit_xy);
-            
+
+            % Create a dummy habit that perfectly matches the requested filter
+            % dummy_habit = habit;
+            % if strcmp(dummy_habit, 'all')
+            %     dummy_habit = 'e'; % Arbitrary char since 'all' bypasses the check
+            % end
+            % 
+            % stdData.H.habit      = repmat(dummy_habit, size(stdData.H.AR)); 
+            % stdData.V.habit      = repmat(dummy_habit, size(stdData.V.AR));
+
+            stdData.H.habit    = char(data.habit_xz)'; 
+            stdData.V.habit    = char(data.habit_xy)';
+
             % Use a safe dummy temperature that always passes the Temp filter
             safe_temp = Tc_max - 1; 
             stdData.H.Temp     = repmat(safe_temp, size(stdData.H.AR));
@@ -227,8 +237,11 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
     indH_temp = (stdData.H.Temp < Tc_max) & (stdData.H.Temp >= Tc_min);
     indV_temp = (stdData.V.Temp < Tc_max) & (stdData.V.Temp >= Tc_min);
 
-    indH = indH_habit & indH_temp;
-    indV = indV_habit & indV_temp;
+    indH_valid = ~isnan(stdData.H.AR);
+    indV_valid = ~isnan(stdData.V.AR);
+
+    indH = indH_habit & indH_temp & indH_valid;
+    indV = indV_habit & indV_temp & indV_valid;
 
     if AspectRatio_switch
         ARH = stdData.H.AR(indH); ARV = stdData.V.AR(indV);

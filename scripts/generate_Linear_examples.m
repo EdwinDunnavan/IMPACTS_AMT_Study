@@ -12,12 +12,12 @@ DataDir = paths.data;
 utilsDir = paths.utils;
 simDir = paths.simulations;
 
-%% IRREGULAR: Set up folder and config
+%% LINEAR: Set up folder and config
 particleDir = 'Linear_MA94_10k'; % Directory where STL particle files and particle parameter .nc file are located.
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Linear_2020_ALL_TEST';
+test_folder = 'Linear_2022_2023_1e6';
 
-Nsim = 1e5;
+Nsim = 1e6;
 fit_ellipsoids = false;
 simulate_data = true;
 save_pngs = false;
@@ -29,30 +29,26 @@ size_switch = 'sample'; % sample - Sample sizes from hexagonal stl files.
                         % gamma - Use gamma distribution to specify sizes.
                    
 
-particles2sim = 'all'; % all - simulate all particles in directory once
+particles2sim = 'random'; % all - simulate all particles in directory once
                        % random - Randomly select particle from directory
                        % and simulate Nsim number of times
 
 
 %% NGL Linear 2020
-ang_xz = -70;
-ang_xy = 80;
-kappa = 8; % NEW
-psimean = 0;
-varpsi = 0.001;
-
-%% NGL Linear 2022-2023
-%ang_xz = -80;
-%ang_xy = -70;
+%ang_xz = -70;
+%ang_xy = 80;
 %kappa = 8; % NEW
 %psimean = 0;
 %varpsi = 0.001;
 
-
+%% NGL Linear 2022-2023
+ang_xz = -80;
+ang_xy = -70;
+kappa = 8; % NEW
+psimean = 0;
+varpsi = 0.001;
 
 [phimean, thetamean, ~, ~] = ret_angle_3D_proj(ang_xz, ang_xy);
-
-
 
 orientations = struct('phimean',phimean, ...
                       'thetamean',thetamean,... 
@@ -87,11 +83,5 @@ config.ar_thresh     = 0.1;
 config.area_thresh   = 0.2;   
 config.NPixel_thresh = 800;   
 config.pixel_area    = 1e-4;
-
-%% Gamma distribution parameters
-%config.mu = mu;
-%config.Dm = Dm;
-%config.Dlow = Dlow;
-%config.Dhigh = Dhigh;
 
 simulate_stl_particles(config)

@@ -11,12 +11,15 @@ projections and fitted ellipses in the X-Y and X-Z projection planes.
 
 paths = get_project_paths();
 
-sim_example = 'Irregular_Test';
-test_example = 'Random_Gamma_Example';
+%sim_example = 'Irregular_Test';
+%test_example = 'Random_Gamma_Example';
+
+sim_example = 'Irregular_10k_random_NEW';
+test_example = 'Irregular_2020_10k';
 
 sim_dir = fullfile(paths.simulations,sim_example,test_example,'/');
 
-ind = 1;
+ind = 5;
 
 stemp = read_stl_data(sim_dir);
 sobj_2 = read_stl_particle(sim_dir,ind);

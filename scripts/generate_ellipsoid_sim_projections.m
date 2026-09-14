@@ -26,9 +26,23 @@ cmap = 0.95.*flipud(pink);
 %fnames = fieldnames(m);
 %f2020_names = fnames(startsWith(fnames, 'f2020'));
 
-fyear = '2020';
+%fyear = '2020';
 
-fprintf('Extracting 2020 Irregular Observations...\n');
+fyear = {'2022','2023'};
+
+
+
+if strcmp(fyear,'2020')
+
+    yr_str = '2020';
+
+else
+
+    yr_str = '2022-2023';
+
+end
+
+fprintf(sprintf('Extracting %s Irregular Observations...\n',yr_str));
 fnames = fieldnames(m);
 f_names = fnames(startsWith(fnames, strcat('f',fyear)));
 
@@ -56,8 +70,9 @@ ax = tight_subplot(3, 3, [0.05 0.05], [0.15 0.04], [0.05 0.08]);
 %pba_vals = [0.95, 0.75, 0.65];
 %pcb_vals = [0.60, 0.75, 0.95];
 
-pba_vals = [0.95, 0.75, 0.65];
-pcb_vals = [0.60, 0.75, 0.95];
+% NEW
+pba_vals = [0.95, 0.77, 0.65];
+pcb_vals = [0.60, 0.76, 0.95];
 
 % Plotting Colors
 c_obs  = [0.75 0.75 0.75]; % Shaded Grey
@@ -71,28 +86,54 @@ N_sim = 1e6; % Reduced slightly for speed, bump to 1e6 for final
 bins_1d = 0.3:0.005:1.0;
 bins_2d = 0.2:0.01:1.0;
 
+use_instrument_filter = false; % NOTE: The marginal distributions are nearly identical if use_instrument_filter=false!
 
-% Irregular Defaults NEW
-use_instrument_filter = false;
+switch true
 
-pops(1).pop_frac = 1.0; 
-pops(1).nu = 0.2; 
-pops(1).Dmean = 2.0;
-pops(1).ar_min = 0.2;
-pops(1).AR_scale = 0.6;
-pops(1).AR_min  = 0.2;
-pops(1).AR_exponent = -0.27; 
-pops(1).AR_asymp = [];
-pops(1).AR_amp = [];
-pops(1).k_decay = [];
-pops(1).pba_exponent = [];
-pops(1).pcb_exponent = [];
-pops(1).abatog = 0.6; 
-pops(1).rhovar_frac = 0.02;
-pops(1).ang_xz = -40; 
-pops(1).ang_xy = 45; 
-pops(1).kappa = 4;
+    % Irregular Defaults 2020 NEW
+    case any(strcmp(fyear,'2020'))
 
+        pops(1).pop_frac = 1.0; 
+        pops(1).nu = 0.2; 
+        pops(1).Dmean = 2.0;
+        pops(1).ar_min = 0.2;
+        pops(1).AR_scale = 0.6;
+        pops(1).AR_min  = 0.2;
+        pops(1).AR_exponent = -0.27; 
+        pops(1).AR_asymp = [];
+        pops(1).AR_amp = [];
+        pops(1).k_decay = [];
+        pops(1).pba_exponent = [];
+        pops(1).pcb_exponent = [];
+        pops(1).abatog = 0.6; 
+        pops(1).rhovar_frac = 0.02;
+        pops(1).ang_xz = -40; 
+        pops(1).ang_xy = 45; 
+        pops(1).kappa = 3.5;
+        
+    case any(strcmp(fyear,{'2022','2023'}))
+        
+        % Irregular Defaults 2022-2023 NEW
+        % --- 2022-2023: POPULATION 1: Irregular ---
+        pops(1).pop_frac    = 0.70;
+        pops(1).nu          = 0.2;
+        pops(1).Dmean       = 0.5;
+        pops(1).AR_scale    = 0.59;
+        pops(1).AR_exponent = -0.27;
+        pops(1).AR_min      = 0.2;
+        pops(1).pba         = 0.78;
+        pops(1).pba_exponent= [];
+        pops(1).pcb         = 0.78;
+        pops(1).pcb_exponent= [];
+        pops(1).abatog      = 0.6;
+        pops(1).rhovar_frac = 0.015;
+        pops(1).ang_xz      = -40;
+        pops(1).ang_xy      = -10;
+        pops(1).kappa       = 3;
+        pops(1).psimean     = 0;
+        pops(1).varpsi      = 0.001;
+
+end
 
 % Irregular Defaults NEW
 % use_instrument_filter = false;
@@ -115,21 +156,21 @@ pops(1).kappa = 4;
 % AR_scale = 0.6; 
 % AR_exponent = -0.27;
 
-sim_args = {'N', N_sim,...
-                   'use_instrument_filter', use_instrument_filter,...
-                   'ar_scale',ar_scale,...
-                   'ar_min',ar_min,...
-                   'ar_exponent',ar_exponent,...
-                   'a0',a0,...
-                   'ds',ds,...
-                   'pbmean',pbmean,...
-                   'ang_xz',ang_xz,...
-                   'ang_xy',ang_xy,...
-                   'kappa',kappa,...
-                   'rhovar_frac',rhovar_frac,...
-                   'AR_min',AR_min,...
-                   'AR_scale',AR_scale,...
-                   'AR_exponent',AR_exponent};
+% sim_args = {'N', N_sim,...
+%                    'use_instrument_filter', use_instrument_filter,...
+%                    'ar_scale',ar_scale,...
+%                    'ar_min',ar_min,...
+%                    'ar_exponent',ar_exponent,...
+%                    'a0',a0,...
+%                    'ds',ds,...
+%                    'pbmean',pbmean,...
+%                    'ang_xz',ang_xz,...
+%                    'ang_xy',ang_xy,...
+%                    'kappa',kappa,...
+%                    'rhovar_frac',rhovar_frac,...
+%                    'AR_min',AR_min,...
+%                    'AR_scale',AR_scale,...
+%                    'AR_exponent',AR_exponent};
 
 %% 4. Master Loop over Rows
 for row = 1:3
@@ -249,13 +290,13 @@ for row = 1:3
     
     % Titles (Row 1 Only)
     if row == 1
-        title(ax_H, 'Horizontal', 'Interpreter', 'latex', 'FontSize', 16);
-        title(ax_V, 'Vertical', 'Interpreter', 'latex', 'FontSize', 16);
-        title(ax_B, '3D Ellipsoid Aspect Ratios', 'Interpreter', 'latex', 'FontSize', 16);
+        title(ax_H, 'Horizontal', 'Interpreter', 'latex', 'FontSize', 18);
+        title(ax_V, 'Vertical', 'Interpreter', 'latex', 'FontSize', 18);
+        title(ax_B, '3D Ellipsoid Aspect Ratios', 'Interpreter', 'latex', 'FontSize', 18);
     end
     
     % Y-Labels (Col 1 & 3 Only)
-    ylabel(ax_H, 'Probability Density', 'Interpreter', 'latex', 'FontSize', 14);
+    ylabel(ax_H, 'Probability Density', 'Interpreter', 'latex', 'FontSize', 16);
     ylabel(ax_B, '$\varphi_{ca}$', 'rotation',270,'verticalalignment','bottom', 'Interpreter', 'latex', 'FontSize', 26);
     set(ax_V, 'YTickLabel', ''); % Hide middle panel Y-labels
     
@@ -263,8 +304,8 @@ for row = 1:3
 
     % X-Labels (Row 3 Only)
     if row == 3
-        xlabel(ax_H, '2D Ellipse Aspect Ratio', 'Interpreter', 'latex', 'FontSize', 14);
-        xlabel(ax_V, '2D Ellipse Aspect Ratio', 'Interpreter', 'latex', 'FontSize', 14);
+        xlabel(ax_H, '2D Ellipse Aspect Ratio', 'Interpreter', 'latex', 'FontSize', 16);
+        xlabel(ax_V, '2D Ellipse Aspect Ratio', 'Interpreter', 'latex', 'FontSize', 16);
         x_pba = xlabel(ax_B, '$\varphi_{ba}$', 'Interpreter', 'latex', 'FontSize', 26);
         set(x_pba,'units','normalized');
         x_pba_pos = get(x_pba,'position');
@@ -297,7 +338,7 @@ hold(leg_ax, 'off');
 
 lgd = legend(leg_ax, [p1, p2, p3, p4, p5], ...
     {'IMPACTS 2020', 'Irregular 2020', 'Parallel $\bar{\psi}_p$', 'Skewed $\bar{\psi}_p$', 'Orthogonal $\bar{\psi}_p$'}, ...
-    'Interpreter', 'latex', 'FontSize', 12, 'Orientation', 'horizontal', 'NumColumns', 5);
+    'Interpreter', 'latex', 'FontSize', 14, 'Orientation', 'horizontal', 'NumColumns', 5);
 
 % Position legend at the very bottom center
 %lgd.Position = [0.5 - lgd.Position(3)/2, 0.02, lgd.Position(3), lgd.Position(4)];
@@ -306,33 +347,3 @@ set(lgd,'linewidth',2)
 
 lgd.Position = [0.108716563298676,0.0121875,0.774999233046528,0.034427083333333];
 
-
-
-
-
-% %% Set up paths based on Github Parent location
-% paths = get_project_paths();
-% 
-% if ~exist('m','var')
-% load(paths.ellipse_file,'-mat')
-% end
-% 
-% % Define output directory specifically for this figure's panels
-% outdir_comp = paths.figures;
-% 
-% %% Get Schima-identified irregular particles from 2020
-% 
-% 
-% 
-% %% Generate bivariate beta distribution contour plots
-% 
-% 
-% %% Generate histogram lines
-% fig = figure('units','normalized'); 
-% 
-% for hh = 1 : 9
-% ax = subplots(3,3,1);
-% 
-% histogram(m.f20200118.H.AR(m.f20200118.H.habit=='i'),'normalization','pdf','displaystyle','stairs','EdgeColor',[0.5 0.5 0.5]);
-% 
-% end

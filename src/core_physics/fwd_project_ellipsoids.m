@@ -2,7 +2,6 @@ function m = fwd_project_ellipsoids(varargin)
 % SIMULATE_ELLIPSOID_PROJECTIONS Consolidated forward simulator for joint
 % distributions of projected ellipse characteristics. 
 
-
     abamax = 20;
 
     %% 0. Instrument default parameters
@@ -14,43 +13,108 @@ function m = fwd_project_ellipsoids(varargin)
     NPixel_thresh = 800;   % Minimum pixels (1 pixel = 10um x 10um = 1e-4 mm^2)
     pixel_area    = 1e-4;  % mm^2
 
+    %% ORIG!!
+    %k_D = 20;
+    %k_ar = 50;
+    %k_AR = 30;
+    %k_N  = 0.015;
+
+    %% NEW !!
+    k_D = 50;
+    k_ar = 50;
+    k_AR = 30;
+    k_N  = 0.1; 
+
     %% 1. Default Parameters (Based on PAPER IRREGULAR 2020)
-    pops(1).pop_frac = 1.0; 
-    pops(1).nu = 0.2; 
-    pops(1).Dmean = 2.0;
-    %pops(1).ar_scale = 0.68; 
-    %pops(1).ar_exponent = []; 
-    pops(1).ar_min = 0.1;
-    pops(1).AR_scale = 0.6;
-    pops(1).AR_min  = 0.2;
-    pops(1).AR_exponent = -0.27; 
-    pops(1).AR_asymp = [];
-    pops(1).AR_amp = [];
-    pops(1).k_decay = [];
-    pops(1).pba = 0.75;
-    pops(1).pba_exponent = [];
-    pops(1).pcb = 0.75;
-    pops(1).pcb_exponent = [];
-    pops(1).abatog = 0.6; 
-    pops(1).rhovar_frac = 0.02;
-    pops(1).ang_xz = -40; 
-    pops(1).ang_xy = 45; 
-    pops(1).kappa = 4;
-    pops(1).psimean = 0; 
-    pops(1).varpsi = 0.001;
-    %pops(1).a0 = [];
-    %pops(1).ds = [];
-    %pops(1).ac = [];
-    %pops(1).bc = [];
-   % pops(1).pbmean = [];
+    default_pop.pop_frac = 1.0; 
+    default_pop.nu = 0.2; 
+    default_pop.Dmean = 2.0;
+    default_pop.ar_min = 0.1;
+    default_pop.AR_scale = 0.6;
+    default_pop.AR_min  = 0.2;
+    default_pop.AR_exponent = -0.27; 
+    default_pop.AR_asymp = [];
+    default_pop.AR_amp = [];
+    default_pop.k_decay = [];
+    default_pop.pba = 0.75;
+    default_pop.pba_exponent = [];
+    default_pop.pcb = 0.75;
+    default_pop.pcb_exponent = [];
+    default_pop.abatog = 0.6; 
+    default_pop.rhovar_frac = 0.02;
+    default_pop.use_3D_density_scaling = false; % NEW: Toggle for rho^(2/3) postulate
+    default_pop.ang_xz = -40; 
+    default_pop.ang_xy = 45; 
+    default_pop.kappa = 4;
+    default_pop.psimean = 0; 
+    default_pop.varpsi = 0.001;
+
+
+   %  pops(1).pop_frac = 1.0; 
+   %  pops(1).nu = 0.2; 
+   %  pops(1).Dmean = 2.0;
+   %  %pops(1).ar_scale = 0.68; 
+   %  %pops(1).ar_exponent = []; 
+   %  pops(1).ar_min = 0.1;
+   %  pops(1).AR_scale = 0.6;
+   %  pops(1).AR_min  = 0.2;
+   %  pops(1).AR_exponent = -0.27; 
+   %  pops(1).AR_asymp = [];
+   %  pops(1).AR_amp = [];
+   %  pops(1).k_decay = [];
+   %  pops(1).pba = 0.75;
+   %  pops(1).pba_exponent = [];
+   %  pops(1).pcb = 0.75;
+   %  pops(1).pcb_exponent = [];
+   %  pops(1).abatog = 0.6; 
+   %  pops(1).rhovar_frac = 0.02;
+   %  pops(1).use_density_scaling = false;
+   %  pops(1).ang_xz = -40; 
+   %  pops(1).ang_xy = 45; 
+   %  pops(1).kappa = 4;
+   %  pops(1).psimean = 0; 
+   %  pops(1).varpsi = 0.001;
+   %  %pops(1).a0 = [];
+   %  %pops(1).ds = [];
+   %  %pops(1).ac = [];
+   %  %pops(1).bc = [];
+   % % pops(1).pbmean = [];
+
+   user_pops = default_pop;
 
     for nn = 1 : 2 : length(varargin)
         switch varargin{nn}
             case 'N', N = varargin{nn+1};
             case 'use_instrument_filter', use_instrument_filter = varargin{nn+1};
-            case 'pops', pops = varargin{nn+1};
+            case 'pops', user_pops = varargin{nn+1};    
+            %case 'pops', pops = varargin{nn+1};
+
         end
     end
+
+    %% 1b. Merge User Populations with Defaults
+    num_pops = length(user_pops);
+    
+    % Preallocate the final pops array using the complete default structure
+    pops = repmat(default_pop, 1, num_pops);
+    
+    % Loop through each user-provided population and overwrite the default fields
+    for i = 1:num_pops
+        user_fields = fieldnames(user_pops);
+        for j = 1:length(user_fields)
+            field = user_fields{j};
+            val = user_pops(i).(field);
+            
+            % If the user value is empty BUT the default is not empty, 
+            % this is MATLAB padding the struct array. Skip overwriting!
+            if isempty(val) && ~isempty(default_pop.(field))
+                continue;
+            end
+            
+            pops(i).(field) = val;
+        end
+    end
+
 
     %% 2. Pre-Calculations for all N-Populations
     num_pops = length(pops);
@@ -72,8 +136,6 @@ function m = fwd_project_ellipsoids(varargin)
         p_cb = pops(i).pcb;
         abg  = pops(i).abatog;
         
-       % if isscalar(p_ba) && isscalar(p_cb) && isscalar(abg) && isempty() && isempty(ds) 
-
        if isempty(pops(i).pba_exponent) && isempty(pops(i).pcb_exponent)
 
             pbmin = p_ba / (1 - p_ba);
@@ -120,8 +182,10 @@ function m = fwd_project_ellipsoids(varargin)
         c          = zeros(1, N);
         rho_mu     = zeros(1, N);
         rhovar_dyn = zeros(1, N);
+        ar_min_dyn = zeros(1,N);
         RandVMF    = zeros(N, 3);
         psi_p      = zeros(1, N);
+        %use_3D_mask = false(1, N);
 
         %% 4b. Assign Independent Physics per Population
         for i = 1:num_pops
@@ -133,21 +197,36 @@ function m = fwd_project_ellipsoids(varargin)
             a_temp = pd{i}.random([1, n_mask]) ./ 2;
             a(mask) = a_temp;
 
-            % 2. 3D Shape (Aspect Ratios)
-            %if isempty(pops(i).a0) || isempty(pops(i).ds)
-
+            % 2. 3D Shape (Aspect Ratios) NEW APPROACH
             if isempty(pops(i).pba_exponent) && isempty(pops(i).pcb_exponent)
             
-                % --- IRREGULAR MODE ---
-                phiba_samp = betarnd(a_ba(i), b_ba(i), [1, n_mask]);
-                phica_samp = phiba_samp .* betarnd(a_ba(i) + b_ba(i), b_cb(i), [1, n_mask]);
+                % --- IRREGULAR MODE (Static Interval-Mapped Symmetry) ---
+                % 1. Normalize target means
+                norm_mu_ba = (pops(i).pba - pops(i).ar_min) / (1.0 - pops(i).ar_min);
+                norm_mu_cb = (pops(i).pcb - pops(i).ar_min) / (1.0 - pops(i).ar_min);
+                
+                % Clamp for safety
+                norm_mu_ba = max(0.01, min(0.99, norm_mu_ba));
+                norm_mu_cb = max(0.01, min(0.99, norm_mu_cb));
+                
+                % 2. Calculate symmetric Beta parameters (using abatog for variance scaling)
+                nu_ar = abamax * pops(i).abatog;
+                alpha_ba = norm_mu_ba * nu_ar; beta_ba = (1 - norm_mu_ba) * nu_ar;
+                alpha_cb = norm_mu_cb * nu_ar; beta_cb = (1 - norm_mu_cb) * nu_ar;
+                
+                % 3. Sample on [0, 1] and map to [ar_min, 1.0]
+                phiba_samp = pops(i).ar_min + betarnd(alpha_ba, beta_ba, [1, n_mask]) .* (1.0 - pops(i).ar_min);
+                phicb_samp = pops(i).ar_min + betarnd(alpha_cb, beta_cb, [1, n_mask]) .* (1.0 - pops(i).ar_min);
+                
+                % 4. Combine for c/a
+                phica_samp = phiba_samp .* phicb_samp;
                 
             else
                 
-                % --- DYNAMIC POWER-LAW MODE (Columns / Plates) ---
+                % --- DYNAMIC POWER-LAW MODE (Interval-Mapped Symmetry) ---
                 D_maj = 2 .* a_temp;
                 
-                % Compute b/a
+                % Compute b/a dynamic targets
                 if ~isempty(pops(i).pba_exponent)
                     pba_dyn = pops(i).pba .* D_maj .^ pops(i).pba_exponent;
                 else
@@ -156,7 +235,7 @@ function m = fwd_project_ellipsoids(varargin)
                 pba_dyn(pba_dyn > 0.99) = 0.99; 
                 pba_dyn(pba_dyn < pops(i).ar_min) = pops(i).ar_min;
                 
-                % Compute c/b
+                % Compute c/b dynamic targets
                 if ~isempty(pops(i).pcb_exponent)
                     pcb_dyn = pops(i).pcb .* D_maj .^ pops(i).pcb_exponent;
                 else
@@ -165,37 +244,80 @@ function m = fwd_project_ellipsoids(varargin)
                 pcb_dyn(pcb_dyn > 0.99) = 0.99; 
                 pcb_dyn(pcb_dyn < pops(i).ar_min) = pops(i).ar_min;
                 
-                % Calculate dynamic Beta parameters (Vectorized)
-                pbmin = pba_dyn ./ (1 - pba_dyn);
-                pcmin = pba_dyn .* pcb_dyn ./ (1 - pcb_dyn);
-                abamin = max(pbmin, pcmin);
+                % 1. Normalize the dynamic target means to [ar_min, 1.0]
+                norm_mu_ba = (pba_dyn - pops(i).ar_min) ./ (1.0 - pops(i).ar_min);
+                norm_mu_cb = (pcb_dyn - pops(i).ar_min) ./ (1.0 - pops(i).ar_min);
                 
-                a_ba_dyn = pops(i).abatog .* abamax + (1 - pops(i).abatog) .* abamin;
-                b_ba_dyn = ((1 ./ pba_dyn) - 1) .* a_ba_dyn;
-                b_cb_dyn = ((1 ./ pcb_dyn) - 1) .* a_ba_dyn ./ pba_dyn;
-
-                % Sample
-                phiba_samp = betarnd(a_ba_dyn, b_ba_dyn);
-                phica_samp = phiba_samp .* betarnd(a_ba_dyn + b_ba_dyn, b_cb_dyn);
+                % Clamp for safety
+                norm_mu_ba(norm_mu_ba > 0.99) = 0.99; norm_mu_ba(norm_mu_ba < 0.01) = 0.01;
+                norm_mu_cb(norm_mu_cb > 0.99) = 0.99; norm_mu_cb(norm_mu_cb < 0.01) = 0.01;
                 
+                % 2. Calculate symmetric Beta parameters
+                nu_ar = abamax * pops(i).abatog; 
                 
-                % % --- POWERLAW MODE ---
-                % if pops(i).pbmean <= 0.99
-                %     alph = pops(i).pbmean / (1 - pops(i).pbmean);
-                %     phib_samp1 = betarnd(alph, 1, [1, n_mask]);
-                % else
-                %     phib_samp1 = 1.0;
-                % end
-                % 
-                % if pops(i).ds <= 1.0
-                %     c_temp = astar(i) .* a_temp.^pops(i).ds;
-                % else
-                %     c_temp = 0.001 .* 6.96 .* (a_temp .* 2000).^0.5; % Columns MA94
-                % end
-                % 
-                % b(mask) = c_temp .* phib_samp1 + (1 - phib_samp1) .* a_temp;
-                % c(mask) = c_temp;
+                alpha_ba = norm_mu_ba .* nu_ar;
+                beta_ba  = (1 - norm_mu_ba) .* nu_ar;
+                
+                alpha_cb = norm_mu_cb .* nu_ar;
+                beta_cb  = (1 - norm_mu_cb) .* nu_ar;
+                
+                % 3. Sample on [0, 1] and map back to physical interval
+                phiba_samp = pops(i).ar_min + betarnd(alpha_ba, beta_ba) .* (1.0 - pops(i).ar_min);
+                phicb_samp = pops(i).ar_min + betarnd(alpha_cb, beta_cb) .* (1.0 - pops(i).ar_min);
+                
+                % 4. Derive c/a (which guarantees c <= b <= a)
+                phica_samp = phiba_samp .* phicb_samp;
+                
             end
+
+
+
+
+
+            % % 2. 3D Shape (Aspect Ratios)
+            % if isempty(pops(i).pba_exponent) && isempty(pops(i).pcb_exponent)
+            % 
+            %     % --- IRREGULAR MODE ---
+            %     phiba_samp = betarnd(a_ba(i), b_ba(i), [1, n_mask]);
+            %     phica_samp = phiba_samp .* betarnd(a_ba(i) + b_ba(i), b_cb(i), [1, n_mask]);
+            % 
+            % else
+            % 
+            %     % --- DYNAMIC POWER-LAW MODE (Columns / Plates) ---
+            %     D_maj = 2 .* a_temp;
+            % 
+            %     % Compute b/a
+            %     if ~isempty(pops(i).pba_exponent)
+            %         pba_dyn = pops(i).pba .* D_maj .^ pops(i).pba_exponent;
+            %     else
+            %         pba_dyn = repmat(pops(i).pba, 1, n_mask);
+            %     end
+            %     pba_dyn(pba_dyn > 0.99) = 0.99; 
+            %     pba_dyn(pba_dyn < pops(i).ar_min) = pops(i).ar_min;
+            % 
+            %     % Compute c/b
+            %     if ~isempty(pops(i).pcb_exponent)
+            %         pcb_dyn = pops(i).pcb .* D_maj .^ pops(i).pcb_exponent;
+            %     else
+            %         pcb_dyn = repmat(pops(i).pcb, 1, n_mask);
+            %     end
+            %     pcb_dyn(pcb_dyn > 0.99) = 0.99; 
+            %     pcb_dyn(pcb_dyn < pops(i).ar_min) = pops(i).ar_min;
+            % 
+            %     % Calculate dynamic Beta parameters (Vectorized)
+            %     pbmin = pba_dyn ./ (1 - pba_dyn);
+            %     pcmin = pba_dyn .* pcb_dyn ./ (1 - pcb_dyn);
+            %     abamin = max(pbmin, pcmin);
+            % 
+            %     a_ba_dyn = pops(i).abatog .* abamax + (1 - pops(i).abatog) .* abamin;
+            %     b_ba_dyn = ((1 ./ pba_dyn) - 1) .* a_ba_dyn;
+            %     b_cb_dyn = ((1 ./ pcb_dyn) - 1) .* a_ba_dyn ./ pba_dyn;
+            % 
+            %     % Sample
+            %     phiba_samp = betarnd(a_ba_dyn, b_ba_dyn);
+            %     phica_samp = phiba_samp .* betarnd(a_ba_dyn + b_ba_dyn, b_cb_dyn);
+            % 
+            % end
 
             
             b(mask) = a_temp .* phiba_samp;
@@ -214,21 +336,28 @@ function m = fwd_project_ellipsoids(varargin)
             % Clamp Area Ratios for this specific population
             rho_temp(rho_temp > 0.99) = 0.99;
             rho_temp(rho_temp < pops(i).AR_min) = pops(i).AR_min;
+
+            % % NEW: Translate 2D Area Ratio targets back to 3D Density targets if flagged
+            % if isfield(pops(i), 'use_3D_density_scaling') && pops(i).use_3D_density_scaling
+            %     use_3D_mask(mask) = true;
+            %     rho_temp = rho_temp .^ (3/2);             % Map 2D mean to 3D mean
+            %     ar_min_dyn(mask) = pops(i).AR_min .^ (3/2); % Map 2D floor to 3D floor
+            % else
+            %     ar_min_dyn(mask) = pops(i).AR_min;
+            % end
+
+
+            %if isfield(pops(i), 'use_3D_density_scaling') && pops(i).use_3D_density_scaling
+            %    use_3D_mask(mask) = true;
+            %end
             
             % Assign back to the global array
             rho_mu(mask) = rho_temp;
             rhovar_dyn(mask) = pops(i).rhovar_frac;
+           % ar_min_dyn(mask) = pops(i).AR_min; 
 
-            % 
-            % if ~isempty(pops(i).AR_exponent)
-            %     rho_mu(mask) = pops(i).AR_scale .* (2 .* a(mask)) .^ pops(i).AR_exponent;
-            % else
-            %     rho_mu(mask) = pops(i).AR_scale;
-            % end
-            % 
-            % % 4. Variance Controls
-            % rhovar_dyn(mask) = pops(i).rhovar_frac;
-            
+
+
             % 5. 3D Orientation (vMF + Roll)
             x = sind(thetamean{i}) .* cosd(phimean{i});
             y = sind(thetamean{i}) .* sind(phimean{i});
@@ -289,15 +418,76 @@ function m = fwd_project_ellipsoids(varargin)
         L_xz_t = 2 .* ra_xz_t;
         ar_xz_t = rb_xz_t ./ ra_xz_t;
 
-        %% 4d. Calculate Area Ratios internally to evaluate NPixel filter
-        nu_rho = max((1 ./ rhovar_dyn) - 1, 2); 
-        alpha_rho = rho_mu .* nu_rho; 
-        beta_rho  = (1 - rho_mu) .* nu_rho;
+
+        %% 4d. Calculate Area Ratios using Interval Mapping for Symmetry
+        % TESTING!!!!
+        % Normalize the target mean to the interval [ar_min_dyn, 1.0]
+        norm_mu = (rho_mu - ar_min_dyn) ./ (1.0 - ar_min_dyn);
         
-        AR_xy_t = betarnd(alpha_rho, beta_rho);
-        AR_xz_t = betarnd(alpha_rho, beta_rho);
+        % Safety clamp to prevent alpha/beta from blowing up to infinity
+        norm_mu(norm_mu > 0.99) = 0.99;
+        norm_mu(norm_mu < 0.01) = 0.01;
+
+        % Calculate symmetric Beta parameters on the normalized interval
+        nu_rho = max((1 ./ rhovar_dyn) - 1, 2); 
+        alpha_rho = norm_mu .* nu_rho; 
+        beta_rho  = (1 - norm_mu) .* nu_rho;
+        
+        % Sample from the (now symmetric) Beta distribution
+        AR_xy_norm = betarnd(alpha_rho, beta_rho);
+        AR_xz_norm = betarnd(alpha_rho, beta_rho);
+
+        % Map the values back to the physical [AR_min, 1.0] interval directly
+        AR_xy_t = ar_min_dyn + AR_xy_norm .* (1.0 - ar_min_dyn);
+        AR_xz_t = ar_min_dyn + AR_xz_norm .* (1.0 - ar_min_dyn);
 
 
+        % %% 4d. Calculate Area Ratios using Interval Mapping for Symmetry
+        % % Normalize the target mean to the interval [ar_min_dyn, 1.0]
+        % norm_mu = (rho_mu - ar_min_dyn) ./ (1.0 - ar_min_dyn);
+        % 
+        % % Safety clamp to prevent alpha/beta from blowing up to infinity
+        % norm_mu(norm_mu > 0.99) = 0.99;
+        % norm_mu(norm_mu < 0.01) = 0.01;
+        % 
+        % % Calculate symmetric Beta parameters on the normalized interval
+        % nu_rho = max((1 ./ rhovar_dyn) - 1, 2); 
+        % alpha_rho = norm_mu .* nu_rho; 
+        % beta_rho  = (1 - norm_mu) .* nu_rho;
+        % 
+        % % Sample from the (now symmetric) Beta distribution
+        % AR_xy_norm = betarnd(alpha_rho, beta_rho);
+        % AR_xz_norm = betarnd(alpha_rho, beta_rho);
+        % 
+        % % Map the values back to the physical [AR_min, 1.0] interval
+        % AR_xy_t = ar_min_dyn + AR_xy_norm .* (1.0 - ar_min_dyn);
+        % AR_xz_t = ar_min_dyn + AR_xz_norm .* (1.0 - ar_min_dyn);
+        % 
+        % % Apply the dimensional scaling postulate if flagged
+        % if any(use_3D_mask)
+        %     AR_xy_t(use_3D_mask) = AR_xy_t(use_3D_mask) .^ (2/3);
+        %     AR_xz_t(use_3D_mask) = AR_xz_t(use_3D_mask) .^ (2/3);
+        % end
+        % 
+
+
+        % ORIGINAL APPROACH
+        % %% 4d. Calculate Area Ratios internally to evaluate NPixel filter
+        % nu_rho = max((1 ./ rhovar_dyn) - 1, 2); 
+        % alpha_rho = rho_mu .* nu_rho; 
+        % beta_rho  = (1 - rho_mu) .* nu_rho;
+        % 
+        % AR_xy_t = betarnd(alpha_rho, beta_rho);
+        % AR_xz_t = betarnd(alpha_rho, beta_rho);
+        % 
+        % % 2. Apply the dimensional scaling postulate (AR = rho^(2/3)) to flagged populations
+        % if any(use_3D_mask)
+        %     AR_xy_t(use_3D_mask) = AR_xy_t(use_3D_mask) .^ (2/3);
+        %     AR_xz_t(use_3D_mask) = AR_xz_t(use_3D_mask) .^ (2/3);
+        % end
+
+
+        % ORIGINAL!!!
         % rho_mu(rho_mu > 0.99) = 0.99; 
         % rho_mu(rho_mu < AR_min) = AR_min;
         % 
@@ -323,15 +513,15 @@ function m = fwd_project_ellipsoids(varargin)
             NPix_xz = (pi .* ra_xz_t .* rb_xz_t .* AR_xz_t) ./ pixel_area;
 
             % Logistic Roll-offs for smooth detection degradation
-            P_D_xy    = 1 ./ (1 + exp(-20 .* (L_xy_t - Dthresh)));
-            P_ar_xy   = 1 ./ (1 + exp(-50 .* (ar_xy_t - ar_thresh)));
-            P_AR_xy   = 1 ./ (1 + exp(-30 .* (AR_xy_t - area_thresh)));
-            P_NPix_xy = 1 ./ (1 + exp(-0.015 .* (NPix_xy - NPixel_thresh)));
+            P_D_xy    = 1 ./ (1 + exp(-k_D .* (L_xy_t - Dthresh)));
+            P_ar_xy   = 1 ./ (1 + exp(-k_ar .* (ar_xy_t - ar_thresh)));
+            P_AR_xy   = 1 ./ (1 + exp(-k_AR .* (AR_xy_t - area_thresh)));
+            P_NPix_xy = 1 ./ (1 + exp(-k_N .* (NPix_xy - NPixel_thresh)));
 
-            P_D_xz    = 1 ./ (1 + exp(-20 .* (L_xz_t - Dthresh)));
-            P_ar_xz   = 1 ./ (1 + exp(-50 .* (ar_xz_t - ar_thresh)));
-            P_AR_xz   = 1 ./ (1 + exp(-30 .* (AR_xz_t - area_thresh)));
-            P_NPix_xz = 1 ./ (1 + exp(-0.015 .* (NPix_xz - NPixel_thresh)));
+            P_D_xz    = 1 ./ (1 + exp(-k_D .* (L_xz_t - Dthresh)));
+            P_ar_xz   = 1 ./ (1 + exp(-k_ar .* (ar_xz_t - ar_thresh)));
+            P_AR_xz   = 1 ./ (1 + exp(-k_AR .* (AR_xz_t - area_thresh)));
+            P_NPix_xz = 1 ./ (1 + exp(-k_N .* (NPix_xz - NPixel_thresh)));
 
             % Total Probability (Stereo: must pass on both cameras)
             P_keep = P_in_xy .* P_in_xz .* P_D_xy .* P_D_xz .* P_ar_xy .* P_ar_xz .* ...
