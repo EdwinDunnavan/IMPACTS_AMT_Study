@@ -11,11 +11,17 @@ projections and fitted ellipses in the X-Y and X-Z projection planes.
 
 paths = get_project_paths();
 
+sim_example = 'Simulation_Dendrite';
+test_example = 'IMPACTS_2020_N2e5_habit';
+
 %sim_example = 'Irregular_Test';
 %test_example = 'Random_Gamma_Example';
 
-sim_example = 'Irregular_10k_random_NEW';
-test_example = 'Irregular_2020_10k';
+%sim_example = 'Irregular_10k_random_NEW';
+%test_example = 'Irregular_2020_10k';
+
+%sim_example = 'Irregular_10k_random_constrained';
+%test_example = 'Irregular_2020_1e6';
 
 sim_dir = fullfile(paths.simulations,sim_example,test_example,'/');
 

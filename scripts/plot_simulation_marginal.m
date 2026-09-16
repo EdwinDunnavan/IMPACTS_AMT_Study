@@ -2,22 +2,16 @@
 %{
  plot_simulation_marginal.m
 
- Description: Plots Figure 19.
+ Description: Plots Figure 18.
  
 %}
 
-fdir = '/localdata/edunnavan/Simulations/OAP_ellipsoid/';
+paths = init_project();
 
-%paths = get_project_paths();
+simDir = paths.simulations;
 
-folders = {'Simulation_CappedColumns/','Simulation_Columns_AR10/','Simulation_Dendrite_2/','Hexagonal_plate_D74/','Simulation_BR03/','Simulation_BR04/','Simulation_BR08/'};
+folders = {'Simulation_CappedColumns/','Simulation_Columns_AR10/','Simulation_Dendrite/','Simulation_Plates/','Simulation_BR03/','Simulation_BR04/','Simulation_BR08/'};
 test_folders = {'IMPACTS_2020_N2e5_habit/','IMPACTS_2020_N2e5_habit/','IMPACTS_2020_N2e5_habit/','IMPACTS_2020_N2e5_habit/','IMPACTS_2020_N2e5_habit/','IMPACTS_2020_N2e5_habit/','IMPACTS_2020_N2e5_habit/'};
-
-%test_folders = {'Gamma_Random_exp_N1e4/','Gamma_Random_exp_N1e4/','Gamma_Random_exp_N1e4/','Random_Fixed_1mm/'};
-
-
-%test_folders = {'Gamma_IMPACTS_2020_exp_N1e4/','Gamma_IMPACTS_2020_exp_N1e4/','Gamma_IMPACTS_2020_exp_N1e4/'};
-
 
 % Labels for the legend (matching the order of folders)
 legend_labels = {'Capped Columns','Needles','Dendrite','Plates','BR03', 'BR04', 'BR08'};
@@ -47,7 +41,7 @@ end
 for hh = 1 : length(test_folders)
 
     % Read data
-    stemp = read_stl_data(strcat(fdir,folders{hh},test_folders{hh}));
+    stemp = read_stl_data(fullfile(simDir,folders{hh},test_folders{hh}));
 
     % Calculate required parameters
     ARH = stemp.rb_xz_cgal ./ stemp.ra_xz_cgal;

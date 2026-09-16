@@ -12,7 +12,9 @@
 % Generates 3x3 grid comparing orientation assumptions against 2020 observations.
 
 %% 1. Set up paths and Load Data
-paths = get_project_paths();
+%paths = get_project_paths();
+
+paths = init_project();
 
 if ~exist('m','var')
     load(paths.ellipse_file,'-mat');

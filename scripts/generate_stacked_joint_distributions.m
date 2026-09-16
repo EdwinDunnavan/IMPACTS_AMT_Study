@@ -8,7 +8,7 @@ habit_type = 'irregular';
 %habit_type = 'linear';
 use_instrument_filter = true;
 
-paths = get_project_paths();
+paths = init_project();
 
 if ~exist('m','var')
 load(paths.ellipse_file,'-mat')
@@ -45,30 +45,15 @@ switch true
 
     case (any(strcmp(fyear,'2020')) && (habit=='i'))
 
-        %nu = 0.2;
-        nu = 1;
-        Dmean = 2.0;
-
-        % ang_xz = -40;
-        % ang_xy = 45;
-        % kappa = 4; % NEW
-        % psimean = 0;
-        % varpsi = 0.001;
-        % 
-        % pop_frac = 1.0; % Fraction of particles in the PRIMARY state (1.0 = standard single mode)
-        % ang_xz_2 = -40;
-        % ang_xy_2 = -80;
-        % kappa_2 = 5;
-
     % --- 2020: POPULATION 1: Irregular ---
         %pops(1).pop_frac    = 0.95;
         pops(1).pop_frac    = 1.0;
-        pops(1).nu          = 0.2;
+        %pops(1).nu          = 0.2;
+        pops(1).nu          = 1.0;
         pops(1).Dmean       = 2.0;
-        %pops(1).AR_scale    = 0.59;
-       % pops(1).AR_exponent = -0.27;
         pops(1).AR_scale = 0.59;
         pops(1).AR_exponent = [];
+      % pops(1).AR_exponent = -0.27;
        % pops(1).AR_min      = 0.2;
         pops(1).AR_min      = 0.1;
         %pops(1).pba         = 0.75;
@@ -84,11 +69,10 @@ switch true
         %pops(1).rhovar_frac = 0.015;
         pops(1).ang_xz      = -48;
         pops(1).ang_xy      = 45;
+        %pops(1).kappa       = 3.0;
         pops(1).kappa       = 4.5;
-        %pops(1).kappa       = 5.0;
         pops(1).psimean     = 0;
         pops(1).varpsi      = 0.001;
-        pops(1).use_3D_density_scaling = true;
 
         % --- POPULATION 2: Columns (The Bump/Elbow) ---
         pops(2).pop_frac    = 1-pops(1).pop_frac;
@@ -116,73 +100,90 @@ switch true
     case (any(strcmp(fyear,{'2022','2023'})) && (habit=='i'))
 
 % --- 2022-2023: POPULATION 1: Irregular ---
-        pops(1).pop_frac    = 0.70;
-        pops(1).nu          = 0.2;
+
+        % BASE!!
+        % pops(1).pop_frac    = 0.8;
+        % pops(1).nu          = 1.0;
+        % pops(1).Dmean       = 0.5;
+        % pops(1).AR_scale    = 0.59;
+        % pops(1).AR_exponent = [];
+        % pops(1).AR_min      = 0.1;
+        % pops(1).pba         = 0.78;
+        % pops(1).pba_exponent= [];
+        % pops(1).pcb         = 0.78;
+        % pops(1).pcb_exponent= [];
+        % pops(1).abatog      = 0.6;
+        % pops(1).rhovar_frac = 0.02;
+        % pops(1).ang_xz      = -40;
+        % pops(1).ang_xy      = -10;
+        % pops(1).kappa       = 4.5;
+        % pops(1).psimean     = 0;
+        % pops(1).varpsi      = 0.001;
+
+        pops(1).pop_frac    = 0.75;
+        pops(1).nu          = 1.0;
         pops(1).Dmean       = 0.5;
-        %pops(1).AR_scale    = 0.62;
         pops(1).AR_scale    = 0.59;
-        pops(1).AR_exponent = -0.27;
-        pops(1).AR_min      = 0.2;
+        pops(1).AR_exponent = [];
+        pops(1).AR_min      = 0.1;
         pops(1).pba         = 0.78;
         pops(1).pba_exponent= [];
         pops(1).pcb         = 0.78;
         pops(1).pcb_exponent= [];
         pops(1).abatog      = 0.6;
-        pops(1).rhovar_frac = 0.015;
-        %pops(1).rhovar_frac = 0.05;
+        pops(1).rhovar_frac = 0.02;
         pops(1).ang_xz      = -40;
-        %pops(1).ang_xy      = -5;
         pops(1).ang_xy      = -10;
-
-        %pops(1).ang_xy      = -85;
-        %pops(1).kappa       = 4;
-        pops(1).kappa       = 3;
+        pops(1).kappa       = 3.5;
         pops(1).psimean     = 0;
-        pops(1).varpsi      = 0.001;
+        pops(1).varpsi      = 0.001;  
 
 
         % --- POPULATION 2: Columns (The Bump/Elbow) ---
+
+        % BASE!
         pops(2).pop_frac    = 1-pops(1).pop_frac;
         pops(2).nu          = 4.0;
-
-        pops(2).Dmean       = 0.4;
-        %pops(2).Dmean       = 0.35; 
-        %pops(2).AR_scale    = 0.68; % Dense/Solid
-        %pops(2).AR_scale    = 0.72;
-
-        % ORIG
-        %pops(2).AR_scale    = 0.65;
-        %pops(2).AR_exponent = -0.15;  
-
-        % NEW
-        pops(2).AR_scale    = 0.65;
-        pops(2).AR_exponent = -0.05;
-
-
-        pops(2).AR_min      = 0.2;
-        %pops(2).pba         = 0.8; % Not bad
-        %pops(2).pcb         = 0.7; % Not bad
-        %pops(2).pba         = 0.75;
-        pops(2).pba         = 0.70;
+        pops(2).Dmean       = 0.8;
+        pops(2).AR_scale    = 0.68;
+        pops(2).AR_exponent = [];
+        pops(2).AR_min      = 0.1;
+        pops(2).pba         = 0.65;
+        pops(2).pba_exponent = -0.2;
         pops(2).pba_exponent= [];
-        %pops(2).pcb         = 0.75;
-        pops(2).pcb         = 0.70;
+        pops(2).pcb         = 0.95;
         pops(2).pcb_exponent= [];
         pops(2).abatog      = 1.0;
-        
-        % NEW
-        pops(2).rhovar_frac = 0.05;
-
-        %pops(2).rhovar_frac = 0.075;
-
-        %pops(2).ang_xz      = -50;
-        pops(2).ang_xz      = -75;
-        %pops(2).ang_xy      = -45;
+        pops(2).rhovar_frac = 0.02;
+        pops(2).ang_xz      = -70;
         pops(2).ang_xy      = -75;
-
-        pops(2).kappa       = 50;
+        pops(2).kappa       = 10;
         pops(2).psimean     = 0;
         pops(2).varpsi      = 0.001;
+
+
+
+
+        % IF USING 2022-2023 COLUMNS!
+
+        % pops(2).pop_frac    = 1.0;
+        % pops(2).nu          = 3;
+        % pops(2).Dmean       = 0.75;
+        % pops(2).AR_scale    = 0.65;
+        % pops(2).AR_exponent = -0.2;
+        % pops(2).AR_min      = 0.2;
+        % pops(2).pba         = 0.2201;
+        % pops(2).pba_exponent = -0.5;
+        % pops(2).pcb         = 0.95;
+        % pops(2).pcb_exponent = [];
+        % pops(2).abatog      = 0.5;
+        % pops(2).rhovar_frac = 0.03;
+        % pops(2).ang_xz      = -80;
+        % pops(2).ang_xy      = -70;
+        % pops(2).kappa       = 8.0;
+        % pops(2).psimean     = 0;
+        % pops(2).varpsi      = 0.001;
+        % pops(2).ar_min      = 0.1;
 
 
     case (any(strcmp(fyear,'2020')) && (habit=='l'))
@@ -210,6 +211,26 @@ switch true
     case (any(strcmp(fyear,{'2022','2023'})) && (habit=='l'))
 
     % --- 2022-2023: POPULATION 1: Columns ---
+    % BASE!!
+        % pops(1).pop_frac    = 1.0;
+        % pops(1).nu          = 3;
+        % pops(1).Dmean       = 0.75;
+        % pops(1).AR_scale    = 0.65;
+        % pops(1).AR_exponent = -0.2;
+        % pops(1).AR_min      = 0.2;
+        % pops(1).pba         = 0.2201;
+        % pops(1).pba_exponent = -0.5;
+        % pops(1).pcb         = 0.95;
+        % pops(1).pcb_exponent = [];
+        % pops(1).abatog      = 0.5;
+        % pops(1).rhovar_frac = 0.03;
+        % pops(1).ang_xz      = -80;
+        % pops(1).ang_xy      = -70;
+        % pops(1).kappa       = 8.0;
+        % pops(1).psimean     = 0;
+        % pops(1).varpsi      = 0.001;
+        % pops(1).ar_min      = 0.1;
+
         pops(1).pop_frac    = 1.0;
         pops(1).nu          = 3;
         pops(1).Dmean       = 0.75;

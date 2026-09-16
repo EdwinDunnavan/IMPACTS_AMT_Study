@@ -54,9 +54,12 @@ if __name__ == '__main__':
     # Initialize the paths
     paths = get_project_paths()
 
-    size_switch = 'random'
+    #size_switch = 'random'
+    size_switch = 'gaussian'
     
-    output_folder = 'Irregular_10k_random_NEW'
+    #output_folder = 'Irregular_10k_random_NEW'
+    
+    output_folder = 'Irregular_10k_gaussian_NEW'
     
     npar = 10000 # particle number for each parameter group
     
@@ -132,6 +135,88 @@ if __name__ == '__main__':
     	#print('Ei shape = ',np.shape(Ei))
     	#raise Exception()
     
+    elif size_switch=='constrained':
+        
+        D = np.ones((1,npar))
+    
+        # 1. Sample Elongation and Flatness (Preserves Aspect Ratio)
+        Ei_min, Ei_max = 0.2, 0.9 
+        Fi_min, Fi_max = 0.2, 0.9 
+    
+        Ei = np.random.uniform(Ei_min, Ei_max, size=(1,npar))[0]
+        Fi = np.random.uniform(Fi_min, Fi_max, size=(1,npar))[0]
+        
+        # 2. Calculate a Macro-Shape Index (0.0 to 1.0)
+        # 0.0 = highly elongated/flat (pristine-like), 1.0 = isometric (aggregate-like)
+        macro_index = (np.minimum(Ei, Fi) - Ei_min) / (Ei_max - Ei_min)
+        
+        # 3. Define Conditional Roundness/Roughness Bounds
+        # Lower bounds stay fixed at 1.0 (smooth)
+        # Tighten the absolute maximums to reduce overall area ratio blobbiness
+        D2_8_max_limit = 4.0   
+        D9_15_max_limit = 7.0  
+        
+        D2_8_dyn_max = 1.0 + macro_index * (D2_8_max_limit - 1.0)
+        D9_15_dyn_max = 1.0 + macro_index * (D9_15_max_limit - 1.0)
+    
+        # 4. Conditionally Sample Roundness and Roughness
+        # np.random.uniform accepts arrays for bounds, mapping element-by-element
+        D2_8 = np.random.uniform(1.0, D2_8_dyn_max)
+        D9_15 = np.random.uniform(1.0, D9_15_dyn_max)
+    
+    elif size_switch=='gaussian':
+        
+        D = np.ones((1,npar))
+        
+        # Sample Elongation and Flatness (Preserves Aspect Ratio)
+        Ei_min, Ei_max = 0.2, 0.9 
+        Fi_min, Fi_max = 0.2, 0.9 
+    
+        Ei = np.random.uniform(Ei_min, Ei_max, size=(1,npar))[0]
+        Fi = np.random.uniform(Fi_min, Fi_max, size=(1,npar))[0]
+        
+        # 2. Simple, Uncoupled Gaussian Sampling for Complexity
+        # Centered to maintain the correct modal Area Ratio, 
+        # with a tight standard deviation to reduce dispersion.
+        D2_8_mean, D2_8_std = 3.0, 0.5
+        D9_15_mean, D9_15_std = 5.5, 1.0
+        
+        D2_8 = np.random.normal(D2_8_mean, D2_8_std, size=(1,npar))[0]
+        D9_15 = np.random.normal(D9_15_mean, D9_15_std, size=(1,npar))[0]
+        
+        # 3. Clip to ensure they stay within physical boundaries
+        D2_8 = np.clip(D2_8, 1.0, 5.0)
+        D9_15 = np.clip(D9_15, 1.0, 10.0)
+        
+        # 2. Calculate a Macro-Shape Index (0.0 to 1.0)
+        # 0.0 = highly elongated/flat (pristine-like), 1.0 = isometric (aggregate-like)
+        #macro_index = (np.minimum(Ei, Fi) - Ei_min) / (Ei_max - Ei_min)
+        
+        # 3. Define Conditional Roundness/Roughness Bounds
+        # Lower bounds stay fixed at 1.0 (smooth)
+        # Tighten the absolute maximums to reduce overall area ratio blobbiness
+        #D2_8_max_limit = 4.0   
+        #D9_15_max_limit = 7.0  
+        
+        #D2_8_dyn_max = 1.0 + macro_index * (D2_8_max_limit - 1.0)
+        #D9_15_dyn_max = 1.0 + macro_index * (D9_15_max_limit - 1.0)
+    
+        # Conditionally Sample Roundness and Roughness using a tight Gaussian
+        # Center the distribution at 60% of the maximum allowed complexity
+        #D2_8_mean = 1.0 + (D2_8_dyn_max - 1.0) * 0.6
+        #D9_15_mean = 1.0 + (D9_15_dyn_max - 1.0) * 0.6
+        
+        # Define a tight standard deviation (e.g., 15% of the range)
+        #D2_8_std = (D2_8_dyn_max - 1.0) * 0.15
+        #D9_15_std = (D9_15_dyn_max - 1.0) * 0.15
+        
+        # Sample normally and clip to ensure we don't violate physical bounds
+        #D2_8 = np.random.normal(D2_8_mean, D2_8_std)
+        #D2_8 = np.clip(D2_8, 1.0, D2_8_dyn_max)
+        
+        #D9_15 = np.random.normal(D9_15_mean, D9_15_std)
+        #D9_15 = np.clip(D9_15, 1.0, D9_15_dyn_max)
+    
     elif size_switch=='fixed':
     
     	Ei_min = 0.4  
@@ -155,7 +240,7 @@ if __name__ == '__main__':
     	D9_15 = (D9_15_min*(D-Dlow)+D9_15_max*(Dhigh-D))/(Dhigh-Dlow)
     
     
-    else:
+    else: # RANDOM!
     	D = np.ones((1,npar))
     
     	Ei_min = 0.2  

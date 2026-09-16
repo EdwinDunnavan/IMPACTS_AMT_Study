@@ -1,10 +1,15 @@
 %% make_figure_14.m
 % Generates the 5 temperature-binned joint distributions for Figure 14.
 
-paths = get_project_paths();
+%paths = get_project_paths();
 
-save_figs = false;
-show_figs = true;
+paths = init_project();
+
+%fyear = {'2020'};
+fyear = {'2022','2023'};
+
+save_figs = true;
+show_figs = false;
 
 if ~exist('m','var')
 load(paths.ellipse_file,'-mat')
@@ -25,7 +30,7 @@ for ii = 1:length(T_max_bins)
 
     % Call the universal joint distribution plotter
     plot_universal_joint(m, 'obs_multi', ...
-        'target_fields', {'2020'}, ...
+        'target_fields', fyear, ...
         'Temp_min', T_min_bins(ii), ...
         'Temp_max', T_max_bins(ii), ...
         'AspectRatio', true, ...

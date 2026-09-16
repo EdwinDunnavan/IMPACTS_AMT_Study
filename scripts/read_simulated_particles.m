@@ -1,25 +1,17 @@
 
 % read_simulated_particles.m
 
-% Reads in Aaron Bansemer's 2DS simulation particles
+% Reads in Aaron Bansemer's 2DS SODA2 simulation particles
 
-%fdir =  'C:\Users\edwin.dunnavan\Documents\IMPACTS\Simulations\Dunnavan Simulations\';
+paths = init_project();
 
-addpath /home/edwin.dunnavan/Documents/UIOPS/
-
-%fdir =  'C:\Users\edwin.dunnavan\Documents\IMPACTS\Simulations\Dunnavan Simulations\';
-
-fdir = '/localdata/edunnavan/Simulations/OAP_ellipsoid/Dunnavan_Simulations/';
-
-%fnameH = '2DS_H-projections.pbp.nc';
-%fnameV = '2DS_V-projections.pbp.nc';
+fdir = paths.data;
 
 fnameH = '2DS_H-projectionsGamma.pbp.nc';
 fnameV = '2DS_V-projectionsGamma.pbp.nc';
 
-fdirH = strcat(fdir,fnameH);
-fdirV = strcat(fdir,fnameV);
-
+fdirH = fullfile(fdir,'SODA2',fnameH);
+fdirV = fullfile(fdir,'SODA2',fnameV);
 
 imageH = ncread(fdirH,'image');
 imageV = ncread(fdirV,'image');
@@ -39,7 +31,6 @@ stopV =  ncread(fdirV,'stopy');
 allinH = ncread(fdirH,'allin');
 allinV = ncread(fdirV,'allin');
 
-
 numparts = 15;
 
 xposH = zeros(1,numparts);
@@ -54,7 +45,7 @@ widthV = zeros(1,numparts);
 lengthV = zeros(1,numparts);
 ellipAngV = zeros(1,numparts);
 
-%%
+%% Plot each particle
 for ii = 1 : numparts
 
     buffpartH = imageH(:,startH(ii):stopH(ii));
@@ -65,26 +56,6 @@ for ii = 1 : numparts
 
     [LH,WH,angH,xH,yH] = CGAL_EllipseSize_UIOPS(cH);
     [LV,WV,angV,xV,yV] = CGAL_EllipseSize_UIOPS(cV);
-
-    % if angH >=0
-    % 
-    %     angH = pi./2-angH;
-    % 
-    % elseif angH<0
-    % 
-    %     angH = -(pi./2-abs(angH));
-    % 
-    % end
-    % 
-    % if angV >=0
-    % 
-    %     angV = pi./2-angV;
-    % 
-    % elseif angV<0
-    % 
-    %     angV = -(pi./2-abs(angV));
-    % 
-    % end
 
     if ii ==1
 
@@ -123,10 +94,6 @@ for ii = 1 : numparts
 end
 
 
-%%
-
-%xpartH(startH(1):stopH(numparts)),ypartH(startH(1):stopH(numparts))
-
 figure;
 ax1 = subplot(2,1,1);
 imH_fig = imagesc(imageH(:,startH(1):stopH(numparts))); colormap(flipud(gray));
@@ -152,10 +119,3 @@ for ii = 1 : numparts
     line(ellipse_xy(1,:),ellipse_xy(2,:),'color','r');
 
 end
-
-
-%[ellipse_xy, sobj.ellipsoid.projection.curr.xy] = ellipse3D(ra_xy,rb_xy,0,0,-rmax,50,0,0,deg2rad(Ellip_ang_xy),2,'g',gca); % Vertical (x-y plane); array perpendicular to aircraft direction
-
-% ellipse_xz_probe =
-% ellipse3D(ra_xz_cgal,rb_xz_cgal,xpos_xz_cgal,rmax,ypos_xz_cgal,50,pi./2,-deg2rad(EllipAng_xz_cgal),0,0,'r',ax_h); % Horizontal2 (x-z plane); array perpendicular to aircraft direction
-%ellipse_xy_probe = ellipse3D(ra_xy_cgal,rb_xy_cgal,xpos_xy_cgal,ypos_xy_cgal,-rmax,50,0,0,deg2rad(EllipAng_xy_cgal),0,'r',ax_v); % Vertical (x-y plane); array perpendicular to aircraft direction

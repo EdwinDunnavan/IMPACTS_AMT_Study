@@ -9,10 +9,44 @@ entitled "Universality of ice particle shapes and orientations as revealed by
 the 2D-S in situ optical array probe."
 
 ## How to generate figures from AMT paper
+Matlab scripts in the /scripts/ directory are meant to for readers to both 
+generated figures in the paper as well as general use scripts.
+
+<div align="center">
+
+| Figure Number | Matlab Script Name
+| :---: | :---: |
+| 1 | N/A |
+| 2 | N/A |
+| 3 | N/A |
+| 4 | plot_example_stl.m and read_simulated_particles.m |
+| 5 | N/A |
+| 6 | plot_habit_fraction_timeseries.m |
+| 7 | N/A |
+| 8 | N/A; generated with selectHydroViewer_full.py in /scripts/HydroViewer/|
+| 9 | IMPACTS_heatmaps.m |
+| 10 | generate_joint_ellipse_cases.m |
+| 11 | generate_joint_ellipse_cases.m |
+| 12 | IMPACTS_boxchart.m |
+| 13 | generate_ar_ang_temp_lvls.m |
+| 14 | generate_stacked_joint_distributions.m |
+| 15 | generate_stacked_joint_distributions.m |
+| 16 | generate_ellipsoid_sim_projections.m |
+| 17 | generate_stacked_joint_distributions.m|
+| 18 | plot_simulation_marginal.m |
+| B1 | IMPACTS_hist_angle_comp_CH.m |
+
+</div>
+
+
 Figure 6 can be generated with the "plot_habit_fraction_timeseries.m" script, 
 Figures 9 and 13 can be generated using the matlab script "IMPACTS_boxchart.m". 
-Figures 10, 11, 12, and 14 can be generated directly from "generate_IMPACTS_figures.m".
-Comparison ellipse fit joint distributions can be generated    
+Figure 12 can be generated 
+Figures 10 and 11 can be generated directly from "generate_joint_ellipse_cases.m"
+whereas Figures 12, and 14 can be generated directly from "generate_stacked_joint_distributions.m".
+  
+F
+Figure B2 can be generated with the "IMPACTS_hist_angle_comp_CH.m" script.
 
 ## How to load and use the ellipse fit data
 The ellipse fit data is available in the /Data directory as a .mat file. This data
@@ -129,6 +163,7 @@ is to read in the folder of STL models with "read_stl_data.m" and the second is 
 read a particular particle from that 
 
 ```matlab
+
 particle_folder = './Data/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/';
 stemp = read_stl_data(particle_folder);
 ```

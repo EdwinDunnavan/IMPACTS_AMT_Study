@@ -258,15 +258,49 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
 
     %% 5. Master Figure Initialization
     if combine_all
-        fs_title = 20; fs_label = 16; fs_tick = 16; fs_cbar = 16;
+        fs_title = 20; fs_label = 18; fs_tick = 18; fs_cbar = 18;
 
         fig = figure('units','normalized','position',[0.0089 0 0.8698 0.8833],'visible',visible);
 
+        left_gap = 0.0425;
+        right_gap = 0.08;
+        gutter = 0.63;
+        lower = 0.085;
+        upper = 0.04;
+
+        % TIGHT SUBPLOT ORDER: Nh, Nw, gap, [lower upper], [left right]
         % Left Pair: 0.02 left margin, 0.58 right margin (Width = 0.40)
-        ax_L = tight_subplot(3, 2, [0.08 0.025], [0.08 0.04], [0.04 0.58]); 
+        %ax_L = tight_subplot(3, 2, [0.08 0.025], [0.08 0.04], [0.04 0.58]); 
+        ax_L = tight_subplot(3, 2, [0.1 0.025], [lower upper], [left_gap (gutter-left_gap)]); 
 
         % Right Pair: 0.54 left margin (creates 0.12 gutter), 0.06 right margin (Width = 0.40)
-        ax_R = tight_subplot(3, 2, [0.08 0.025], [0.08 0.04], [0.54 0.08]);
+        %ax_R = tight_subplot(3, 2, [0.08 0.025], [0.08 0.04], [0.54 0.08]);
+        ax_R = tight_subplot(3, 2, [0.1 0.025], [lower upper], [(gutter-right_gap) right_gap]);
+
+        if align_ticks
+            % Custom Y-positions for a "2+1" Block Layout
+            H = 0.245;           % Slightly shorter to fit the middle gap
+            gap_tight = 0.015;   % Squeeze Row 1 and Row 2
+            gap_label = 0.085;   % Standard gap for Row 2's X-labels
+            
+            y3 = 0.08;                           % Row 3 (Bottom)
+            y2 = y3 + H + gap_label;             % Row 2 (Middle)
+            y1 = y2 + H + gap_tight;             % Row 1 (Top)
+            
+            y_pos = [y1, y2, y3];
+            
+            for row = 1:3
+                for col = 1:2
+                    idx = (row-1)*2 + col;
+                    % Apply to Left Column
+                    pL = get(ax_L(idx), 'Position');
+                    set(ax_L(idx), 'Position', [pL(1), y_pos(row), pL(3), H]);
+                    % Apply to Right Column
+                    pR = get(ax_R(idx), 'Position');
+                    set(ax_R(idx), 'Position', [pR(1), y_pos(row), pR(3), H]);
+                end
+            end
+        end
 
     elseif stack_all
         % 1. Reduce font sizes to prevent text overlap
@@ -410,7 +444,8 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
         grid(ax2, 'on'); set(ax2,'xtick',ang_ticks,'xticklabel',ang_ticklabels); 
         set(ax2,'ytick',AspectRatio_ticks); set(ax2,'yticklabel',{''}); colormap(fig, manga);
 
-        if align_ticks && stack_all
+       % if align_ticks && stack_all
+        if align_ticks && (stack_all || combine_all)
             % Inner panel: Strip labels
             set(ax1, 'xticklabel', ''); set(ax2, 'xticklabel', '');
             xlabel(ax1,''); xlabel(ax2,'');
@@ -525,7 +560,7 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
         grid(ax1, 'on'); set(ax1,'ytick',AspectRatio_ticks,'yticklabels',AspectRatio_ticklabels);
 
         histogram2(ax2,log10(DmajorV),ARV,'displaystyle','tile','Normalization',normalization,'LineStyle','none');
-        xlim(ax2,log10([min(Dmajor_edges) max(Dmajor_edges)])); ylim(ax2,[0 1]);
+        xlim(ax2,log10([min(Dmajor_edges) max(Dmajor_edges)]));  ylim(ax2,[min(xedges) max(xedges)]);
         set(ax2,'ticklabelinterpreter','latex','fontsize',fs_tick,'layer','top','linewidth',1.4,'ticklength',[0.02 0.04]);
         clim(ax2,color_lims); set(ax2,'colorscale',colorscale);
         grid(ax2, 'on'); 
@@ -539,7 +574,8 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
         set(ax2,'xtick',dmajor_ticks,'xticklabel',dmajor_ticklabels);
         set(ax2,'ytick',AspectRatio_ticks); set(ax2,'yticklabel',{''}); colormap(fig, manga);
 
-        if align_ticks && stack_all
+       % if align_ticks && stack_all
+        if align_ticks && (stack_all || combine_all)
             set(ax1, 'xticklabel', ''); set(ax2, 'xticklabel', '');
             xlabel(ax1,''); xlabel(ax2,'');
         else
@@ -576,6 +612,10 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
         elseif stack_all
             title(ax1,sprintf('Horizontal (N=%s)',addComma(length(ARH))),'Interpreter','latex','fontsize',fs_title);
             title(ax2,sprintf('Vertical (N=%s)',addComma(length(ARV))),'Interpreter','latex','fontsize',fs_title);
+
+            %title(ax1, {'Horizontal', sprintf('(N=%s)', addComma(length(ARH)))}, 'Interpreter', 'latex', 'fontsize', fs_title);
+            %title(ax2, {'Vertical', sprintf('(N=%s)', addComma(length(ARV)))}, 'Interpreter', 'latex', 'fontsize', fs_title);
+
 
             if show_cbar
             pos = get(ax2, 'Position'); 
@@ -655,6 +695,7 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
         set(ax2,'xtick',ang_ticks,'xticklabel',ang_ticklabels); colormap(fig, manga);
 
         if align_ticks && stack_all
+       % if align_ticks && (stack_all || combine_all)
             set(ax1, 'xticklabel', ''); set(ax2, 'xticklabel', '');
             xlabel(ax1,''); xlabel(ax2,'');
         else
@@ -923,6 +964,11 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
 
 
         set(ax2,'xtick',ang_ticks,'xticklabel',ang_ticklabels); set(ax2,'ytick',AreaRatio_ticks); set(ax2,'yticklabel',{''}); colormap(fig, manga);
+
+        % if align_ticks && combine_all
+        %     set(ax1, 'xticklabel', ''); set(ax2, 'xticklabel', '');
+        %     xlabel(ax1,''); xlabel(ax2,'');
+        % end
 
         if combine_all || stack_all
 

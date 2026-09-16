@@ -7,8 +7,6 @@ plot_OAP_ellipses = true;
 %% Try reading in particle index number here from sobj
 part_ind = sobj.particle_number;
 
-%stl_obj = read_stl_particle_init(sobj.folder,part_ind);
-
 sdata = read_stl_data_init(sobj.folder);
 
 stl_obj = read_stl_particle_init(sdata,part_ind);
@@ -22,11 +20,10 @@ sobj = rotate_particle(sobj,sobj.ellipsoid.phi,sobj.ellipsoid.theta,sobj.ellipso
 VertPoints = sobj.particle.max_dim.*sobj.particle.TR.Points;
 sobj.particle.TR = triangulation(double(sobj.particle.TR.ConnectivityList),double(VertPoints));
 
-%sobj = resize_stl_particle(sobj,sobj.particle.max_dim);
+sobj = resize_stl_particle(sobj,sobj.particle.max_dim);
 
-%% Generate/read probe images
-%sobj = particle2probe(sobj,pix_size);
-
+%Generate/read probe images
+sobj = particle2probe(sobj,0.01);
 
 fig = figure('units','normalized','position',[0.0891    0.0574    0.6000    0.8000]);
 
@@ -104,8 +101,6 @@ sobj.particle.curr = ptemp;
 grid_xz = double(sobj.particle.projection.grid.xz);
 grid_xy = double(sobj.particle.projection.grid.xy);
 
-%grid_xz = double(grid_xz_temp);
-%grid_xy = double(grid_xy_temp);
 
 grid_xz(grid_xz==1) = NaN;
 grid_xy(grid_xy==1) = NaN;
