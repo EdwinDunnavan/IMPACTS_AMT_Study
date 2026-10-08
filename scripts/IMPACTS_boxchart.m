@@ -1,34 +1,13 @@
 
 %% IMPACTS_boxchart.m
 
-%% Set up either boxplot and/or heatmap plotting
-plot_boxplots = false;
-plot_heatmap = true;
-
 %% Set up paths based on Github Parent location
-paths = get_project_paths();
+paths = init_project();
 
+%% Load Ellipse fit IMPACTS data
 if ~exist('m','var')
 load(paths.ellipse_file,'-mat')
 end
-
-%scriptPath = mfilename('fullpath');
-%scriptDir  = fileparts(scriptPath);
-%projectDir = fileparts(scriptDir);
-%srcDir     = fullfile(projectDir,'src/');
-%utilsDir   = fullfile(srcDir,'utils');
-%FiguresDir = fullfile(projectDir,'Figures','Joint_Distributions','IMPACTS_Observations/');
-%DataDir    = fullfile(projectDir,'Data','processed/');
-
-%addpath(utilsDir)
-%addpath(srcDir)
-
-%% Load Ellipse fit IMPACTS data
-
-%load(fullfile(DataDir,'IMPACTS_EllipseFits_2020_2023.mat'),'-mat')
-
-
-
 
 %% Read data
 % 2DS 2020 dates
@@ -101,17 +80,6 @@ for ff = 1 : length(fnames)
     habitV(tt,:,ff) = histcounts(m.(fnames{ff}).V.habit(TindV{ff}),habit_names);
 end
 
-
-%ARH_arr = NaN(maxHV,length(fnames));
-%ARV_arr = NaN(maxHV,length(fnames));
-
-%EllipAngH_arr = NaN(maxHV,length(fnames));
-%EllipAngV_arr = NaN(maxHV,length(fnames));
-
-%AreaRatioH_arr = NaN(maxHV,length(fnames));
-%AreaRatioV_arr = NaN(maxHV,length(fnames));
-
-
 for ff = 1 : length(fnames)
 
 ARH_arr = NaN(1,maxHV);
@@ -167,9 +135,16 @@ AreaRatio_arr = cell2mat(AreaRatio);
 gnum = ones(size(AR_arr));
 gnum(:,1:2:52) = 0;
 
-fig = figure('units','normalized','position',[0.0870    0.0250    0.7391    0.8361]); 
+fs = 18;
+fs_title = 26;
 
-ax = tight_subplot(1,3,0.02,[0.025,0.05],[0.07 0.01]);
+%fig = figure('units','normalized','position',[0.0870    0.0250    0.7391    0.8361]); 
+
+fig = figure('units','normalized','position',[0.0734    0.0324    0.7370    0.8556]); 
+
+%ax = tight_subplot(1,3,0.02,[0.025,0.05],[0.07 0.01]);
+
+ax = tight_subplot(1,3,0.02,[0.0325,0.05],[0.08 0.01]);
 
 %ax1 = subplot(1,3,1);
 ax1 = ax(1);
@@ -177,22 +152,25 @@ ax2 = ax(2);
 ax3 = ax(3);
 
 b1 = groupedBoxchart(dates_cat(:),gnum(:),AR_arr(:),'ax',ax1,'Distance',2,'Orientation','horizontal','BoxWidth',1,'MarkerStyle','none');
-set(ax1,'ydir','reverse','TickLabelInterpreter','latex','fontsize',14,'linewidth',1.4)
+set(ax1,'ydir','reverse','TickLabelInterpreter','latex','fontsize',fs,'linewidth',1.4)
 set(ax1,'xtick',0:0.2:1)
-title(ax1,'Ellipse Aspect Ratio','interpreter','latex','fontsize',20)
+title(ax1,'Ellipse Aspect Ratio','interpreter','latex','fontsize',fs_title)
 xlim(ax1,[0,1.05])
 
 %ax2 = subplot(1,3,2);
 b2 = groupedBoxchart(dates_cat(:),gnum(:),EllipAng_arr(:),'ax',ax2,'Distance',2,'Orientation','horizontal','BoxWidth',1,'MarkerStyle','none');
-set(ax2,'ydir','reverse','TickLabelInterpreter','latex','fontsize',14,'linewidth',1.4)
+set(ax2,'ydir','reverse','TickLabelInterpreter','latex','fontsize',fs,'linewidth',1.4)
 set(ax2,'xtick',-90:30:90,'xticklabel',{'-90$^{\circ}$','-60$^{\circ}$','-30$^{\circ}$','0$^{\circ}$', ...
                                          '30$^{\circ}$','60$^{\circ}$','90$^{\circ}$'},'yticklabel','')
 xlim(ax2,[-100 100])
-title(ax2,'Ellipse Orientation','interpreter','latex','fontsize',20)
+title(ax2,'Ellipse Orientation','interpreter','latex','fontsize',fs_title)
 
 %ax3 = subplot(1,3,3);
 b3 = groupedBoxchart(dates_cat(:),gnum(:),AreaRatio_arr(:),'ax',ax3,'Distance',2,'Orientation','horizontal','BoxWidth',1,'MarkerStyle','none');
-set(ax3,'ydir','reverse','TickLabelInterpreter','latex','fontsize',14,'linewidth',1.4)
+set(ax3,'ydir','reverse','TickLabelInterpreter','latex','fontsize',fs,'linewidth',1.4)
 set(ax3,'xtick',0:0.2:1,'yticklabel','')
 xlim(ax3,[0,1.05])
-title(ax3,'Ellipse Area Ratio','interpreter','latex','fontsize',20)
+title(ax3,'Ellipse Area Ratio','interpreter','latex','fontsize',fs_title)
+
+leg = legend(ax3,'String',{'H','V'},'location','northwest','linewidth',1.4,...
+                 'Interpreter','latex','fontsize',36);

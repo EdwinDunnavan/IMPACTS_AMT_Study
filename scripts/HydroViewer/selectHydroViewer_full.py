@@ -419,47 +419,47 @@ if __name__=='__main__':
     if minD=='None':
         minD = 0.
     else:
-        minD = np.float(minD)
+        minD = float(minD)
     
     if maxD=='None':
         maxD = 999.
     else:
-        maxD = np.float(maxD)
+        maxD = float(maxD)
     
     if minAR=='None':
         minAR = 0.
     else:
-        minAR = np.float(minAR)
+        minAR = float(minAR)
     
     if maxAR=='None':
         maxAR = 1.0
     else:
-        maxAR = np.float(maxAR)
+        maxAR = float(maxAR)
     
     if minArea=='None':
         minArea = 0.
     else:
-        minArea = np.float(minArea)
+        minArea = float(minArea)
     
     if maxArea=='None':
         maxArea = 1.0
     else:
-        maxArea = np.float(maxArea)
+        maxArea = float(maxArea)
     
     if minAng=='None':
         minAng = -90.
     else:
-        minAng = np.float(minAng)
+        minAng = float(minAng)
     
     if maxAng=='None':
         maxAng = 90.
     else:
-        maxAng = np.float(maxAng)
+        maxAng = float(maxAng)
     
     if intArrThresh=='None':
         intArrThresh = -999.
     else:
-        intArrThresh = np.float(intArrThresh)
+        intArrThresh = float(intArrThresh)
         
     if habitStatus!='None' and habitStatus!='all':
         habitStatus = np.array(habitStatus.split(','), dtype=np.uint8)
@@ -467,12 +467,12 @@ if __name__=='__main__':
     if centerStatus=='None':
         centerStatus = 0
     else:
-        centerStatus = np.int(centerStatus)
+        centerStatus = int(centerStatus)
     
     if entireStatus=='None':
         entireStatus = 1
     else:
-        entireStatus = np.int(entireStatus)   
+        entireStatus = int(entireStatus)   
     
     print('----- USER DEFINED VALUES -----')
     print('startTime = {}; endTime = {}\nminD = {} mm; maxD = {} mm\nminAR={}; maxAR={};\nminAreaRatio={}; maxAreaRatio={};\nminAng={};maxAng={};\nintArrThresh = {} s;\ncenter_in = {}; entire_in = {},\n rejStatus = {}; habitStatus = {}'
@@ -543,7 +543,8 @@ if __name__=='__main__':
        proc_files = glob(fileDir+'proc_5.*.nc')
     
     if not os.path.isdir(plotDirectory):
-        os.mkdir(plotDirectory)
+        #os.mkdir(plotDirectory)
+        os.makedirs(plotDirectory,exist_ok=True)
     
     # Put in loop here
     for ff in range(len(proc_files)):

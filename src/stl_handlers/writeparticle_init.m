@@ -10,8 +10,9 @@ nccreate(fileout,'a','Dimensions',{'partNum',N},'Datatype','single');
 nccreate(fileout,'b','Dimensions',{'partNum',N},'Datatype','single');
 nccreate(fileout,'c','Dimensions',{'partNum',N},'Datatype','single');
 
-nccreate(fileout,'particle_vertices','Dimensions',{'partNum',N,'points',size(sobj.particle.vertices,2),'dim',3},'Datatype','double');
-nccreate(fileout,'particle_connectivity','Dimensions',{'partNum',N,'connectivity',size(sobj.particle.connectivity,2),'dim',3},'Datatype','int32')
+%% ORIG
+%nccreate(fileout,'particle_vertices','Dimensions',{'partNum',N,'points',size(sobj.particle.vertices,2),'dim',3},'Datatype','double');
+%nccreate(fileout,'particle_connectivity','Dimensions',{'partNum',N,'connectivity',size(sobj.particle.connectivity,2),'dim',3},'Datatype','int32')
 
 nccreate(fileout,'aspect_ratio','Dimensions',{'partNum',N},'Datatype','single');
 nccreate(fileout,'max_dim','Dimensions',{'partNum',N},'Datatype','single');
@@ -24,8 +25,10 @@ ncwrite(fileout,'b',sobj.ellipsoid.b);
 ncwrite(fileout,'c',sobj.ellipsoid.c);
 
 %% Write particle projection properties
-ncwrite(fileout,'particle_vertices',sobj.particle.vertices)
-ncwrite(fileout,'particle_connectivity',sobj.particle.connectivity)
+
+%% ORIG
+%ncwrite(fileout,'particle_vertices',sobj.particle.vertices)
+%ncwrite(fileout,'particle_connectivity',sobj.particle.connectivity)
 
 ncwrite(fileout,'aspect_ratio',sobj.particle.aspect_ratio)
 ncwrite(fileout,'max_dim',sobj.particle.max_dim)

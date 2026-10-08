@@ -105,6 +105,14 @@ a_ellip = 1./sqrt(D(3,3));
 b_ellip = 1./sqrt(D(2,2));
 c_ellip = 1./sqrt(D(1,1));
 
+
+% %% TESTING!!
+% % FIX: Use Column 3 of V (V(:,3)) corresponding to D(3,3) -> a_ellip (MAJOR axis)
+% theta1 = -asind(V(3,3)); % rotation about y-axis
+% psi1 = atan2d(V(3,2)/cosd(theta1), V(3,3)/cosd(theta1)); % rotation about x-axis
+% phi1 = atan2d(V(2,3)/cosd(theta1), V(1,3)/cosd(theta1)); % rotation about z-axis
+
+% ORIG
 theta1 = -asind(V(3,1)); % rotation about y-axis
 psi1 = atan2d(V(3,2)/cosd(theta1),V(3,3)/cosd(theta1)); % rotation about x-axis
 phi1 = atan2d(V(2,1)/cosd(theta1),V(1,1)/cosd(theta1)); % rotation about z-axis

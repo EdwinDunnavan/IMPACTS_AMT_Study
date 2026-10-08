@@ -68,6 +68,8 @@ obj.xpos_xz_cgal = [];
 obj.ypos_xz_cgal = [];
 obj.habit_xz = [];
 
+obj.grid_bound = [];
+
 %% Loop through files and read variables into arrays
 for ff = 1 : N
 
@@ -100,6 +102,12 @@ obj.c = [obj.c ncread(ftemp,'c')'];
 obj.phi = [obj.phi ncread(ftemp,'phi')'];
 obj.theta = [obj.theta ncread(ftemp,'theta')'];
 obj.psi = [obj.psi ncread(ftemp,'psi')'];
+
+if any(fnames=='grid_bound')
+    obj.grid_bound = [obj.grid_bound ncread(ftemp,'grid_bound')'];
+else
+    obj.grid_bound = [obj.grid_bound NaN(size(ncread(ftemp,'max_dim')))'];
+end
 
 obj.moments = [obj.moments; ncread(ftemp,'moments')'];
 obj.surface_area = [obj.surface_area ncread(ftemp,'surface_area')'];
@@ -220,6 +228,8 @@ obj.EllipAng_xz_cgal = obj.EllipAng_xz_cgal(sort_ind);
 obj.xpos_xz_cgal = obj.xpos_xz_cgal(sort_ind);
 obj.ypos_xz_cgal = obj.ypos_xz_cgal(sort_ind);
 obj.habit_xz = obj.habit_xz(sort_ind);
+
+obj.grid_bound = obj.grid_bound(sort_ind);
 
 obj.area_ratio_xy = obj.particle_area_xy./(pi.*obj.ra_xy.*obj.rb_xy);
 obj.area_ratio_xz = obj.particle_area_xz./(pi.*obj.ra_xz.*obj.rb_xz);

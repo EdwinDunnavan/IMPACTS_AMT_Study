@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="assets/P3_WFF_IMPACTS_with_column_ex_rotated_newcoords.png" alt="P3 aircraft image with 2D-S location/coordinates and STL/ellipsoid projection coordinates." width="100%">
+    <img src="assets/P3_WFF_IMPACTS_with_column_ex_rotated_newcoords_MODIFIED_BUFFER_STRIPS.png" alt="P3 aircraft image with 2D-S location/coordinates and STL/ellipsoid projection coordinates." width="100%">
 <p>
 
 # IMPACTS_AMT_Study
@@ -9,8 +9,9 @@ entitled "Universality of ice particle shapes and orientations as revealed by
 the 2D-S in situ optical array probe."
 
 ## How to generate figures from AMT paper
-Matlab scripts in the /scripts/ directory are meant to for readers to both 
-generated figures in the paper as well as general use scripts.
+Matlab scripts in the /scripts/ directory are meant to for readers to generate 
+the figures in the paper but can also serve in general way to produce observation and
+simulation results.
 
 <div align="center">
 
@@ -37,16 +38,6 @@ generated figures in the paper as well as general use scripts.
 | B1 | IMPACTS_hist_angle_comp_CH.m |
 
 </div>
-
-
-Figure 6 can be generated with the "plot_habit_fraction_timeseries.m" script, 
-Figures 9 and 13 can be generated using the matlab script "IMPACTS_boxchart.m". 
-Figure 12 can be generated 
-Figures 10 and 11 can be generated directly from "generate_joint_ellipse_cases.m"
-whereas Figures 12, and 14 can be generated directly from "generate_stacked_joint_distributions.m".
-  
-F
-Figure B2 can be generated with the "IMPACTS_hist_angle_comp_CH.m" script.
 
 ## How to load and use the ellipse fit data
 The ellipse fit data is available in the /Data directory as a .mat file. This data
@@ -164,7 +155,7 @@ read a particular particle from that
 
 ```matlab
 
-particle_folder = './Data/Simulation_Dendrite_2/IMPACTS_2020_N2e5_habit/';
+particle_folder = './Data/Simulation_Dendrite/IMPACTS_2020_N2e5_habit/';
 stemp = read_stl_data(particle_folder);
 ```
 

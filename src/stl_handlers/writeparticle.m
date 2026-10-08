@@ -92,6 +92,7 @@ nccreate(fileout,'image_xz','Dimensions',{'partNum',N,'x_xz',size(sobj.particle.
 
 end
 
+nccreate(fileout,'grid_bound','Dimensions',{'partNum',N},'Datatype','single');
 
 %% Write ellipsoid 3D properties
 ncwriteatt(fileout,'/','folder',sobj.folder)
@@ -169,5 +170,6 @@ ncwrite(fileout,'image_xy',int8(sobj.particle.projection.grid.xy))
 ncwrite(fileout,'image_xz',int8(sobj.particle.projection.grid.xz))
 end
 
+ncwrite(fileout,'grid_bound',sobj.grid_bound);
 
 end

@@ -1,5 +1,4 @@
-%function simulate_stl_particles(Nsim,orientations,test_folder,folder,size_switch,particles2sim,simulate_data,fit_ellipsoids)
-
+%% NOTE: WILL NEED TO UPDATE HELPER/PLOTTER FUNCTIONS WITH NEW PREFILTER APPROACH 
 function simulate_stl_particles(config)
 
 tic
@@ -83,14 +82,17 @@ mkdir(folder)
 
 end
 
-
-
 % File(s) for original STL files
 fdir = dir(fullfile(folder,'particle_*_orig.stl'));
 
-if isscalar(fdir)
+if isempty(fdir)
     error('No STL files found in directory!')
 end
+
+% if isscalar(fdir)
+% 
+%     error('No STL files found in directory!')
+% end
 
 %% Create stl particle and ellipsoid properties and write corresponding netcdf output
 if fit_ellipsoids
@@ -179,14 +181,20 @@ if strcmp(size_switch,'sample')
 end
 
 %% Create stl particle and minimum enclosing ellipsoid
-sobj = gen_stl_particle_init(folder,ftemp);
+%sobj = gen_stl_particle_init(folder,ftemp);
+
+sobj = gen_stl_particle(folder,ftemp);
 
 spart.ellipsoid.a(ff) = sobj.ellipsoid.a;
 spart.ellipsoid.b(ff) = sobj.ellipsoid.b;
 spart.ellipsoid.c(ff) = sobj.ellipsoid.c;
 
-spart.particle.vertices(ff,:,:) = sobj.particle.TR.Points;
-spart.particle.connectivity(ff,:,:) = sobj.particle.TR.ConnectivityList;
+%spart.particle.vertices{ff} = sobj.particle.TR.Points;
+%spart.particle.connectivity{ff} = sobj.particle.TR.ConnectivityList;
+
+%% ORIG
+%spart.particle.vertices(ff,:,:) = sobj.particle.TR.Points;
+%spart.particle.connectivity(ff,:,:) = sobj.particle.TR.ConnectivityList;
 
 end
 
@@ -285,7 +293,52 @@ end
 
 
 %% Read stl netcdf data for all particles
-sdata =read_stl_data_init(folder);
+sdata = read_stl_data_init(folder);
+
+% % Pre-cache all ALIGNED STLs into RAM using lightning-fast stlread
+% fprintf('Pre-loading %i ALIGNED STL meshes into memory...\n', length(fdir));
+% TR_cell = cell(1, length(fdir));
+% 
+% parfor k = 1:length(fdir)
+%     % Read the cleanly aligned meshes saved by Block 1
+%     init_file = fullfile(folder, sprintf('particle_%i_init.stl', k));
+%     TR_cell{k} = stlread(init_file);
+% end
+% 
+% sdata.TR = TR_cell;
+
+
+% % Pre-cache all base STLs into RAM once (uses ~1 GB RAM)
+% fprintf('Pre-loading %i STL meshes into memory...\n', length(fdir));
+% sdata.TR = cell(1, length(fdir));
+% for k = 1:length(fdir)
+%     %orig_file = fullfile(folder, sprintf('particle_%i_orig.stl', k));
+%     %sdata.TR{k} = stlread(orig_file);
+% 
+%     orig_file = sprintf('particle_%i_orig.stl', k);
+% 
+%     % Generate the PCA-aligned, normalized bounding object
+%     temp_sobj = gen_stl_particle_init(folder, orig_file);
+% 
+%     % FIX 2: Store ONLY the aligned triangulation mesh in the TR array
+%     sdata.TR{k} = temp_sobj.particle.TR;
+% 
+% end
+
+fprintf('Slicing mesh data for parallel workers...\n');
+sdata_sliced = cell(1, length(subfiles));
+for pp = 1:length(subfiles)
+    idx = subfiles{pp};
+    chunk_data = struct();
+    chunk_data.a = sdata.a(idx);
+    chunk_data.b = sdata.b(idx);
+    chunk_data.c = sdata.c(idx);
+    chunk_data.max_dim = sdata.max_dim(idx);
+    chunk_data.aspect_ratio = sdata.aspect_ratio(idx);
+    chunk_data.particle_number = sdata.particle_number(idx);
+    %chunk_data.TR = sdata.TR(idx);
+    sdata_sliced{pp} = chunk_data;
+end
 
 parfor pp = 1 : length(subfiles)
 
@@ -296,6 +349,8 @@ parfor pp = 1 : length(subfiles)
     % save_pngs   = false;
     % save_images = false;
     % save_meshes = false;
+
+    local_sdata = sdata_sliced{pp};
 
     output_ellip = sprintf('stl_ellipsoids_sim_%i.nc',pp);
 
@@ -314,6 +369,11 @@ parfor pp = 1 : length(subfiles)
     %sfiles = subfiles{pp};
 
     Nt = length(subfiles{pp});
+
+    %% NEW!
+    % Use cell arrays to accommodate variable mesh sizes across fused particles
+    %spart.particle.vertices = cell(1, Nt);
+   % spart.particle.connectivity = cell(1, Nt);
 
     %% Get angles from von Mises Fisher orientation distributions
     [phi_p,theta_p,psi_p] = getEulerAngles(Nt,phimean,thetamean,kappa,psimean,varpsi);
@@ -358,6 +418,9 @@ parfor pp = 1 : length(subfiles)
     spart.ellipsoid.a = NaN(1,Nt,'single');
     spart.ellipsoid.b = NaN(1,Nt,'single');
     spart.ellipsoid.c = NaN(1,Nt,'single');
+
+
+    spart.grid_bound = NaN(1,Nt,'single');
 
     spart.ellipsoid.phi = phi_p;
     spart.ellipsoid.theta = theta_p;
@@ -411,10 +474,17 @@ for ff = 1 : Nt
 
     %% Read stl particle meshes and minimum volume ellipsoid fit axis lengths
     %sobj = read_stl_particle_init(folder,subfiles{pp}(ff));
-    sobj = read_stl_particle_init(sdata,subfiles{pp}(ff));
 
-    %% Rotate particle to sampled orientation
-    sobj = rotate_particle(sobj,phi_p(ff),theta_p(ff),psi_p(ff));
+    %% ORIG
+    %sobj = read_stl_particle_init(sdata,subfiles{pp}(ff));
+    %% NEW
+    
+   % sobj = read_stl_particle_init(sdata, subfiles{pp}(ff));
+
+    sobj = read_stl_particle_init(local_sdata, ff);
+
+    init_file = fullfile(folder, sprintf('particle_%i_init.stl', sobj.particle_number));
+    sobj.particle.TR = stlread(init_file);
 
     if strcmp(size_switch,'sample')
 
@@ -422,32 +492,76 @@ for ff = 1 : Nt
 
     end
 
-    %% Resize particle based on PSD
-    sobj = resize_stl_particle(sobj,spart.particle.max_dim(ff));  
+    target_dim = spart.particle.max_dim(ff);
+
+    sobj = rotate_particle(sobj, phi_p(ff), theta_p(ff), psi_p(ff));
 
     %% STAGE 1: FAST ANALYTICAL PRE-FILTER
     % Instantly discard particles that are impossibly small or out-of-bounds 
     % using their enclosing ellipsoids before doing the expensive rasterization.
+    % if use_instrument_filter
+    a_scaled = target_dim * sobj.ellipsoid.a;
+    b_scaled = target_dim * sobj.ellipsoid.b;
+    c_scaled = target_dim * sobj.ellipsoid.c;
+
     if use_instrument_filter
-        % Analytically project the scaled enclosing ellipsoid
-        [ra_xz_e, rb_xz_e, ang_xz_e] = ellipproj_axes(sobj.ellipsoid.a, sobj.ellipsoid.b, sobj.ellipsoid.c, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 2);
-        [ra_xy_e, rb_xy_e, ang_xy_e] = ellipproj_axes(sobj.ellipsoid.a, sobj.ellipsoid.b, sobj.ellipsoid.c, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 3);
+        [ra_xz_e, rb_xz_e, ang_xz_e] = ellipproj_axes(a_scaled, b_scaled, c_scaled, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 2);
+        [ra_xy_e, rb_xy_e, ang_xy_e] = ellipproj_axes(a_scaled, b_scaled, c_scaled, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 3);
         
         W_cross_xy_e = 2 * sqrt((ra_xy_e * sind(ang_xy_e))^2 + (rb_xy_e * cosd(ang_xy_e))^2);
         W_cross_xz_e = 2 * sqrt((ra_xz_e * sind(ang_xz_e))^2 + (rb_xz_e * cosd(ang_xz_e))^2);
         
-        % Calculate absolute maximum possible pixels (solid enclosing ellipse)
         max_NPix_xy_e = (pi * ra_xy_e * rb_xy_e) / pixel_area;
         max_NPix_xz_e = (pi * ra_xz_e * rb_xz_e) / pixel_area;
 
-        % If the enclosing ellipsoid is 50% smaller than Dthresh OR exceeds W_array + 0.5mm, 
-        % the internal STL shadow has zero chance of passing the strict filter. 
         if (2*ra_xy_e < Dthresh * 0.5) || (2*ra_xz_e < Dthresh * 0.5) || ...
            (W_cross_xy_e > W_array + 0.5) || (W_cross_xz_e > W_array + 0.5) || ...
            (max_NPix_xy_e < NPixel_thresh) || (max_NPix_xz_e < NPixel_thresh)
-            continue; % Early abort! Leaves NaNs in spart for this index.
+            continue; % FAST ABORT: Skips 3D mesh scaling, moments, and 2D voxelization!
         end
     end
+
+    %% Resize particle based on PSD
+    %sobj = resize_stl_particle(sobj,spart.particle.max_dim(ff)); 
+    sobj = resize_stl_particle(sobj,target_dim);  
+
+    %% Calculate moment tensors
+
+
+    %sobj.particle.TR = triangulation(sobj.particle.TR.ConnectivityList, ...
+    %spart.particle.max_dim(ff) .* sobj.particle.TR.Points);
+
+
+    %% Rotate particle to sampled orientation
+    %sobj = rotate_particle(sobj,phi_p(ff),theta_p(ff),psi_p(ff));
+
+
+
+
+
+    %% STAGE 1: FAST ANALYTICAL PRE-FILTER
+    % Instantly discard particles that are impossibly small or out-of-bounds 
+    % using their enclosing ellipsoids before doing the expensive rasterization.
+    % if use_instrument_filter
+    %     % Analytically project the scaled enclosing ellipsoid
+    %     [ra_xz_e, rb_xz_e, ang_xz_e] = ellipproj_axes(sobj.ellipsoid.a, sobj.ellipsoid.b, sobj.ellipsoid.c, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 2);
+    %     [ra_xy_e, rb_xy_e, ang_xy_e] = ellipproj_axes(sobj.ellipsoid.a, sobj.ellipsoid.b, sobj.ellipsoid.c, deg2rad(phi_p(ff)), deg2rad(theta_p(ff)), deg2rad(psi_p(ff)), 3);
+    % 
+    %     W_cross_xy_e = 2 * sqrt((ra_xy_e * sind(ang_xy_e))^2 + (rb_xy_e * cosd(ang_xy_e))^2);
+    %     W_cross_xz_e = 2 * sqrt((ra_xz_e * sind(ang_xz_e))^2 + (rb_xz_e * cosd(ang_xz_e))^2);
+    % 
+    %     % Calculate absolute maximum possible pixels (solid enclosing ellipse)
+    %     max_NPix_xy_e = (pi * ra_xy_e * rb_xy_e) / pixel_area;
+    %     max_NPix_xz_e = (pi * ra_xz_e * rb_xz_e) / pixel_area;
+    % 
+    %     % If the enclosing ellipsoid is 50% smaller than Dthresh OR exceeds W_array + 0.5mm, 
+    %     % the internal STL shadow has zero chance of passing the strict filter. 
+    %     if (2*ra_xy_e < Dthresh * 0.5) || (2*ra_xz_e < Dthresh * 0.5) || ...
+    %        (W_cross_xy_e > W_array + 0.5) || (W_cross_xz_e > W_array + 0.5) || ...
+    %        (max_NPix_xy_e < NPixel_thresh) || (max_NPix_xz_e < NPixel_thresh)
+    %         continue; % Early abort! Leaves NaNs in spart for this index.
+    %     end
+    % end
 
 
     %% Calculate probe arrays and ellipse statistics
@@ -494,18 +608,6 @@ for ff = 1 : Nt
         P_AR_xz   = 1 ./ (1 + exp(-k_AR .* (AR_xz_t - area_thresh)));
         P_NPix_xz = 1 ./ (1 + exp(-k_N .* (NPix_xz - NPixel_thresh)));  
 
-
-        %% ORIG
-        % P_D_xy    = 1 ./ (1 + exp(-20 .* (L_xy_t - Dthresh)));
-        % P_ar_xy   = 1 ./ (1 + exp(-50 .* (ar_xy_t - ar_thresh)));
-        % P_AR_xy   = 1 ./ (1 + exp(-30 .* (AR_xy_t - area_thresh)));
-        % P_NPix_xy = 1 ./ (1 + exp(-0.015 .* (NPix_xy - NPixel_thresh)));
-        % 
-        % P_D_xz    = 1 ./ (1 + exp(-20 .* (L_xz_t - Dthresh)));
-        % P_ar_xz   = 1 ./ (1 + exp(-50 .* (ar_xz_t - ar_thresh)));
-        % P_AR_xz   = 1 ./ (1 + exp(-30 .* (AR_xz_t - area_thresh)));
-        % P_NPix_xz = 1 ./ (1 + exp(-0.015 .* (NPix_xz - NPixel_thresh)));
-
         P_keep = P_in_xy * P_in_xz * P_D_xy * P_D_xz * P_ar_xy * P_ar_xz * P_AR_xy * P_AR_xz * P_NPix_xy * P_NPix_xz;
 
         % Roll the dice
@@ -526,14 +628,53 @@ for ff = 1 : Nt
 
     %% Store single ellipsoid/ellipses data in arrays
 
+    %% Calculate moment tensors
+    % ORIG
+    %RBP = RigidBodyParams(sobj.particle.TR);
+    %sobj.particle.moments = RBP.moments;
+    %sobj.particle.area = RBP.area;
+
+    %% Calculate moment tensors
+    try
+        RBP = RigidBodyParams(sobj.particle.TR);
+        sobj.particle.moments = RBP.moments;
+        sobj.particle.area = RBP.area;
+    catch
+        % STITCH MESH CRACKS: Float-point rounding in STL exports can leave microscopic gaps.
+        % We heal the mesh by fusing vertices within a 1e-6 tolerance.
+        pts = sobj.particle.TR.Points;
+        faces = sobj.particle.TR.ConnectivityList;
+        
+        [V, ~, J] = uniquetol(pts, 1e-6, 'ByRows', true, 'DataScale', 1);
+        F = J(faces);
+        
+        % Remove collapsed degenerate faces (where points merged)
+        F(F(:,1)==F(:,2) | F(:,2)==F(:,3) | F(:,1)==F(:,3), :) = [];
+        
+        try
+            TR_healed = triangulation(F, V);
+            RBP = RigidBodyParams(TR_healed);
+            sobj.particle.moments = RBP.moments;
+            sobj.particle.area = RBP.area;
+        catch
+            % Ultimate Fallback if the mesh is structurally non-manifold beyond repair
+            sobj.particle.moments = NaN(10,1, 'single');
+            sobj.particle.area = NaN('single');
+        end
+    end
+
     % Save ellipsoid axis lengths
     spart.ellipsoid.a(ff) = sobj.ellipsoid.a;
     spart.ellipsoid.b(ff) = sobj.ellipsoid.b;
     spart.ellipsoid.c(ff) = sobj.ellipsoid.c;
 
+    spart.grid_bound = sobj.grid_bound;
+
     % Save 3D particle properties
     spart.particle.moments(:,ff) = sobj.particle.moments;
     spart.particle.area(ff) = sobj.particle.area;
+
+
 
     %if save_meshes
     %spart.particle.vertices(ff,:,:) = sobj.particle.TR.Points;

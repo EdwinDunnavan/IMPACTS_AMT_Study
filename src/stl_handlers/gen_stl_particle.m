@@ -94,6 +94,4 @@ stlwrite(TR,file_new)
 sobj.orig.ellipsoid = sobj.ellipsoid;
 sobj.orig.particle = sobj.particle;
 
-
-
 end

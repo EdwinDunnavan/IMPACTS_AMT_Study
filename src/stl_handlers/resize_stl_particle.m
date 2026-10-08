@@ -21,15 +21,18 @@ sobj.ellipsoid.a = vert;
 sobj.ellipsoid.b = b;
 sobj.ellipsoid.c = c;
 
+% CRITICAL FIX: Keep max_dim synchronized with the resized mesh points
+sobj.particle.max_dim = new_size;
 
 TR = triangulation(double(sobj.particle.TR.ConnectivityList),double(VertPoints));
 
 sobj.particle.TR = TR;
 
 % Save 3D STL particle inertia tensor
-RBP = RigidBodyParams(TR);
-sobj.particle.moments = RBP.moments;
-sobj.particle.area = RBP.area;
+%% ORIG
+%RBP = RigidBodyParams(TR);
+%sobj.particle.moments = RBP.moments;
+%sobj.particle.area = RBP.area;
 
 %% Recalculate probe properties
 %sobj = particle2probe(sobj,pix_size);

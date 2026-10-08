@@ -15,7 +15,7 @@ simDir = paths.simulations;
 %% LINEAR: Set up folder and config
 particleDir = 'Linear_MA94_10k'; % Directory where STL particle files and particle parameter .nc file are located.
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Linear_2022_2023_1e6';
+test_folder = 'Linear_2022_2023_neg80deg_1e6';
 
 Nsim = 1e6;
 fit_ellipsoids = false;
@@ -43,7 +43,8 @@ particles2sim = 'random'; % all - simulate all particles in directory once
 
 %% NGL Linear 2022-2023
 ang_xz = -80;
-ang_xy = -70;
+%ang_xy = -70;
+ang_xy = -80;
 kappa = 8; % NEW
 psimean = 0;
 varpsi = 0.001;

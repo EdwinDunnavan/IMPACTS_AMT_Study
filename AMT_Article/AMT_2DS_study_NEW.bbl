@@ -1,0 +1,359 @@
+\begin{thebibliography}{59}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{https://doi.org/\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{https://doi.org/\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem[{Abdelmonem et~al.(2016)Abdelmonem, adn D.~Duft, Hirst, Vogt, Leisner,
+  and Schnaiter}]{Abdelmonem2016}
+Abdelmonem, A., adn D.~Duft, E.~J., Hirst, E., Vogt, S., Leisner, T., and
+  Schnaiter, M.: {PHIPS-HALO: The airborne Particle Habit Imaging and Polar
+  Scattering probe -- Part 1: Design and operation}, Atmos.\ Meas.\ Tech., 9,
+  3131--3144, \doi{10.5194/amt-9-3131-2016}, 2016.
+
+\bibitem[{Aitkenhead(2024)}]{Aitkenhead2024}
+Aitkenhead, A.: Mesh voxelisation, 2024.
+
+\bibitem[{Auer and Veal(1970)}]{Auer1970}
+Auer, A.~H. and Veal, D.~L.: The dimension of ice crystals in natural clouds,
+  J.\ Atmos.\ Sci., 27, 919--926,
+  \doi{10.1175/1520-0469(1970)027<0919:TDOICI>2.0.CO;2}, 1970.
+
+\bibitem[{Bailey and Hallett(2009)}]{Bailey2009}
+Bailey, M.~P. and Hallett, J.: A comprehensive habit diagram for atmospheric
+  ice crystals: {C}onfirmation from the laboratory, {AIRS II}, and other field
+  studies, J.\ Atmos.\ Sci., 66, 2888--2899, \doi{10.1175/2009JAS2883.1}, 2009.
+
+\bibitem[{Davis(1974)}]{Davis1974}
+Davis, C.~I.: Ice nucleating characteristics of various AgI aerosols, Ph.D.
+  thesis, University of Wyoming, 1974.
+
+\bibitem[{Dunnavan and Jiang(2019)}]{Dunnavan2019a}
+Dunnavan, E.~L. and Jiang, Z.: A General Method for Estimating Bulk 2D
+  Projections of Ice Particle Shape: {T}heory and Applications, J.\ Atmos.\
+  Sci., 76, 305--332, \doi{10.1175/JAS-D-18-0177.1}, 2019.
+
+\bibitem[{Dunnavan et~al.(2019)Dunnavan, Jiang, Harrington, Verlinde, Fitch,
+  and Garrett}]{Dunnavan2019b}
+Dunnavan, E.~L., Jiang, Z., Harrington, J.~Y., Verlinde, J., Fitch, K., and
+  Garrett, T.~J.: The shape and density evolution of snow aggregates, J.\
+  Atmos.\ Sci., 76, 3919--3940, \doi{10.1175/JAS-D-19-0066.1}, 2019.
+
+\bibitem[{Dunnavan et~al.(2022)Dunnavan, Carlin, Hu, Bukov\v{c}i\'{c}, Ryzhkov,
+  McFarquhar, Finlon, Matrosov, and Delene}]{Dunnavan2022}
+Dunnavan, E.~L., Carlin, J.~T., Hu, J., Bukov\v{c}i\'{c}, P., Ryzhkov, A.~V.,
+  McFarquhar, G.~M., Finlon, J.~A., Matrosov, S.~Y., and Delene, D.~J.: Radar
+  retrieval evaluation and investigation of dendritic growth layer polarimetric
+  signatures in a winter storm, J.\ Appl.\ Meteor.\ Climatol., 61, 1685--1711,
+  \doi{10.1175/JAMC-D-21-0220.1}, 2022.
+
+\bibitem[{Dunnavan et~al.(2023)Dunnavan, Carlin, Schvartzman, Ryzhkov,
+  Bluestein, Emmerson, McFarquhar, Heymsfield, and Yorks}]{Dunnavan2023}
+Dunnavan, E.~L., Carlin, J.~T., Schvartzman, D., Ryzhkov, A.~V., Bluestein, H.,
+  Emmerson, S., McFarquhar, G.~M., Heymsfield, G.~M., and Yorks, J.: {},
+  Geophys.\ Res.\ Lett., 50, e2023GL103\,692, \doi{10.1029/2023GL103692}, 2023.
+
+\bibitem[{Garrett et~al.(2015)Garrett, Yuter, Fallgatter, Shukurko, Rhodes, and
+  Endries}]{Garrett2015}
+Garrett, T.~J., Yuter, S.~E., Fallgatter, C., Shukurko, K., Rhodes, S.~R., and
+  Endries, J.~L.: Orientations and aspect ratios of falling snow, Geophys.\
+  Res.\ Lett., 42, 4617--4622, \doi{10.1002/2015GL064040}, 2015.
+
+\bibitem[{Heymsfield et~al.(2004)Heymsfield, Bansemer, Schmitt, Twohy, and
+  Poellot}]{Heymsfield2004}
+Heymsfield, A.~J., Bansemer, A., Schmitt, C., Twohy, C., and Poellot, M.~R.:
+  Effective ice particle densities derived from aircraft data, J.\ Atmos.\
+  Sci., 61, 982--1003,
+  \doi{10.1175/1520-0469(2004)061\%3C0982:EIPDDF\%3E2.0.CO;2}, 2004.
+
+\bibitem[{Hogan et~al.(2012)Hogan, Tian, Brown, Westbrook, Heymsfield, and
+  Eastment}]{Hogan2012}
+Hogan, R.~J., Tian, L., Brown, P. R.~A., Westbrook, C.~D., Heymsfield, A.~J.,
+  and Eastment, J.~D.: Radar scattering from ice aggregates using the
+  horizontally aligned oblate spheroid approximation, J.\ Appl.\ Meteor.\
+  Climatol., 51, 655--671, \doi{10.1175/JAMC-D-11-074.1}, 2012.
+
+\bibitem[{Holroyd(1987)}]{Holroyd1987}
+Holroyd, E.~W.: {Some techniques and uses of 2D-C classification software for
+  snow particles}, J.\ Atmos.\ Oceanic Technol., 4, 498--511,
+  \doi{10.1175/1520-0426(1987)004\%3C0498:STAUOC\%3E2.0.CO;2}, 1987.
+
+\bibitem[{Hunter(2025)}]{Hunter2025}
+Hunter, C.: Development of Instrument Pylon Fairings for the {NASA} {W}allops
+  {P}-3 {O}rion / {IMPACTS}-22, Presentation NASA/TM-20250010296, NASA Langley
+  Research Center, Hampton, VA, United States,
+  \doi{ntrs.nasa.gov/citations/20250010296}, presented at the NASA Langley
+  Research Directorate Presentation, May 17, 2022. Document ID: 20250010296,
+  2025.
+
+\bibitem[{Jaffeux et~al.(2022)Jaffeux, Schwarzenb{\"o}ck, Coutris, and
+  Duroure}]{Jaffeux2022}
+Jaffeux, L., Schwarzenb{\"o}ck, A., Coutris, P., and Duroure, C.: {Ice crystal
+  images from optical array probes: Classification with convolutional neural
+  networks}, Atmos.\ Meas.\ Tech., 15, 5141--5157,
+  \doi{10.5194/amt-15-5141-2022}, 2022.
+
+\bibitem[{Jiang et~al.(2019)Jiang, Verlinde, Clothiaux, Aydin, and
+  Schmitt}]{Jiang2019}
+Jiang, Z., Verlinde, J., Clothiaux, E.~E., Aydin, K., and Schmitt, C.: Shapes
+  and fall orientations of ice particle aggregates, J.\ Atmos.\ Sci., 76,
+  1903--1916, \doi{10.1175/JAS-D-18-0251.1}, 2019.
+
+\bibitem[{King(1984{\natexlab{a}})}]{King1985a}
+King, W.~D.: {Air flow and particle trajectories around aircraft fuselages. I:
+  Theory}, J.\ Atmos.\ Oceanic Technol., 1, 5--13,
+  \doi{10.1175/1520-0426(1984)001\%3C0005:AFAPTA\%3E2.0.CO;2},
+  1984{\natexlab{a}}.
+
+\bibitem[{King(1984{\natexlab{b}})}]{King1985b}
+King, W.~D.: {Air flow and particle trajectories around aircraft fuselages. II:
+  Measurements}, J.\ Atmos.\ Oceanic Technol., 1, 14--21,
+  \doi{10.1175/1520-0426(1984)001\%3C0014:AFAPTA\%3E2.0.CO;2},
+  1984{\natexlab{b}}.
+
+\bibitem[{King(1985)}]{King1985c}
+King, W.~D.: {Air flow and particle trajectories around aircraft fuselages.
+  III: Extensions to particles of arbitrary shape}, J.\ Atmos.\ Oceanic
+  Technol., 2, 539--547,
+  \doi{10.1175/1520-0426(1985)002\%3C0539:AFAPTA\%3E2.0.CO;2}, 1985.
+
+\bibitem[{King(1986)}]{King1985d}
+King, W.~D.: {Air flow and particle trajectories around aircraft fuselages. IV:
+  Orientation of ice crystals}, J.\ Atmos.\ Oceanic Technol., 3, 433--439,
+  \doi{10.1175/1520-0426(1986)003\%3C0433:AFAPTA\%3E2.0.CO;2}, 1986.
+
+\bibitem[{Korolev and Isaac(2003)}]{Korolev2003}
+Korolev, A. and Isaac, G.: Roundness and Aspect Ratio of Particles in Ice
+  Clouds, J.\ Atmos.\ Sci., 60, 1795--1808,
+  \doi{10.1175/1520-0469(2003)060\%3C1795:RAAROP\%3E2.0.CO;2}, 2003.
+
+\bibitem[{Korolev et~al.(1999)Korolev, Isaac, and Hallett}]{Korolev1999}
+Korolev, A., Isaac, G.~A., and Hallett, J.: Ice particle habits in {A}rctic
+  clouds, Geophys.\ Res.\ Lett., 26, 1299--1302, \doi{10.1029/1999GL900232},
+  1999.
+
+\bibitem[{Korolev et~al.(2000)Korolev, Isaac, and Hallett}]{Korolev2000}
+Korolev, A., Isaac, G.~A., and Hallett, J.: Ice particle habits in stratiform
+  clouds, Quart.\ J.\ Roy.\ Meteor.\ Soc., 126, 2873--2902,
+  \doi{10.1002/qj.49712656913}, 2000.
+
+\bibitem[{Lamb and Verlinde(2011)}]{Lambbook}
+Lamb, D. and Verlinde, J.: Physics and chemistry of clouds, Cambridge
+  University Press, 2011.
+
+\bibitem[{Lawson et~al.(2001)Lawson, Baker, and Schmitt}]{Lawson2001}
+Lawson, R.~P., Baker, B.~A., and Schmitt, C.~G.: {An overview of microphysical
+  properties of Arctic clouds observed in May and July 1998 during FIRE ACE},
+  J.\ Geophys.\ Res., 106, 14\,989--15\,014, \doi{10.1029/2000JD900789}, 2001.
+
+\bibitem[{Lawson et~al.(2006)Lawson, Baker, Pilson, and Mo}]{Lawson2006}
+Lawson, R.~P., Baker, B., Pilson, B., and Mo, Q.: In situ observations of the
+  microphysical properties of wave, cirrus, and anvil clouds. {P}art {II}:
+  {C}irrus clouds, J.\ Atmos.\ Sci., 63, 3186--3203, \doi{10.1175/JAS3803.1},
+  2006.
+
+\bibitem[{Leinonen et~al.(2021)Leinonen, Grazioli, and Berne}]{Leinonen2021}
+Leinonen, J., Grazioli, J., and Berne, A.: {Reconstruction of the mass and
+  geometry of snowfall particles from multi-angle snowflake camera (MASC)
+  images}, Atmos.\ Meas.\ Tech., 14, 6851--6866,
+  \doi{10.5194/amt-14-6851-2021}, 2021.
+
+\bibitem[{Liu(2008)}]{Liu2008}
+Liu, G.: A database of microwave single-scattering properties for nonspherical
+  ice particles, Bull.\ Amer.\ Meteor.\ Soc., 89, 1563--1570,
+  \doi{10.1175/2008BAMS2486.1}, 2008.
+
+\bibitem[{Lu et~al.(2016)Lu, Jiang, Aydin, Verlinde, Clothiaux, and
+  Botta}]{Lu2016}
+Lu, Y., Jiang, Z., Aydin, K., Verlinde, J., Clothiaux, E.~E., and Botta, G.: A
+  polarimetric scattering database for non-spherical ice particles at microwave
+  wavelengths, Atmos.\ Meas.\ Tech., 9, 5119--5134,
+  \doi{10.5194/amt-9-5119-2016}, 2016.
+
+\bibitem[{Macke et~al.(1996)Macke, Mueller, and Raschke}]{Macke1996}
+Macke, A., Mueller, J., and Raschke, E.: Single scattering properties of
+  atmospheric ice crystals, J.\ Atmos.\ Sci., 53, 2813--2825,
+  \doi{10.1175/1520-0469(1996)053<2813:SSPOAI>2.0.CO;2}, 1996.
+
+\bibitem[{Macke et~al.(1998)Macke, Francis, McFarquhar, and Kinne}]{Macke1998}
+Macke, A., Francis, P.~N., McFarquhar, G.~M., and Kinne, S.: The role of ice
+  particle shapes and size distributions in the single scattering properties of
+  cirrus clouds, J.\ Atmos.\ Sci., 55, 2874--2883,
+  \doi{10.1175/1520-0469(1998)055<2874:TROIPS>2.0.CO;2}, 1998.
+
+\bibitem[{MacPherson and Baumgardner(1988)}]{MacPherson1988}
+MacPherson, J.~I. and Baumgardner, D.: {Airflow about King Air wingtip-mounted
+  cloud particle measurement probes}, J.\ Atmos.\ Oceanic Technol., 5,
+  259--273, \doi{10.1175/1520-0426(1988)005<0259:AAKAWM>2.0.CO;2}, 1988.
+
+\bibitem[{McCorquodale and Westbrook(2020{\natexlab{a}})}]{McCorquodale2020a}
+McCorquodale, M.~W. and Westbrook, C.~D.: {TRAIL: A novel approach for studying
+  the aerodynamics of ice particles}, Quart.\ J.\ Roy.\ Meteor.\ Soc., 147,
+  589--604, \doi{10.1002/qj.3935}, 2020{\natexlab{a}}.
+
+\bibitem[{McCorquodale and Westbrook(2020{\natexlab{b}})}]{McCorquodale2020b}
+McCorquodale, M.~W. and Westbrook, C.~D.: {TRAIL part 2: A comprehensive
+  assessment of ice particle fall speed parameterisations}, Quart.\ J.\ Roy.\
+  Meteor.\ Soc., 147, 605--626, \doi{10.1002/qj.3936}, 2020{\natexlab{b}}.
+
+\bibitem[{McFarquhar et~al.(1999)McFarquhar, Heymsfield, Macke, Iaquinta, and
+  Aulenbach}]{McFarquhar1999}
+McFarquhar, G.~M., Heymsfield, A.~J., Macke, A., Iaquinta, J., and Aulenbach,
+  S.~M.: {Use of observed ice crystal sizes and shapes to calculate
+  mean-scattering properties and multispectral radiances: CEPEX April 4, 1993
+  case study}, J.\ Geophys.\ Res., 104, 31,763--31,779,
+  \doi{10.1029/1999JD900802}, 1999.
+
+\bibitem[{McFarquhar et~al.(2018)McFarquhar, Finlon, Stechman, Wu, Jackson, and
+  Freer}]{McFarquhar2018}
+McFarquhar, G.~M., Finlon, J.~A., Stechman, D.~M., Wu, W., Jackson, R.~C., and
+  Freer, M.: {University of Illinois/Oklahoma Optical Array Probe (OAP)
+  Processing Software}, \url{https://doi.org/10.5281/zenodo.1285969}, 2018.
+
+\bibitem[{McMurdie et~al.(2019)McMurdie, Heymsfield, Yorks, and
+  Braun}]{McMurdie2019}
+McMurdie, L.~A., Heymsfield, G., Yorks, J.~E., and Braun, S.: {Investigation of
+  Microphysics and Precipitation for Atlantic Coast-Threatening Snowstorms
+  (IMPACTS) Collection}, data available online [http://ghrc.nsstc.nasa.gov/]
+  from the NASA EOSDIS Global Hydrology Resource Center Distributed Active
+  Archive Center, Huntsville, Alabama, U.S.A. doi:
+  http://dx.doi.org/10.5067/IMPACTS/DATA101, 2019.
+
+\bibitem[{McMurdie et~al.(2022)McMurdie, Heymsfield, Yorks, Braun,
+  Skofronick-Jackson, Rauber, Yuter, Colle, McFarquhar, Poellot, Novak, Lang,
+  Kroodsma, McLinden, Oue, Kollias, Kumjian, Greybush, Heymsfield, Finlon,
+  McDonald, and Nicholls}]{McMurdie2022}
+McMurdie, L.~A., Heymsfield, G.~M., Yorks, J.~E., Braun, S.~A.,
+  Skofronick-Jackson, G., Rauber, R.~M., Yuter, S., Colle, B., McFarquhar,
+  G.~M., Poellot, M., Novak, D.~R., Lang, T.~J., Kroodsma, R., McLinden, M.,
+  Oue, M., Kollias, P., Kumjian, M.~R., Greybush, S.~J., Heymsfield, A.~J.,
+  Finlon, J.~A., McDonald, V.~L., and Nicholls, S.: {Chasing snowstorms: The
+  Investigation of Microphysics and Precipitation for Atlantic
+  Coast-Threatening Snowstorms (IMPACTS) campaign}, Bull.\ Amer.\ Meteor.\
+  Soc., 103, E1243--E1269, \doi{10.1175/BAMS-D-20-0246.1}, 2022.
+
+\bibitem[{Moshtagh(2024)}]{Moshtagh2024}
+Moshtagh, N.: {Minimum Volume Envlosing Ellipsoid}, 2024.
+
+\bibitem[{O'Brien(2016)}]{Obrien2016}
+O'Brien, J.~R.: {Sensitivity of Two-Dimensional Stereo (2DS) probe derived
+  parameters to particle orientation}, Master's thesis, University of North
+  Dakota, 2016.
+
+\bibitem[{Praz et~al.(2018)Praz, Ding, McFarquhar, and Berne}]{Praz2018}
+Praz, C., Ding, S., McFarquhar, G.~M., and Berne, A.: {A Versatile Method for
+  Ice Particle Habit Classification Using Airborne Imaging Probe Data}, J.\
+  Geophys.\ Res.\ Atmos., 123, 13,472--13,495, \doi{10.1029/2018JD029163},
+  2018.
+
+\bibitem[{Pruppacher and Klett(1997)}]{Pruppacher1997}
+Pruppacher, H.~R. and Klett, J.~D.: Microphysics of Clouds and Precipitation,
+  Kluwer Academic Publishers, 1997.
+
+\bibitem[{Przybylo et~al.(2022{\natexlab{a}})Przybylo, Sulia, Lebo, and
+  Schmitt}]{Przybylo2022}
+Przybylo, V.~M., Sulia, K.~J., Lebo, Z.~J., and Schmitt, C.~G.: {The Ice
+  Particle and Aggregate Simulator (IPAS). Part II: Analysis of a database of
+  theoretical aggregates for microphysical parameterization}, J.\ Atmos.\ Sci.,
+  79, 1633--1649, \doi{10.1175/JAS-D-21-0179.1}, 2022{\natexlab{a}}.
+
+\bibitem[{Przybylo et~al.(2022{\natexlab{b}})Przybylo, Sulia, Schmitt, and
+  Lebo}]{Przybylo2022b}
+Przybylo, V.~M., Sulia, K.~J., Schmitt, C.~G., and Lebo, Z.~J.: {Classification
+  of cloud particle imagery from aircraft platforms using convolutional neural
+  networks}, J.\ Atmos.\ Oceanic Technol., 39, 405--424,
+  \doi{10.1175/JTECH-D-21-0094.1}, 2022{\natexlab{b}}.
+
+\bibitem[{Ryzhkov et~al.(2011)Ryzhkov, Pinsky, Pokrovsky, and
+  Khain}]{Ryzhkov2011}
+Ryzhkov, A., Pinsky, M., Pokrovsky, A., and Khain, A.: Polarimetric radar
+  observation operator for a cloud model with spectral microphysics, J.\ Appl.\
+  Meteor.\ Climatol., 50, 873--894, \doi{10.1175/2010JAMC2363.1}, 2011.
+
+\bibitem[{Sand(2024)}]{Sand2024}
+Sand, K.~R.: Investigation Of The Existence Of Vertically Oriented Ice Crystals
+  In Winter Storms, Master's thesis, University of North Dakota,
+  \urlprefix\url{https://commons.und.edu/theses/6567}, 2024.
+
+\bibitem[{Schima et~al.(2024)Schima, McFarquhar, Delene, Heymsfield, Bansemer,
+  Schnaiter, Finlon, J\"{a}rvinen, and Nehlert}]{Schima2024}
+Schima, J., McFarquhar, G.~M., Delene, D., Heymsfield, A., Bansemer, A.,
+  Schnaiter, M., Finlon, J.~A., J\"{a}rvinen, E., and Nehlert, F.: {A
+  multi‐probe automated classification of ice crystal habits during the
+  IMPACTS campaign}, J.\ Geophys.\ Res.\ Atmos., 129, e2024JD040\,895,
+  \doi{10.1029/2024JD040895}, 2024.
+
+\bibitem[{Schmitt and Heymsfield(2014)}]{Schmitt2014}
+Schmitt, C.~G. and Heymsfield, A.~J.: Observational quantification of the
+  separation of simple and complex atmospheric ice particles, Geophys.\ Res.\
+  Lett., 41, 1301--1307, \doi{10.1002/2013GL058781}, 2014.
+
+\bibitem[{Schrom and Kumjian(2018)}]{Schrom2018b}
+Schrom, R.~S. and Kumjian, M.~R.: Bulk-density representations of branched
+  planar ice crystals: {Errors} in the polarimetric radar variables, J.\ Appl.\
+  Meteor.\ Climatol., 57, 333--346, \doi{10.1175/JAMC-D-17-0114.1}, 2018.
+
+\bibitem[{Schrom and Kumjian(2019)}]{Schrom2019}
+Schrom, R.~S. and Kumjian, M.~R.: A probabilistic radar forward model for
+  branched planar ice crystals, J.\ Appl.\ Meteor.\ Climatol., 58, 1245--1265,
+  \doi{10.1175/JAMC-D-18-0204.1}, 2019.
+
+\bibitem[{Schrom et~al.(2023)Schrom, Munchak, and Adams}]{Schrom2023}
+Schrom, R.~S., Munchak, S.~J., and Adams, I.~S.: The polarimetric radar
+  scattering properties of oriented aggregates, J.\ Atmos.\ Sci., 80,
+  1145--1161, \doi{10.1175/JAS-D-22-0149.1}, 2023.
+
+\bibitem[{Stoelinga et~al.(2007)Stoelinga, Locatelli, and
+  Woods}]{Stoelinga2007}
+Stoelinga, M.~T., Locatelli, J.~D., and Woods, C.~P.: The Occurrence of
+  ``irregular'' ice particles in stratiform clouds, J.\ Atmos.\ Sci., 64,
+  2740--2750, \doi{10.1175/JAS3962.1}, 2007.
+
+\bibitem[{Um and McFarquhar(2009)}]{Um2009}
+Um, J. and McFarquhar, G.~M.: Single-scattering properties of aggregates of
+  plates, Quart.\ J.\ Roy.\ Meteor.\ Soc., 135, 291--304, \doi{10.1002/qj.378},
+  2009.
+
+\bibitem[{Varcie et~al.(2023)Varcie, Zaremba, Rauber, McFarquhar, Finlon,
+  McMurdie, Ryzhkov, Schnaiter, J\"{a}rvinen, Waitz, Delene, Poellot, McLinden,
+  and Janiszeski}]{Varcie2023}
+Varcie, M.~M., Zaremba, T.~J., Rauber, R.~M., McFarquhar, G.~M., Finlon, J.~A.,
+  McMurdie, L.~A., Ryzhkov, A., Schnaiter, M., J\"{a}rvinen, E., Waitz, F.,
+  Delene, D.~J., Poellot, M.~R., McLinden, M. L.~W., and Janiszeski, A.:
+  {Precipitation growth processes in the comma-head region of the 7 February
+  2020 northeast snowstorm: Results from IMPACTS}, J.\ Atmos.\ Sci., 80, 3--29,
+  \doi{10.1175/JAS-D-22-0118.1}, 2023.
+
+\bibitem[{Westbrook and Sephton(2017)}]{Westbrook2017}
+Westbrook, C.~D. and Sephton, E.~K.: {Using 3-D-printed analogues to
+  investigate the fall speeds and orientations of complex ice particles},
+  Geophys.\ Res.\ Lett., 44, 7994--8001, \doi{10.1002/2017GL074130}, 2017.
+
+\bibitem[{Xiao et~al.(2019)Xiao, Zhang, He, Liu, Yan, Miao, and
+  Yang}]{Xiao2019}
+Xiao, H., Zhang, F., He, Q., Liu, P., Yan, F., Miao, L., and Yang, Z.:
+  {Classification of ice crystal habits observed from airborne Cloud Particle
+  Imager by deep transfer learning}, Earth and Space Science, 6, 1877--1886,
+  \doi{10.1029/2019EA000636}, 2019.
+
+\bibitem[{Zhang et~al.(2023)Zhang, Xiao, Gao, Su, Li, Wei, Li, and
+  Li}]{Zhang2023}
+Zhang, R., Xiao, H., Gao, Y., Su, H., Li, D., Wei, L., Li, J., and Li, H.:
+  {Shape classification of cloud particles recorded by the 2D-S imaging probe
+  using a convolutional neural network}, J. Meteorol. Res., 37, 521--535,
+  \doi{10.1007/s13351-023-2146-2}, 2023.
+
+\bibitem[{Zhao and Wang(2015)}]{Zhao2015}
+Zhao, B. and Wang, J.: Random generation of natural sand assembly using micro
+  x-ray tomography and spherical harmonics, G\'{e}otech.\ Lett., 5, 6--11,
+  \doi{10.1680/geolett.14.00082}, 2015.
+
+\bibitem[{Zhao et~al.(2017)Zhao, Wei, and Wang}]{Zhao2017}
+Zhao, B.~D., Wei, D.~H., and Wang, J.~F.: Particle shape quantification using
+  rotation-invariant spherical harmonic analysis, G\'{e}otech.\ Lett., 7,
+  190--196, \doi{10.1680/jgele.17.00011}, 2017.
+
+\end{thebibliography}

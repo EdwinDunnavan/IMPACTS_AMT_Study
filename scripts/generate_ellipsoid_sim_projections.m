@@ -29,9 +29,9 @@ cmap = 0.95.*flipud(pink);
 %fnames = fieldnames(m);
 %f2020_names = fnames(startsWith(fnames, 'f2020'));
 
-%fyear = '2020';
+fyear = '2020';
 
-fyear = {'2022','2023'};
+%fyear = {'2022','2023'};
 
 
 
@@ -70,12 +70,12 @@ ax = tight_subplot(3, 3, [0.05 0.05], [0.15 0.04], [0.05 0.08]);
 
 % Row Parameters [Row 1, Row 2, Row 3]
 % ORIGINAL
-%pba_vals = [0.95, 0.75, 0.65];
-%pcb_vals = [0.60, 0.75, 0.95];
+pba_vals = [0.95, 0.75, 0.65];
+pcb_vals = [0.60, 0.75, 0.95];
 
 % NEW
-pba_vals = [0.95, 0.77, 0.65];
-pcb_vals = [0.60, 0.76, 0.95];
+%pba_vals = [0.95, 0.77, 0.65];
+%pcb_vals = [0.60, 0.76, 0.95];
 
 % Plotting Colors
 c_obs  = [0.75 0.75 0.75]; % Shaded Grey
@@ -96,45 +96,91 @@ switch true
     % Irregular Defaults 2020 NEW
     case any(strcmp(fyear,'2020'))
 
-        pops(1).pop_frac = 1.0; 
-        pops(1).nu = 0.2; 
-        pops(1).Dmean = 2.0;
-        pops(1).ar_min = 0.2;
-        pops(1).AR_scale = 0.6;
-        pops(1).AR_min  = 0.2;
-        pops(1).AR_exponent = -0.27; 
-        pops(1).AR_asymp = [];
-        pops(1).AR_amp = [];
-        pops(1).k_decay = [];
-        pops(1).pba_exponent = [];
-        pops(1).pcb_exponent = [];
-        pops(1).abatog = 0.6; 
+        % --- 2020: POPULATION 1: Irregular ---
+        pops(1).pop_frac    = 1.0;
+        pops(1).nu          = 1.0;
+        pops(1).Dmean       = 2.0;
+        pops(1).AR_scale    = 0.59;
+        pops(1).AR_exponent = [];
+        pops(1).AR_min      = 0.1;
+       % pops(1).pba         = 0.75;
+        pops(1).pba_exponent= [];
+       % pops(1).pcb         = 0.75;
+        pops(1).pcb_exponent= [];
+        pops(1).abatog      = 0.6;
+        %pops(1).abatog      = 1.0;
         pops(1).rhovar_frac = 0.02;
-        pops(1).ang_xz = -40; 
-        pops(1).ang_xy = 45; 
-        pops(1).kappa = 3.5;
+        %pops(1).rhovar_frac = 0.0175;
+        %pops(1).rhovar_frac = 0.015;
+       % pops(1).ang_xz      = -48;
+        pops(1).ang_xz      = -40;
+        %pops(1).ang_xz      = -55;
+        pops(1).ang_xy      = 45;
+        %pops(1).kappa       = 5.0;
+       % pops(1).kappa       = 4.5;
+        pops(1).kappa       = 3.5;
+        pops(1).psimean     = 0;
+        pops(1).varpsi      = 0.001;
+
+        % pops(1).pop_frac = 1.0; 
+        % %pops(1).nu = 0.2; 
+        % pops(1).nu = 1.0;
+        % pops(1).Dmean = 2.0;
+        % pops(1).ar_min = 0.2;
+        % pops(1).AR_scale = 0.6;
+        % pops(1).AR_min  = 0.2;
+        % pops(1).pba = 0.75;
+        % pops(1).pcb = 0.75;
+        % %pops(1).AR_exponent = -0.27; 
+        % pops(1).AR_exponent = [];
+        % pops(1).pba_exponent = [];
+        % pops(1).pcb_exponent = [];
+        % pops(1).abatog = 0.6; 
+        % pops(1).rhovar_frac = 0.02;
+        % pops(1).ang_xz = -48;
+        % %pops(1).ang_xz = -40; 
+        % pops(1).ang_xy = 45; 
+        % pops(1).kappa = 3.5;
         
     case any(strcmp(fyear,{'2022','2023'}))
         
         % Irregular Defaults 2022-2023 NEW
-        % --- 2022-2023: POPULATION 1: Irregular ---
-        pops(1).pop_frac    = 0.70;
-        pops(1).nu          = 0.2;
+        % % --- 2022-2023: POPULATION 1: Irregular ---
+        % pops(1).pop_frac    = 0.70;
+        % pops(1).nu          = 0.2;
+        % pops(1).Dmean       = 0.5;
+        % pops(1).AR_scale    = 0.59;
+        % pops(1).AR_exponent = -0.27;
+        % pops(1).AR_min      = 0.2;
+        % pops(1).pba         = 0.78;
+        % pops(1).pba_exponent= [];
+        % pops(1).pcb         = 0.78;
+        % pops(1).pcb_exponent= [];
+        % pops(1).abatog      = 0.6;
+        % pops(1).rhovar_frac = 0.015;
+        % pops(1).ang_xz      = -40;
+        % pops(1).ang_xy      = -10;
+        % pops(1).kappa       = 3;
+        % pops(1).psimean     = 0;
+        % pops(1).varpsi      = 0.001;
+
+        pops(1).pop_frac    = 0.75;
+        pops(1).nu          = 1.0;
         pops(1).Dmean       = 0.5;
         pops(1).AR_scale    = 0.59;
-        pops(1).AR_exponent = -0.27;
-        pops(1).AR_min      = 0.2;
+        pops(1).AR_exponent = [];
+        pops(1).AR_min      = 0.1;
         pops(1).pba         = 0.78;
         pops(1).pba_exponent= [];
         pops(1).pcb         = 0.78;
         pops(1).pcb_exponent= [];
         pops(1).abatog      = 0.6;
-        pops(1).rhovar_frac = 0.015;
+        pops(1).rhovar_frac = 0.02;
         pops(1).ang_xz      = -40;
         pops(1).ang_xy      = -10;
-        pops(1).kappa       = 3;
+        pops(1).kappa       = 3.5;
         pops(1).psimean     = 0;
-        pops(1).varpsi      = 0.001;
+        pops(1).varpsi      = 0.001;  
 
 end
 
@@ -189,8 +235,9 @@ for row = 1:3
     
     %% --- COLUMN 3: Bivariate Beta Distribution ---
     % Generate beta distributions analytically
-    abatog = 0.6; % ORIG
+    %abatog = 0.6; % ORIG
   %  abatog = 0.85; % NEW
+    abatog = pops(1).abatog;
     pbmin = pba_target / (1 - pba_target);
     pcmin = pba_target * pcb_target / (1 - pcb_target);
     abamin = max(pbmin, pcmin);
@@ -248,21 +295,6 @@ for row = 1:3
     pops(1).psimean = 90; 
     pops(1).varpsi = 10;
     sim_orth = fwd_project_ellipsoids('N', N_sim, 'use_instrument_filter', use_instrument_filter, 'pops', pops);
-
-    
-    %% ORIGINAL
-
-    % sim_base   = fwd_project_ellipsoids(sim_args{:},  'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-    %                                                                                'psimean', 0,  'varpsi', 0.001);
-    % 
-    % sim_par    = fwd_project_ellipsoids(sim_args{:}, 'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-    %                                                                              'psimean', 0,  'varpsi', 10);
-    % 
-    % sim_skew   = fwd_project_ellipsoids(sim_args{:},  'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-    %                                                                               'psimean', 45, 'varpsi', 10);
-    % 
-    % sim_orth   = fwd_project_ellipsoids(sim_args{:}, 'pba', pba_target, 'pcb', pcb_target, 'abatog', abatog,...
-    %                                                                              'psimean', 90, 'varpsi', 10);
 
     %% Plotting
     % Plot Horizontal (Col 1)

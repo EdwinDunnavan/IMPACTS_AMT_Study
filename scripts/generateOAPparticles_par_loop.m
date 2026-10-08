@@ -75,7 +75,7 @@ folder = cell(1,length(part_folder));
 
 for pp = 1 : length(part_folder)
 
-    folder{pp} = strcat(sim_dir,part_folder{pp});
+    folder{pp} = fullfile(sim_dir,part_folder{pp});
 
 end
 
@@ -88,6 +88,7 @@ for ff = 1 : length(test_folder)
 
     config = struct();
 
+    config.use_instrument_filter = false; % NOTE: Turned off so that these simulations are much faster!
     config.Nsim = Nsim;
     config.orientations = orientations{ff};
     config.folder = folder{ff};

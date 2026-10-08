@@ -1,0 +1,1601 @@
+%% Copernicus Publications Manuscript Preparation Template for LaTeX Submissions
+%% ---------------------------------
+%% This template should be used for copernicus.cls
+%% The class file and some style files are bundled in the Copernicus Latex Package, which can be downloaded from the different journal webpages.
+%% For further assistance please contact Copernicus Publications at: production@copernicus.org
+%% https://publications.copernicus.org/for_authors/manuscript_preparation.html
+
+
+%% Please use the following documentclass and journal abbreviations for preprints and final revised papers.
+
+%% 2-column papers and preprints
+\documentclass[amt, manuscript]{copernicus}
+
+
+
+%% Journal abbreviations (please use the same for preprints and final revised papers)
+
+
+% Advances in Geosciences (adgeo)
+% Advances in Radio Science (ars)
+% Advances in Science and Research (asr)
+% Advances in Statistical Climatology, Meteorology and Oceanography (ascmo)
+% Aerosol Research (ar)
+% Annales Geophysicae (angeo)
+% Archives Animal Breeding (aab)
+% Atmospheric Chemistry and Physics (acp)
+% Atmospheric Measurement Techniques (amt)
+% Biogeosciences (bg)
+% Climate of the Past (cp)
+% DEUQUA Special Publications (deuquasp)
+% Earth Surface Dynamics (esurf)
+% Earth System Dynamics (esd)
+% Earth System Science Data (essd)
+% E&G Quaternary Science Journal (egqsj)
+% EGUsphere (egusphere) | This is only for EGUsphere preprints submitted without relation to an EGU journal.
+% European Journal of Mineralogy (ejm)
+% Fossil Record (fr)
+% Geochronology (gchron)
+% Geographica Helvetica (gh)
+% Geoscience Communication (gc)
+% Geoscientific Instrumentation, Methods and Data Systems (gi)
+% Geoscientific Model Development (gmd)
+% History of Geo- and Space Sciences (hgss)
+% Hydrology and Earth System Sciences (hess)
+% Journal of Bone and Joint Infection (jbji)
+% Journal of Micropalaeontology (jm)
+% Journal of Sensors and Sensor Systems (jsss)
+% Magnetic Resonance (mr)
+% Mechanical Sciences (ms)
+% Natural Hazards and Earth System Sciences (nhess)
+% Nonlinear Processes in Geophysics (npg)
+% Ocean Science (os)
+% Polarforschung - Journal of the German Society for Polar Research (polf)
+% Primate Biology (pb)
+% Proceedings of the International Association of Hydrological Sciences (piahs)
+% Safety of Nuclear Waste Disposal (sand)
+% Scientific Drilling (sd)
+% SOIL (soil)
+% Solid Earth (se)
+% State of the Planet (sp)
+% The Cryosphere (tc)
+% Weather and Climate Dynamics (wcd)
+% Web Ecology (we)
+% Wind Energy Science (wes)
+
+
+%% \usepackage commands included in the copernicus.cls:
+%\usepackage[german, english]{babel}
+%\usepackage{tabularx}
+%\usepackage{cancel}
+%\usepackage{multirow}
+%\usepackage{supertabular}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\usepackage{amsthm}
+%\usepackage{float}
+%\usepackage{subfig}
+%\usepackage{rotating}
+
+\graphicspath{{Figures/}}
+
+\usepackage{placeins}
+\usepackage{longtable}
+\usepackage{tabulary}
+\usepackage{booktabs,array,multirow}
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+
+\begin{document}
+
+\title{Universality of ice particle shapes and orientations as revealed by the 2D-S in situ optical array probe}
+
+
+% \Author[affil]{given_name}{surname}
+
+\Author[1,2][edwin.dunnavan@noaa.gov]{Edwin L.}{Dunnavan} %% correspondence author
+\Author[3,4]{Joseph A.}{Finlon}
+\Author[5]{David J.}{Delene}
+\Author[5]{Christian}{Nairy}
+\Author[6]{Aaron}{Bansemer}
+\Author[7]{Craig}{Hunter}
+%\Author[1,5]{Greg M.}{McFarquhar}
+
+\affil[1]{Cooperative Institute for Severe and High-Impact Weather Research and Operations (CIWRO), Norman, Oklahoma}
+\affil[2]{NOAA/OAR National Severe Storms Laboratory, Norman, Oklahoma}
+\affil[3]{Earth System Science Interdisciplinary Center, University of Maryland, College Park, Maryland, USA}
+\affil[4]{NASA Goddard Space Flight Center, Greenbelt, Maryland, USA}
+%\affil[5]{School of Meteorology, University of Oklahoma, Norman, OK, USA}
+\affil[5]{Department of Atmospheric Sciences, University of North Dakota, Grand Forks, North Dakota, USA}
+\affil[6]{NSF National Center for Atmospheric Research, Boulder, Colorado, USA}
+\affil[7]{NASA Langley Research Center, Hampton, VA, USA}
+
+%% The [] brackets identify the author with the corresponding affiliation. 1, 2, 3, etc. should be inserted.
+
+%% If an author is deceased, please add \deceased[$Deceased date if applicable$]{$Author number$} (e.g. \deceased[13 November 2015]{2}) at the end of the affiliations. The author number depends on the placement of the author in the author list, e.g. the third author has number 3.
+
+
+%% If authors contributed equally, please add \equalcontrib{$Author numbers$} (e.g. \equalcontrib{1,3}) at the end of the affiliations. The author number depends on the placement of the author in the author list, e.g. the third author has number 3.
+
+
+\runningtitle{Universality of ice particle shapes and orientations as revealed by the 2D-S in situ optical array probe}
+
+\runningauthor{Edwin L. Dunnavan}
+
+
+
+
+
+\received{}
+\pubdiscuss{} %% only important for two-stage journals
+\revised{}
+\accepted{}
+\published{}
+
+%% These dates will be inserted by Copernicus Publications during the typesetting process.
+
+
+\firstpage{1}
+
+\maketitle
+
+
+
+\begin{abstract}
+Previous studies have attempted to use in situ optical array probe measurements to understand the myriad of different atmospheric ice particle shapes through their 2D projections. However, uncertain orientations and shapes obscure each particle's true 3D structure. This study more thoroughly investigates the true 3D shapes and orientations of ice particles by generating nearly 14 million ellipse fits over 2D-S cloud probe images collected from 26 flights of the NASA IMPACTS field campaign. Joint distributions of observed horizontally- and vertically-viewed ellipse aspect ratios, orientations, sizes, and area ratios suggest a universality of 3D ice particle shapes, orientations, and densities for irregular and columnar particle habits. Monte Carlo simulations using plausible distributions of triaxial ellipsoid shapes and orientations along with more detailed simulations using randomly-generated 3D model geometries explain ellipse joint distributions of irregular and columnar crystals. The observed 2D-S ellipse distribution symmetry between the horizontal and vertical channels for irregular particles, in particular, can be explained by representing irregular particles as triaxial ellipsoids with size independent aspect ratios and densities rather than the power-law spheroidal representations commonly used in numerical weather prediction models. A suite of simulation results using STL models for a variety of habits illustrate that 3D effective densities of particles can be estimated from 2D area ratio projections by assuming a one-third scaling law. In-situ orientations are observed to be neither random nor horizontally aligned and depend crucially upon where and how probes are installed on the aircraft.
+\end{abstract}
+
+%Simulations suggest that particle maximum dimensions are preferentially oriented by approximately $25^{\circ}$ from horizontal. Columns from the 2D-S ellipse fits can be visually distinguished by their power-law like behavior with increasing size along with their $70^{\circ}$ preferential orientation as viewed from the 2D-S vertical channel. 
+
+%\copyrightstatement{TEXT} %% This section is optional and can be used for copyright transfers.
+
+
+\introduction  %% \introduction[modified heading if necessary]
+Ice particle shapes, densities, and orientations are still poorly understood and represented in both local and global numerical weather prediction (NWP) models. These deficiencies result from the vast landscape of various ice particle habit forms and an inability or difficulty in estimating 3D structures from the 2D measurements afforded by available imagery in different environments. There has however been recent progress in identifying and characterizing ice particles. Recent studies have applied machine learning techniques such as convolutional neural networks \citep{Xiao2019,Przybylo2022b,Jaffeux2022,Zhang2023} and multinomial logistic regression \citep{Praz2018} to identify ice particle habits from in-situ-derived cloud particle imagers. Many of these studies claim up to $97\%$ accuracy in correctly identifying ice particle habits. There are also recent machine learning studies that have made advancements in characterizing snow morphological and microphysical properties from ground-based imagers \citep{Leinonen2021}. 
+
+Despite this recent progress in habit classification, there are still large uncertainties regarding the actual quantification of certain habit type shapes and densities and current NWP models still use simplistic geometric assumptions. In particular, irregular ice particles -- unaggregated pristine crystals without a clear, singular hexagonal structure\footnote{There is some debate regarding the use and appropriateness of the word ``irregular'' in describing such particles. For example, \citet{Stoelinga2007} decries the typical usage of the word ``irregular'' as it suggests that such forms aren't already classified in habit diagrams when such ``regular'' forms are quite well known. Further, \citet{Stoelinga2007} suggests that probe uncertainties and limited resolutions potentially lead to misclassifications of such ``irregular'' crystals, thus contributing to confusion regarding what ``irregular'' is supposed to represent. Herein we use the term irregular to simply mean unaggregated, non-pristine crystals; that is, ice crystals that are not plates, columns, dendrites, or needles. Such a definition is consistent with many habit classification conventions and is consistent with the studies of \citet{Korolev2000}, \citet{Korolev2003}, and others.} -- by far exhibit the largest variations and uncertainties in morphology and microphysical properties. Irregular particles exhibit many different exotic habit forms such as rosettes, bullet rosettes, side planes, and many more \citep{Bailey2009} which appear at nearly all subfreezing temperature levels. Each form potentially encapsulates different microphysical and radiative properties even within the same subclass. Thus, it is difficult, if not impossible, for models to utilize theoretical or analytical methods to calculate radiative properties, growth rates, or other microphysical properties for all types of irregular particles even within the same cloud. Instead, approximate or purely empirical methods must be employed. These methods are particularly important when considering that the vast majority of stratiform ice particles are of these irregular forms and are not pristine such as plates, columns, dendrites, or needles \citep{Korolev1999,Korolev2000,Korolev2003}.
+In situ aircraft studies are necessary to understand the shapes of such irregular particles since snow particles will almost always be aggregated when such particles are observed from ground instruments such as the Multi-Angle Snowflake Camera (MASC).
+
+%% IMPORTANT NOTE
+% From abstract of Macke et al. 1998
+% "From a broadband solar radiative transfer
+%point of view it appears more important to use the correct particle shapes than to average over the correct size
+%distributions."
+
+There are currently two paradigms that attempt to bridge the gap between the observed variety of ice particles and the calculations of their properties. The first paradigm involves the detailed, explicit numerical calculations or laboratory experiments of particle properties using synthetic 3D structures. These 3D structures are often completely idealistic and represent perfect hexagonal (e.g., plate and column) or otherwise simple shapes. Such an approach is not only used in numerical experiments \citep[e.g.,][]{Um2009,Schrom2018b,Schrom2019} and in the development of particle ``databases'' \citep[e.g.,][]{Liu2008,Lu2016,Schrom2023}  but also in laboratory studies of, for example, particle fallspeed \citep[e.g.,][]{Westbrook2017,McCorquodale2020a,McCorquodale2020b}. Performing explicit calculations with such imitations provides confidence in the results of such calculations due to the exact nature of the problem, especially for the calculation of radiative properties as these quantities are physically based. In the case of scattering and absorption calculations, it is common for models to use lookup tables generated from these explicit calculations and then integrate the properties across a size distribution. While this paradigm is explicit and physical, its tradeoff lies in the uncertainty regarding the universality of representing a myriad of particles with only a limited number of available synthetic or idealistic representations. Despite this variability and uncertainty, several studies have found that idealized shapes such as Koch fractals \citep{Macke1996,McFarquhar1999} can be used to calculate the mean radiative properties of ice crystals.
+
+The second paradigm potentially overcomes the first paradigm's limitation by replacing explicit single-particle calculations with integrated properties stemming from an assumed analytical geometry and underlying distributions governing such geometry. Thus, fundamental radiative and microphysical properties can be calculated through the integration of each particle's geometry along with their particle size distribution. Oblate and prolate spheroids are frequently used to broadly represent the shapes of various ice particles. Geometric quantities, such as the capacitance needed for growth rate calculations \citep{Pruppacher1997,Lambbook} and radiative quantities such as scattering amplitudes \citep{Ryzhkov2011} can therefore be determined analytically and only intrinsically depend upon the aspect ratios and sizes of the spheroids. An assumed spheroid ``effective'' density is then used to complete the geometry of any particular particle by specifying the mass of each particle. While the second paradigm is widely used, there is often disagreement as to what spheroid aspect ratios should be used for various habit types. For example, \citet{Hogan2012} used oblate spheroids to represent snow aggregates in their radar scattering calculations. They found that aggregates could be sufficiently represented as oblate spheroids with aspect ratios of 0.6 to simultaneously match observations of radar differential reflectivity and dual-wavelength ratios compared to in situ aircraft particle size distribution measurements. This value of 0.6 happens to be consistent with many in situ aircraft and ground-based studies that image ice particles such as \citet{Korolev2000,Korolev2003,Garrett2015}. Thus, it is natural to think that aggregate geometry is \textit{best} represented as a 0.6 aspect ratio oblate spheroid. However, recent ground-based measurements utilizing artificial intelligence \citep{Jiang2019,Dunnavan2019b} and numerical studies \citep{Dunnavan2019b,Przybylo2022,Schrom2023} have elucidated the best-fit ellipsoids for aggregates. These studies consistently show that fully-developed aggregates are typically not oblate but rather triaxial. \citet{Dunnavan2019b} and \citet{Jiang2019} in particular demonstrate that a bivariate beta distribution of ellipsoid aspect ratios is capable of describing the entire distribution of ellipsoid aspect ratios for most stages of aggregate development. Thus, it is clear that one singular spheroidal aspect ratio might not be sufficient to describe multiple physical properties. This is especially true as radiative studies such as \citet{Macke1998} have found that the diversity of ice particle shapes, rather than explicit size distribution representations, dominates the variability in broadband solar radiative transfer calculations for cirrus clouds. 
+
+%Recent studies such as \citet{Dunnavan2022} also suggest that irregular particles also show such a dispersion of ellipsoidal shapes. Furthermore, \citet{Dunnavan2022} showed that current aspect ratio polarimetric retrieval algorithms for irregular particles for one flight leg of a winter storm were not seemingly consistent with in situ data.
+
+% As a result, there is a tension between treating ice particle shapes in models with generality (i.e., as reduced-density spheroids or with empirical power-law relations) or with fedelity (i.e., using a limited number of explicit model geometries).
+
+In situ aircraft cloud probe instruments are well suited to study the shapes and orientations of ice particles as they can image millions of atmospheric particles spanning large spatial distances. The Two Dimensional Stereo (2D-S) probe \citep{Lawson2006} is particularly well suited for this purpose for two reasons.  First, optical array probes (OAPs) such as the 2D-S are capable of measuring many more particles than high-resolution probes such as the Cloud Particle Imager \citep[CPI;][]{Lawson2001} or the Particle Habit Imaging and Polar Scattering \citep[PHIPS;][]{Abdelmonem2016} imager. Thus the statistics that can be derived from the 2D-S are naturally more robust than these higher-resolution probes. Secondly, the 2D-S is unique in that there are two overlapping orthogonal channels -- named the horizontal, or ``H'', channel and the vertical, or ``V'', channel -- rather than one singular channel. Typically, the ``H'' channel is oriented such that images are projected onto a 2D plane (X-Z) that is parallel to the direction of aircraft heading whereas the ``V'' channel has images projected onto a 2D plane (X-Y) that it is parallel to the direction of the ground (see \cref{fig:P3} for the 3D coordinate system). The 2D stereo feature lends itself nicely to the study of ice particle shape as it potentially allows for the simultaneous viewing of the same particle from two orthogonal directions.
+
+%During IMPACTS, the two available HVPS instruments HVPS-A (horizontally-installed) and HVPS-B (vertically-installed) were separate instruments that were displaced from each other on the port side of the P-3 aircraft.
+
+% Discuss Alexei Korolev's series of papers. Mention Stolenga's paper which discusses the applicability of "irregular" habits. Discuss the aspect ratio dependence on size and how it differs between irregular and primary habits (Korolev and Isaac 2003; Harrington et al. 2013)
+
+While the 2D-S was first introduced by \citet{Lawson2006} 20 years ago, the intended use of the dual channel and ``stereo'' operations of the instrument has still not been fully utilized mainly because stereo sets of particle images are only available if particles simultaneously appear within both the H and V channel field of view. This overlap region is significantly smaller than the full sampling volume of either the H and V channels and thus any particular flight produces very few actual stereo (i.e., matched) images. Additionally, the 3D shape and orientation reconstruction problem itself requires the use of machine learning algorithms to optimize 3D features appropriately \citep[e.g.,][]{Jiang2019,Leinonen2021}. In fact, for assumed oblate or prolate spheroids, the information regarding the true 3D shapes can be completely obscured even for small changes in orientation and this uncertainty maximizes for the most nonspherical particles \citep{Dunnavan2019a}. Therefore, while shape estimation could be done with the 2D-S, the 2D-S so far is primarily used for the construction of size distributions and their associated moments as well as for habit identification. Often, the vertical channel is used as it is assumed that particles, despite any potential local turbulence due to the aircraft, will have their major axes aligned along the horizontal. Thus, it is assumed that the vertical channel will capture both the particle maximum dimension and will better capture the particle habit (e.g., a better view of a plate basal facet). However, very few studies exist that attempt to understand the 3D orientations of particles observed by optical array probes. Early attempts at such an understanding are provided by W. D. King in a series of papers on the matter \citep{King1985a,King1985b,King1985c,King1985d}. \citet{King1985d} in particular developed a theoretical turbulence model describing the predicted equilibrium angles of columns for probes installed under wing tips and near fuselages. This model predicted that the orientation of columnar particles was not horizontal but rather preferentially angled at around $20^{\circ}$ off horizontal when probes were installed horizontally. This expected equilibrium angle from horizontally-installed probes depends crucially on the location of the probe away from the wing both vertically and horizontally. When probes are installed vertically, as is most common for optical array probes, the predicted column equilibrium angle is much much more stable for probes installed under wing tips and the \citet{King1985d} model predicted that columns would be preferentially oriented at around $60^{\circ}$ for these vertically-installed probes. \citet{King1985d}, \citet{MacPherson1988}, and more recently \citet{Obrien2016} found good agreement between this simple model and the observed $60^{\circ}$ angle from vertically-installed OAPs. Thus, at least for columnar particles, this preferential orientation contradicts the assertion that particles are randomly or horizontally oriented within OAP volumes. It is currently unclear how these probe-induced orientations would affect estimations of the 3D crystal shapes.
+
+This study seeks to resolve the 2D projection issue by utilizing a large number of 2D-S particle images from 26 cases of NASA's Investigation of Microphysics and Precipitation for Atlantic Coast-Threatening Snowstorms (IMPACTS) field campaign.\footnote{While two separate, orthogonal High-Volume Precipitation Spectrometer (HVPS-3) instruments were available during IMPACTS, we instead focus on only the 2D-S as the 2D-S has better pixel resolution and shares overlapping sampling volumes between the H and V channels.} The stereo capabilities of the 2D-S are reimagined not in terms of matched H and V images but rather in terms of the joint 2D distributions of ellipse fit properties from each channel. In essence, this amounts to marginalizing the complete \textit{matched} 4D observed and simulated joint distributions of, for example, ellipse aspect ratios and orientations, from each channel into 2 separate bivariate distributions -- one for the H channel and the other for the V channel. While this necessarily severs the particle-by-particle information between each channel, it does preserve the large statistics provided by each flight dataset. In addition to presenting and analyzing these 2D ellipse distributions, we also provide a suite of detailed Monte Carlo simulations with an analytical ellipsoid distribution model as well as detailed STL models. The purpose of these simulations is not to optimize the 3D shapes and orientations using the 2D projections, but rather to explore what 3D particle characteristics can \textit{plausibly} explain the joint distributions of the H and V ellipse parameters. In this way, we can use the 3D simulations as a tool for testing current assumptions regarding 3D ice particle shapes and to propose plausible explanations for different habit types based upon the H and V channel ellipse statistics.
+
+% As such, we aim to understand the 3D shapes and orientations on a purely \textit{statistical} level through the juxtaposition of observed and simulated H and V bivariate distributions. 
+
+%In addition, we also produce these types of bivariate distributions including ellipse area ratios as well. 
+
+%The ellipse area ratio can be used to potentially provide information regarding the density of each particle.
+
+% We have developed Matlab programs to simulate similar theoretical distributions with the use of triaxial ellipsoids to potentially explain the in situ-derived observations. Readers can better understand the ellipsoid projection problem and analytical model used in this study by installing Matlab apps located in S1. Alternatively, readers can directly download these apps by searching for ``SingleEllipsoidProjection'' and ``MultipleEllipsoidProjections'' on the ``Get More Apps'' tab within the Matlab console.
+
+% NOTE: check to see if we can use low area ratio + high aspect ratio to determine hexagonal plates.
+
+
+\section{Methods}
+
+\subsection{Aircraft coordinate system}
+
+\cref{fig:P3} provides a schematic that shows the 2D-S location on the P-3 aircraft during the NASA IMPACTS campaign and the coordinate system used throughout. The NASA IMPACTS campaign was a large field campaign that operated primarily in the Northeast as well as several Midwestern portions of United States in 2020, 2022, and 2023 \citep{McMurdie2019,McMurdie2022}. During the IMPACTS campaign, the 2D-S probe was mounted under the P-3 aircraft's starboard-side wing tip. The coordinate system used here has the z axis pointed upward whereas the x axis is pointed along flight direction and the y axis pointed toward port side. The 2D-S (highlighted by a rectangular box in \cref{fig:P3}a) shares this same (x,y,z) coordinate basis where the vertical and horizontal photodiode arrays (i.e., receivers) were installed on the bottom and starboard side, respectively\footnote{Our analysis shown in \cref{sect:obs} actually suggests that these photodiode arrays were mistakenly installed during the 2020 IMPACTS campaign such that there was effectively a 90$^{\circ}$ clockwise rotation of the 2D-S compared to the intended orientation. This likely resulted in the H photodiode array being oriented on bottom and the V photodiode array oriented on the port side during the 2020 flights. We present compelling evidence for this assertion in Appendix B.}. \cref{fig:P3}b shows a close-up schematic of the 2D-S basis. We use this same basis for ellipsoid and STL model simulations of ice particles in \cref{sect:simulations} (see \cref{fig:P3}c). \cref{fig:P3}d shows how the 2D-S diode elements are aligned with respect to the aircraft/ellipse coordinate system. The 2D-S data itself is stored in a different coordinate system such that the x axis is along the -z (-y) H (V) channel aircraft axis and the y axis is along the aircraft x axis. Therefore, we peform the following reflection transformation to align the projected ellipse angle $-90^{\circ} < \theta_{\mathrm{proj}} < +90^{\circ}$ such that it represents deviations from the x-axis horizontal (i.e., aircraft heading direction) in the aircraft/ellipse basis   
+\begin{equation}
+\theta_{\mathrm{proj}} = 
+\begin{cases}
+90^{\circ} - \theta_{\mathrm{proj},\mathrm{diode}} & \theta_{\mathrm{proj},\mathrm{diode}} \geq 0^{\circ}\\
+-(90^{\circ} - |\theta_{\mathrm{proj},\mathrm{diode}}|) & \theta_{\mathrm{proj},\mathrm{diode}} < 0^{\circ}.
+\end{cases}
+\end{equation}
+
+% The 2D-S coordinate system is such that  the z-axis points down.
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/P3_WFF_IMPACTS_with_column_ex_rotated_newcoords_MODIFIED_BUFFER_STRIPS.pdf}
+    \caption{3D model (from \url{https://airbornescience.nasa.gov/content/3D_Models_Gallery}) of the P-3 aircraft (a) with the 2D-S cloud probe instrument (b). The 2D-S laser transmitters are shown as ``V'' and ``H'' in panel b and the photodiode receivers are on the opposite arms. Panel c shows the corresponding x-y-z coordinate system and a simulation example with a representative STL hexagonal column and a best-fit ellipsoid with corresponding ellipse fits from the ellipsoid (green lines) and from the 2D projected images themselves (red lines). Panel d is adapted from Figure 2 of \citet{Sand2024} and shows how the H and V diode coordinates (inset blue ``X'' and ``Y'' basis) correspond to the aircraft and projected ellipse orientations. Note that ellipse angles are defined based on the aircraft/ellipse basis.}
+    \label{fig:P3}
+\end{figure}
+\FloatBarrier
+
+\subsection{In situ data processing}\label{sect:2DS_processing}
+We use a modified version of the University of Illinois/Oklahoma Optical array probe Processing Software \citep[UIOOPS;][]{McFarquhar2018} to process 2D-S data from 26 flights of the NASA IMPACTS campaign. UIOOPS is a Matlab-based library that decompresses the binary image base files and calculates particle-by-particle statistics for each distinct particle within 2D-S image buffer strips. Ellipse fits are computed by UIOOPS using the Computational Geometry Algorithms Library (CGAL) C++ library (\url{https://www.cgal.org/}). UIOOPS creates a Matlab executable file that calls the CGAL ``Min\textunderscore ellipse\textunderscore2'' class to calculate ellipse fits of minimum enclosure for each particle image. An inter-arrival threshold of 10 $\mu$s, a minimum number of 800 shadowed 2D-S pixels, a minimum ellipse major axis length of 0.35 mm, a minimum ellipse aspect ratio of 0.1, and a minimum ellipse area ratio of 0.2 are also used in order to minimize the number of shattered particles and to ensure that each particle is properly resolved.
+
+% We have also introduced several data quality checks in the UIOOPS code that are not currently incorporated in the publically available version. In particular, it is quite common for the public UIOOPS code to fit ellipses around images where there are stray shadowed pixels far away from the particle or to fit ellipses around multiple particle images. To correct these instances, we first filter this noise by using the Matlab image processing function ``bwareaopen'' and by specifying that at least 5 pixels must be connected to the main image. We then use the Matlab image processing function ``bwconncomp'' to separately fit any image which contains more than one particle. Particle images are only used if the particles do not touch the edges of the 2D-S buffer strip; that is, the particle must be entirely inside the 2D-S sampling volume. 
+
+The \citet{Schima2024} multi-probe habit classification algorithm was used to classify 2D-S particle habits as well as the irregular and linear STL Monte Carlo simulations. The algorithm is based on the \citet{Holroyd1987} algorithm which uses a decision tree in order to classify particle images as irregular, linear, dendrite, hexagonal, graupel, aggregate, oriented, or sphere. Classifying particles from the 2D-S is complicated by the limited resolution of the 2D-S and ambiguity related to inferring 3D morphology from 2D binary images. This ambiguity can be compounded by optical diffraction which can be significant for smaller particles. Therefore, this 2D-S classification algorithm is mainly used to generally segregate various habits in the following analysis when appropriate.
+
+%Therefore, for a given set of observations, there are in total 6 parameters governing the distribution of ice particle shapes and orientations $\mathbf{x}=(\overline{\varphi}_{ba},\overline{\varphi}_{cb},\varsigma, \overline{\phi}_{p}, \overline{\theta}_{p},\kappa)$. 
+
+\subsection{Analytical shape and orientation models}\label{methods:math}
+
+Ice particles are modeled as tri-axial ellipsoids with semi-axis lengths: $a$, $b$, and $c$, where $a\geq b \geq c$. Two aspect ratios can therefore characterize a particular ellipsoid shape. As shown in \citet{Jiang2019} and \citet{Dunnavan2019b}, observations of ice particle aggregates and Monte Carlo simulated aggregates indicate that beta distributions can accurately characterize the entire distribution of possible shapes with 
+\begin{subequations}\label{eq:beta_asp_dists}
+    \begin{equation}\label{n_ba}
+        p(\varphi_{ba}|\alpha_{ba},\beta_{ba}) = \frac{1}{B(\alpha_{ba},\beta_{ba})} \varphi_{ba}^{\alpha_{ba}-1} (1-\varphi_{ba})^{\beta_{ba}-1}, \quad 0 < \varphi_{ba} \leq 1
+    \end{equation}
+    \begin{equation}\label{n_cb}
+    p(\varphi_{cb}|\alpha_{ba},\beta_{ba},\beta_{cb}) = \frac{1}{B(\alpha_{ba}+\beta_{ba},\beta_{cb})} \varphi_{cb}^{\alpha_{ba}+\beta_{ba}-1} (1-\varphi_{cb})^{\beta_{cb}-1}, \quad 0 < \varphi_{cb} \leq 1
+    \end{equation}    
+    \begin{equation}\label{n_ca}
+    p(\varphi_{ca}|\alpha_{ba},\beta_{ba},\beta_{cb}) = \frac{1}{B(\alpha_{ba},\beta_{ba}+\beta_{cb})} \varphi_{ca}^{\alpha_{ba}-1} (1-\varphi_{ca})^{\beta_{ba}+\beta_{cb}-1},  \quad 0 < \varphi_{ca} \leq \varphi_{ba} 
+    \end{equation}
+\end{subequations}
+where $\varphi_{ba} \equiv b/a$, $\varphi_{cb} \equiv c/b$, $\varphi_{ca} \equiv c/a$ and $B(\alpha,\beta)$ is the beta function. Throughout this study we assume that these beta distributions can be used to represent the variety of irregular particles that is observed. Note that for oblate spheroids, $\varphi_{ba} = 1.0$ and $\varphi_{cb} = \varphi_{ca}$ whereas for prolate spheroids, $\varphi_{cb}=1.0$ and $\varphi_{ba} = \varphi_{ca}$. For the independent random variates $\Phi_{ba}$ and $\Phi_{cb}$ which follow probability distributions \cref{n_ba,n_cb}, it can be shown from the Mellin convolution theorem that $\Phi_{ca} = \Phi_{ba} \Phi_{cb}$ and that $\Phi_{ca}$ follows \cref{n_ca}. Therefore, while $p(\varphi_{ba},\varphi_{cb}) = p(\varphi_{ba}) p(\varphi_{cb})$,  $\Phi_{ba}$ and $\Phi_{ca}$ are jointly correlated such that they follow the bivariate probability distribution
+
+\begin{equation}
+    p(\varphi_{ba},\varphi_{ca}|\alpha_{ba},\beta_{ba},\beta_{cb}) = \frac{1}{B(\alpha_{ba},\beta_{ba}) B(\alpha_{ba}+\beta_{ba},\beta_{cb})} \varphi_{ca}^{\alpha_{ba}+\beta_{ba}-1} (\varphi_{ba}-\varphi_{ca})^{\beta_{cb}-1} \varphi_{ba}^{-\beta_{ba}-\beta_{cb}} (1-\varphi_{ba})^{\beta_{ba}-1}.
+\end{equation}
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=\textwidth]%{Figures/MASC_model_bivariate_dist_pics.png}
+%    \caption{Caption}
+%    \label{fig:bivbeta_example_agg}
+%\end{figure}
+%\FloatBarrier
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+ %   \includegraphics[width=\textwidth]{Figures/Ellipsoid_bivbeta_hailstones.pdf}
+%    \caption{Caption}
+%    \label{fig:bivbeta_examples}
+%\end{figure}
+%\FloatBarrier
+
+It is useful to parameterize $\alpha_{ba}$, $\beta_{ba}$, and $\beta_{cb}$ in terms of mean quantities: $\overline{\varphi}_{ba}$ and $\overline{\varphi}_{cb}$, where each mean aspect ratio can be independently specified (exclusively) between 0 and 1.0. However, because the beta distributions are only valid for $\alpha >0$ and $\beta > 0$, specifying these mean aspect ratios will necessarily lead to a valid range of $\alpha_{ba}$ between some minimum value $\alpha_{ba,\min}$ to some maximum value $\alpha_{ba,\max}$. $\alpha_{ba,\min}$ is determined by the chosen $\overline{\varphi}_{ba}$ and $\overline{\varphi}_{cb}$ values whereas $\alpha_{ba,\max}$ is chosen to prevent numerical difficulties as the beta distributions become more and more narrow. Thus, we parameterize $\alpha_{ba}$, $\beta_{ba}$, and $\beta_{cb}$ as
+\begin{subequations}\label{eq:ar_beta_params}
+    \begin{equation}
+        \alpha_{ba} = \varsigma \alpha_{ba,\max} + (1-\varsigma) \alpha_{ba,\min}
+    \end{equation}
+    \begin{equation}
+        \beta_{ba} = \alpha_{ba} \left(\frac{1}{\overline{\varphi}_{ba}}-1 \right)
+    \end{equation}
+    \begin{equation}
+        \beta_{cb} = \frac{\alpha_{ba}}{\overline{\varphi}_{ba}} \left( \frac{1}{\overline{\varphi}_{cb}} - 1\right), 
+    \end{equation}
+\end{subequations}
+where 
+\begin{subequations}
+    \begin{equation}
+        \alpha_{ba,\min} = \max(\varphi_{ba,\min},\varphi_{cb,\min})
+    \end{equation}
+    \begin{equation}
+        \varphi_{ba,\min} = \frac{\overline{\varphi}_{ba}}{1-\overline{\varphi}_{ba}}
+    \end{equation}
+    \begin{equation}
+        \varphi_{cb,\min} = \frac{\overline{\varphi}_{ba} \overline{\varphi}_{cb}}{1-\overline{\varphi}_{cb}},
+    \end{equation}
+\end{subequations}
+and $\alpha_{ba,\,max}$ is some upper limit of $\alpha_{ba}$ (herein set to 20) to prevent numerical difficulties. Therefore, the entire distribution of ellipsoidal shapes can be determined by the mean aspect ratios $\overline{\varphi}_{ba}$ and $\overline{\varphi}_{cb}$ and $\varsigma$ which determines the amount of dispersion inherent in the chosen bivariate beta distribution. Larger values of $\varsigma$ indicate a more concentrated (less dispersed) distribution of aspect ratios whereas smaller values of $\varsigma$ indicate a less concentrated (more dispersed) distribution of aspect ratios.
+
+The above approach is used directly to simulate ellipsoids representing irregular crystals. However, the same approach is modified for hexagonal plates and columns where power-law relations are used to simulate ellipsoidal and STL models of hexagonal plates and columns using the relations
+\begin{subequations}
+\begin{equation}\label{eq:power-law_PLATES}
+\textrm{Plates AV70:} \qquad \overline{\varphi}_{cb} = 0.0392 D^{-0.602} \qquad (b=a)
+\end{equation} 
+\begin{equation}\label{eq:power-law_COLUMNS}
+ \textrm{Columns MA94:} \qquad \overline{\varphi}_{ba} = 0.2201 D^{-0.5} \qquad (b=c),
+\end{equation}
+\end{subequations}
+where $D\equiv 2 a$ in mm. For the ellipsoid simulations, the spheroidal aspect ratios are randomly sampled after the ellipsoid semi-major axis $a$ is sampled. In this way, oblate or prolate spheroids are provided some dispersion of aspect ratios at each given $a$ size. 
+
+%These parameterizations take the following form
+%\begin{subequations}
+%\begin{equation}
+%\overline{\varphi}_{ba} = s_{ba} (2 a)^{h_{ba}}
+%\end{equation}
+%\begin{equation}
+%\overline{\varphi}_{cb} = s_{cb} (2 a)^{h_{cb}},
+%\end{equation}
+%\end{subequations}
+%where $s_{ba}$ ($s_{cb}$) and $h_{ba}$ ($h_{cb}$) are the prefactor and exponents of the aspect ratio-size for $\overline{\varphi}_{ba}$ ($\overline{\varphi}_{cb}$). 
+
+2D projected ellipse area ratios for idealized ellipsoids are simulated directly by similarly using beta distributions. Effective densities for each ellipsoid can, in theory, be recovered through a dimensionality scaling \textit{ansatz} where
+\begin{equation}
+\mathrm{AR} = \rho_{\mathrm{eff}}^{1/3}.
+\end{equation}
+This ansatz essentially represents the average amount of space that a 3D particle would take up relative to a 2D projection (i.e., a projection along the $y$ axis represents 1 spatial dimension compared to 3 spatial dimensions of the particle). Theoretical support for this scaling \textit{ansatz} is provided in \cref{sect:simulations}.
+The 2D area ratios are bounded according to an assumed minimum value $\mathrm{AR}_{\min}$ herein set to 0.1. Then, the target mean area ratio $\overline{AR}$ is normalized to this interval 
+\begin{equation}
+\widehat{\mathrm{AR}} = \frac{\overline{\mathrm{AR}}-\mathrm{AR}_{\min}}{1-\mathrm{AR}_{\min}}.
+\end{equation}
+A dispersion parameter $\nu_{\mathrm{AR}}$ acts as a proxy for the distribution variance and is defined using a control parameter $\varrho_{\mathrm{frac}}$
+\begin{equation}
+\nu_{\mathrm{AR}} = \max\left(\rho_{\mathrm{frac}}^{-1} - 1, 2\right).
+\end{equation}
+The area ratio beta distribution parameters are then determined from
+\begin{subequations}
+\begin{equation}
+\alpha_{\mathrm{AR}} = \widehat{\mathrm{AR}}\, \nu_{\mathrm{AR}}
+\end{equation}
+\begin{equation}
+\beta_{\mathrm{AR}} = \left(1-\widehat{\mathrm{AR}}\right) \nu_{\mathrm{AR}}.
+\end{equation}
+\end{subequations}
+A normalized random variable is then sampled as $X \sim \mathrm{Beta}\left(\alpha_{\mathrm{AR}},\beta_{\mathrm{AR}} \right)$ which is then mapped to calculate the area ratio using
+\begin{equation}
+\mathrm{AR} = \mathrm{AR}_{\min} + X\left( 1 - \mathrm{AR}_{\min} \right).
+\end{equation}
+While both the H and V channels use the same AR parameterization and parameter values, each projection is separately drawn from the AR beta distribution.
+
+%Effective ellipsoid densities are used to estimate projection ellipse area ratios. We assume that the 3D ellipsoid effective densities are beta-distributed ($p(\rho) \sim \mathrm{Beta}(\alpha_{\rho},\beta_{\rho})$). In this way, the beta distribution is used to represent Gaussian-like variability in the area ratios similar to what might be expected from 2D-S observations. As in \cref{eq:ar_beta_params}, we use the method-of-moments approach to parameterize the beta distribution parameters in terms of the mean effective density $\overline{\rho}$ and a fractional variance $\varrho_{\mathrm{frac}}$ which modulates the maximum allowable variance as
+
+%\begin{equation}
+%\varrho = \min(\varrho_{\mathrm{frac}} \varrho_{\mathrm{max}},20).
+%\end{equation}
+
+%The maximum allowable variance is determined similarly to \cref{eq:ar_beta_params} where
+%\begin{equation}
+%\varrho_{\mathrm{max}} = \frac{\overline{\rho}^{2} - \overline{\rho}^{3} }{\overline{\rho}+1}
+%\end{equation}
+%and
+%\begin{subequations}
+%\begin{equation}
+%\alpha_{\rho} = \overline{\rho}\left(\frac{\overline{\rho}(1-\overline{\rho})}{\varrho} -1 \right)
+%\end{equation}
+%\begin{equation}
+%\beta_{\rho} = (1-\overline{\rho})\left(\frac{\overline{\rho}(1-%\overline{\rho})}{\varrho} -1 \right).
+%\end{equation}
+%\end{subequations}
+
+
+The geometry for the particle basis is shown in \cref{fig:ellip_orient} where the $c$ (blue arrow), $b$ (green arrow), and $a$ (red arrow) axes (defined by $a\geq b \geq c$) of an ice particle ellipsoid (green shell) are first aligned along the coordinate reference axes $x$, $y$, and $z$, respectively (\cref{fig:ellip_orient}a). This basis ensures that the first two Euler angle rotations, $\phi_p$ (\cref{fig:ellip_orient}c) and $\theta_p$ (\cref{fig:ellip_orient}b), specify a vector $\mathbf{z^{\prime}}$ representing the semi-major ellipsoid axis $a$, is rotated to point in the direction of a spot on a circumscribing sphere with radius $a$ dictated by a spherical coordinate system given by $(\phi_p,\theta_p,a)$. The final Euler angle rotation, $\psi_p$ (\cref{fig:ellip_orient}d), is then used to complete the arbitrary orientation of the 3D ellipsoid where $\psi_p$ is a rotation about $\mathbf{z^{\prime}}$. In this way, $0\leq \theta_p \leq 180^{\circ}$ and $0 \leq \phi_p (\psi_p) \leq 360^{\circ}$. \cref{fig:ellip_orient} shows a schematic for this Euler angle convention. It is important to realize that triaxial ellipsoids are symmetric about their origins. Thus, in the reference frame of the ellipsoid (before rotation), the shape is reflected from the negative poles (i.e., $x=-c$, $y=-b$, and $z=-a$) to the positive poles (i.e., $x=+c$, $y=+b$, and $z=+a$). The Euler angle rotations obviously preserve this symmetry about the $\mathbf{x^{\prime}}$, $\mathbf{y^{\prime}}$, and $\mathbf{z^{\prime}}$ principal axes. As a result, the full range of $\phi_p$ and $\psi_p$ can be halved to not double count each unique ellipsoid orientation and its projections (i.e., restricting $\phi_p$ and $\psi_p$ from $0^{\circ}$ to $180^{\circ}$). 
+
+%This is especially important when training the ANN model to preserve a 1-1 mapping between probability distribution parameters and the projection probability distributions.
+
+%The Euler angle convention chosen here thus can be characterized by a point on a sphere with radius $a$, dictated by spherical coordinate angles ($\theta_p$, $\phi_p$) and an additional angle, $\psi_p$, rotated about this vector.
+
+ We use a 3-dimensional von Mises-Fisher probability distribution to specify and randomly draw the first two Euler angles $\phi_p$ and $\theta_p$. This distribution is expressed as
+
+\begin{equation}\label{eq:fisher}
+    p(\mathbf{x}| \mathbf{r},\kappa) = \frac{\kappa}{4 \pi \sinh\kappa} \exp(\kappa\, \mathbf{r} \cdot \mathbf{x}),
+\end{equation}
+where $\mathbf{x} = (x,y,z)$ represents the Cartesian coordinates of a sphere
+\begin{subequations}\label{eq:xyz}
+    \begin{equation}
+        x = \sin \theta \cos \phi
+    \end{equation}
+        \begin{equation}
+        y = \sin \theta \sin \phi
+    \end{equation}
+        \begin{equation}
+        z = \cos \theta.
+    \end{equation}
+\end{subequations}
+Here, $\mathbf{r} \equiv \mathbf{z^{\prime}}/||\mathbf{z^{\prime}}||$ is the unit-normalized vector (in Cartesian coordinates) of $\mathbf{z^{\prime}}$ specified by the mean $\phi_p$ ($\overline{\phi}_{p}$) and mean $\theta_p$ ($\overline{\theta}_{p}$). $\kappa$ is a concentration parameter where low values indicate more dispersion and high values indicate more concentrated values about $\overline{\phi}_p$ and $\overline{\theta}_p$. The Fisher distribution tends toward a random distribution of points on a sphere as $\kappa \to 0$. \cref{fig:fisher} schematically shows how the Fisher probability distribution changes for various $\kappa$ values.  
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+\includegraphics[width=0.75\textwidth]{Figures/Ellipsoid_orient_coord_sys_new.png}
+    \caption{Euler angle rotation convention used throughout using $\phi_p = 60^{\circ}$, $\theta_p = 70^{\circ}$, and $\psi_p = 160^{\circ}$ as example rotations for an ellipsoid with aspect ratios of $\varphi_{ba} = 0.5$ and $\varphi_{cb}=0.7$. a.) represents the initial orientation, b.) represents the $\theta_{p}$ rotation, c.) represents the $\phi_p$ rotation, d.) represents the $\psi_p$ rotation. Note that computationally the order of b.) and c.) is reversed but is shown in this way to better illustrate each rotation.}
+    \label{fig:ellip_orient}
+\end{figure}
+\FloatBarrier
+
+$\psi_{p}$ can be characterized by another von Mises-Fisher distribution with a dimensionality of 2 (otherwise known as simply the von Mises distribution) 
+\begin{equation}\label{eq:p_psi}
+    p(\psi_{p}|\overline{\psi}_{p},\kappa_{\psi}) = \frac{1}{2\pi I_{0}(\kappa_{\psi})} e^{\kappa_{\psi} \cos (\psi_{p} - \overline{\psi}_{p})},
+\end{equation}
+where $I_{0}$ is the first modified Bessel function of order 0. \cref{eq:p_psi} tends toward a uniform distribution as $\kappa_{\psi} \to 0$. Throughout, we use a lower limit of $\kappa=0.001$ and $\kappa_{\psi} = 0.001$ to represent a random  $\psi_{p}$ orientation distribution.
+
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Fisher_orient_ex_ellip_kap_multi.png}
+    \caption{Examples of the Fisher distribution (\cref{eq:fisher}) for $\overline{\phi}_p=45^{\circ}$ and $\overline{\theta}_{p} = 70^{\circ}$ and for three different values of $\kappa$.}
+    \label{fig:fisher}
+\end{figure}
+\FloatBarrier
+
+The combination of \cref{eq:beta_asp_dists,eq:fisher,eq:p_psi} can completely specify an entire multivariate distribution of ellipsoid aspect ratios and orientations for the 8-parameter set $(\overline{\varphi}_{ba},\overline{\varphi}_{cb},
+\varsigma,\overline{\phi}_{p},\overline{\theta}_{p},\kappa,\overline{\psi}_{p},\kappa_{\psi})$.
+Simulating distributions of projected ellipse aspect ratios and orientation angles therefore only requires drawing random variables from this multivariate distribution, calculating the corresponding H (i.e., x-z plane) and V (i.e., x-y plane) ellipse aspect ratio and orientation angle for each drawn sample, and binning the corresponding ellipse projection aspect ratio and orientation. The mapping from ellipsoid to ellipse projection is analytical and is given explicitly in Appendix A.
+
+If we assume that the major axis $a$ is projected in the same direction as each ellipse, then \cref{eq:xyz} can be used to estimate the 3D mean orientation angles in \cref{eq:fisher} solely from the observed mean 2D ellipse angles from the ellipse fit distributions. These estimates are given by
+
+% x-z and x-y plane 3D retrieval estimates
+\begin{subequations}\label{eq:ret_orient}
+    \begin{equation}\label{eq:ret_orient_phi}
+	\overline{\phi}_{p} \approx \begin{cases} 
+
+	 \overline{\theta}_{\mathrm{proj},v}, & \overline{\theta}_{\mathrm{proj},v} \geq 0^{\circ}, \\
+	 \overline{\theta}_{\mathrm{proj},v} + 180^{\circ},  & \overline{\theta}_{\mathrm{proj},v}  < 0^{\circ}
+	\end{cases}    
+    \end{equation}
+    \begin{equation}\label{eq:ret_orient_theta}
+        \overline{\theta}_{p} \approx \mathrm{atan2}(\sec \overline{\theta}_{\mathrm{proj},v},\tan \overline{\theta}_{\mathrm{proj},h})
+    \end{equation}
+\end{subequations}
+
+where $\mathrm{atan2}$ is the two-argument arctangent function defined by
+
+\begin{equation}
+    \mathrm{atan2}(y,x) = \begin{cases}
+        \arctan(y/x), & \textrm{if } x>0, \\
+        \arctan(y/x)+180^{\circ} & \textrm{if } (x<0) \land (y\geq 0), \\
+        \arctan(y/x) - 180^{\circ} & \textrm{if } (x<0) \land (y<0),\\
+        90^{\circ} & \textrm{if } (x=0) \land (y>0),\\
+        -90^{\circ} & \textrm{if } (x=0) \land (y<0),\\
+        \textrm{undefined} & \textrm{if } (x=0) \land (y=0).
+    \end{cases}
+\end{equation}
+
+%\Cref{fig:ellip_orient_ret_xy_xz} shows the parameter space of \cref{eq:ret_orient_theta} for different values of $\overline{\theta}_{\mathrm{proj,h}}$ and $\overline{\theta}_{\mathrm{proj,v}}$. Of note is the symmetry of $\overline{\theta}_{p}$ with respect to positive and negative values of $\overline{\theta}_{\mathrm{proj},v}$. This results from the positive and negative poles of the $a$ axis; that is, for a given $a$ axis orientation, there is the $+a$ direction (along $z^{\prime}$) and the $-a$ direction (along $-z^{\prime}$), about which, are completely symmetric for ellipsoids. As a result, there will necessarily be two possible $\overline{\theta}_{\mathrm{proj},v}$ for a given $\overline{\theta}_{\mathrm{proj},h}$ -- one for each $z^{\prime}$ axis pole (with the exception of $\overline{\theta}_{\mathrm{proj},v}=0^{\circ}$). 
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=\textwidth]{Figures/EllipAng_orient_retrieve_xy_xz.pdf}
+%    \caption{3D orientation estimates of $\overline{\theta}%_{p}$ using \cref{eq:ret_orient_theta} for different values %of $\overline{\theta}_{\mathrm{proj,h}}$ and $%\overline{\theta}_{\mathrm{proj,v}}$.}
+%    \label{fig:ellip_orient_ret_xy_xz}
+%\end{figure}
+%\FloatBarrier
+
+The use of \cref{eq:ret_orient} allows us to more efficiently determine \textit{plausible} orientation parameters for a given set of ellipsoid parameters from the observations without needing to guess or test multiple orientation parameter sets or otherwise optimize the 8-parameter multivariate ellipsoid shape and orientation parameters. \cref{table:ellip_orient_tests} shows the various orientation distribution parameters used throughout. Note that our simulations in \cref{sect:simulations} are split into all eight 2020 cases and all eighteen 2022 and 2023 cases. As shown in \cref{sect:obs}, the 2020 and 2022-2023 cases demonstrate separate orientations likely due to the 2D-S being installed differently in 2020 than in 2022 and 2023 (\cref{sect:discuss_King} provides both detailed modeling and observational evidence that supports this conclusion).
+
+%Orientation parameters that are described as ``(fixed)'' refer to the orientation angle itself being fixed rather than drawn from the Fisher distribution.
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\caption{Orientation distribution parameters used for ellipsoid and STL simulations. Irregular 2020 and Columns 2020 refers to retrieved orientation parameters using \cref{eq:ret_orient} for the 2020 dataset assuming that the 2020 2D-S was oriented according to the schematic in \cref{fig:P3}c.}
+\begin{tabular}{c c c c c c c c c c}
+\toprule
+\toprule
+Name & $\theta_{\mathrm{proj},h}$ & $\theta_{\mathrm{proj},v}$ &$\overline{\phi}_{p}$ & $\overline{\theta}_{p}$ &$\kappa$ & $\overline{\psi}_{p}$ & $\kappa_{\psi}$ \\
+\midrule
+Planar Flutter & --- & --- & 0$^{\circ}$ & $90^{\circ}$ & 6 & $0^{\circ}$ & 6 \\
+%Random & --- & --- & 0$^{\circ}$ & $0^{\circ}$ & 0.001 & $0^{\circ}$ & 0.001 \\
+%Random Horizontal & --- & --- & 0$^{\circ}$ & $90^{\circ}$ (fixed) & 0.001 & $0^{\circ}$ & 0.001 \\
+Irregular 2020 & -40$^{\circ}$ & 45$^{\circ}$ &  45$^{\circ}$ & $120.68^{\circ}$ &  3.5 & $0^{\circ}$ & 0.001\\
+Columns 2020 & -70$^{\circ}$ & 80$^{\circ}$ &  80$^{\circ}$ & $115.506^{\circ}$ &  8 & $0^{\circ}$ & 0.001\\
+Irregular 2022-2023 & -40$^{\circ}$ & -10$^{\circ}$ &  170$^{\circ}$ & $50.43^{\circ}$ &  3 & $0^{\circ}$ & 0.001\\
+Columns 2022-2023 & -80$^{\circ}$ & -70$^{\circ}$ &  110$^{\circ}$ & $27.27^{\circ}$ &  8 & $0^{\circ}$ & 0.001\\
+%Irregular 2022-2023 & 45$^{\circ}$ & -10$^{\circ}$ &  45$^{\circ}$ & $116.341^{\circ}$ &  4 & $0^{\circ}$ & 0.001\\
+%Columns 2022-2023 & -70$^{\circ}$ & 80$^{\circ}$ &  80$^{\circ}$ & $115.506^{\circ}$ &  3 & $0^{\circ}$ & 0.001\\
+Irregular Parallel $\overline{\psi}_{p}$ & -35$^{\circ}$ & 45$^{\circ}$ &  45$^{\circ}$ & $116.341^{\circ}$ &  4 & $0^{\circ}$ & 10\\
+Irregular Skewed $\overline{\psi}_{p}$ & -35$^{\circ}$ & 45$^{\circ}$ &  45$^{\circ}$ & $116.341^{\circ}$ &  4 & $45^{\circ}$ & 10\\
+Irregular Orthogonal $\overline{\psi}_{p}$ & -35$^{\circ}$ & 45$^{\circ}$ &  45$^{\circ}$ & $116.341^{\circ}$ &  4 & $90^{\circ}$ & 10\\
+\bottomrule
+\end{tabular}
+\label{table:ellip_orient_tests}
+\end{table}
+\FloatBarrier
+
+%Exponential functions and power-law functions are additionally used to capture the size dependence of ellipsoid aspect ratios and effective densities that appear in the in situ observations. These functions take the form
+%\begin{subequations}
+%\begin{equation}\label{eq:fscale}
+%f_{X} = e^{-a/a_{\mathrm{X}}}
+%\end{equation} 
+%\begin{equation}\label{eq:power-law}
+% c = \alpha_{c} a^{\beta_{c}}.
+%\end{equation}
+%\end{subequations}
+
+% but modulated according to the scaling factor shown in \cref{eq:fscale}
+
+
+
+%This parameterization ensures that $\alpha_{\rho}>1$ such that $\lim_{\rho \to 0} p(\rho) = 0$.
+
+Particle maximum dimensions ($D = 2 a$ for ellipsoids) are governed by gamma distributions which are parameterized as
+\begin{equation}
+\tilde{n}(D|D_{\mathrm{mean}},\nu) = \frac{1}{\Gamma(\nu)} \frac{\nu^{\nu}}{D_{\mathrm{mean}}} \left( \frac{D}{D_{\mathrm{mean}}}\right)^{\nu-1} e^{- \nu \frac{D}{D_{\mathrm{mean}}}},
+\end{equation}
+where $\nu$ is the gamma distribution shape parameter,  $D_{\mathrm{mean}}$ is the mean maximum dimension, and $\tilde{n}$ is the number-concentration-normalized (i.e., $n(D)/N_{t}$) number density function. The gamma distribution parameters $\nu$ and $D_{\mathrm{mean}}$ are chosen subjectively so as to best represent the observed filtered ellipse fit distributions.
+
+
+%The $\nu$ parameters used throughout are generally  much larger than typical values that might be expected. These larger values of $\nu$ are due to the filtering of small particles less than $0.35$ mm as well as the additional quality control checks as described in the next section. 
+
+% (\url{https://www.mathworks.com/matlabcentral/fileexchange/9542-minimum-volume-enclosing-ellipsoid})
+
+\subsection{Synthetic 3D ice particles}\label{sect:STL}
+
+In addition to the ellipsoid distributions described in \cref{methods:math}, STL models are used to mimic various ice particle morphologies to investigate plausible explanations for the joint probability distributions shown in \cref{sect:obs}. Each STL model is fit with a minimum volume enclosing trixial ellipsoid using the Matlab Community File Exchange function ``MinVolEllipse.m'' \citep{Moshtagh2024}. Orientations for each STL particle therefore follow the methodology outlined in \cref{methods:math} where the Fisher-distributed Euler angles are used to orient both the ellipsoids and STL models after the STL model is resized and reoriented according to the best-fit ellipsoid parameters. This is done for a number of different habit types including: irregular, bullet rosettes, plates, dendrites, columns, needles, and capped columns. To represent irregular particles, we use the Spherical Harmonics Particle Shape Generator (SHPSG) python package available at \url{https://github.com/budizhao/SHPSG} \citep{Zhao2015,Zhao2017}. The SHPSG package generates random 3D triangulation meshes using four prescribed parameters: an elongation aspect ratio (EI; analogous to $\varphi_{ba}$), a flatness aspect ratio (FI; analogous to $\varphi_{cb}$), a roughness parameter ($R_{G}$), and a roundness parameter ($R_{M}$). These roughness and roundness parameters are not traditional and are rather related to the spherical harmonic coefficients used to specify each 3D shape. When is 0, then the particles are idealized triaxial ellipsoids with aspect ratios governed by the elongation and flatness aspect ratio parameters. In this case, the resulting ellipsoid is considered a ``first-degree ellipsoid'' (FDE) characterized by $\varphi_{ba}$ and $\varphi_{cb}$. It's important to note that the FDE is not the same as the minimum-enclosing ellipsoids. Rather, FDE in this context represents a characteristic ellipsoid from which the SHPSG generates random perturbations based on the 16 spherical harmonic coefficients that are randomly drawn. Therefore, the FDE and best-fit ellipsoids are different from the same 3D STL particle unless $R_{M}=0$. For the SHPSG tests used in this study, we use $R_{M}=0.5$ and $R_{G}=0$ values to ensure volumes are finite as large $R_{G}$ values can yield unrealistic manifolds. By themselves, the STL models produce area ratios that are, strictly speaking, higher than the IMPACTS observations even when $R_{M}$ and $R_{G}$ are large. To generate more complicated spatial features such as branches, which decreases aspect ratios, we use the Python ``manifold3d'' package to randomly fuse together either two or three SHPSG-generated particles together. In this way, these irregular particles can better mimic the various polycrystaline shapes ubiquitous found in the IMPACTS dataset. 10,000 irregular SHPSG particles are randomly generated for $\mathrm{EI}$ and $\mathrm{FI}$ values randomly selected between 0.2 and 0.9. The VOXELISE.m ``Mesh voxelisation'' Matlab Community File Exchange code \citep{Aitkenhead2024} is used to voxelize each STL particle after the particle is rotated using a 3D grid with a gridspacing of $10\mu$m in each spatial direction.  
+
+%(\url{https://www.mathworks.com/matlabcentral/fileexchange/27390-mesh-voxelisation})
+
+%For the SHPSG tests used in this study, we use $R_{G}=R_{M}=1.0$ as these parameters visually produce more complicated structures than used in \citet{Zhao2015} and \citet{Zhao2017} to represent sand granules. 10,000 irregular SHPSG particles are randomly generated for $\mathrm{EI}=\mathrm{FI}=0.75$.
+
+\cref{fig:STL_irreg_diagram} provides two examples of SHPSG generated particles as well as two morphologically similar irregular particle images from the PHIPS imager. In general, SHPSG can generate particles that have similar random morphologies however there are some caveats. Various irregular particles such as side planes are difficult to accurately mimic due to the many gaps present in between branches. Instead, SHPSG particles are smoother but can still resemble the overall structure of many irregular particles. More complicated irregular-like particles such as bullet rosettes are not possible to generate accurately using SHPSG. Instead, bullet rosettes with branches between 3 and 6 are randomly generated by aligning a single bullet STL model at the bullet tip and randomly orienting each bullet ensuring a minimum angle amongst all bullets of at least 75$^{\circ}$, 70$^{\circ}$, 60$^{\circ}$, 50$^{\circ}$, 45$^{\circ}$, and 40$^{\circ}$ for 3 through 8 branches in that order.    
+
+We utilize various explicit STL models to represent plates, columns, needles, capped columns, and dendrites. These STL models are shown in \cref{fig:STL_irreg_diagram} along with similar PHIPS and CPI images of each habit. Each hexagonal plate and column aspect ratio is determined through the power-law parameters from \citet[][D74]{Davis1974} and \citet[][AV70]{Auer1970}, respectively.  
+
+\begin{figure}[ht]
+    \centering
+ %   \includegraphics[width=0.7\textwidth]{Figures/IMPACTS_3D_STL_diagram_w_2DS_new.png}
+        \includegraphics[width=0.7\textwidth]{Figures/IMPACTS_3D_STL_diagram_w_2DS_VECTORIZED.pdf}
+    \caption{(a and b) Comparison between an example irregular particle observed by the PHIPS instrument and similar SHPSG particles along with best-fit ellipsoids and 2D ellipse fits in the H and V planes. (c) Comparison between example of IMPACTS 2D-S images with ellipse fits and the SHPSG irregular particle images processed using SODA-2 (\url{https://github.com/abansemer/soda2}) in a synthetically similar buffer strip.}
+    \label{fig:STL_irreg_diagram}
+\end{figure}
+\FloatBarrier
+
+% NEW !
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\caption{Ellipsoid and STL distribution parameters used for tests.}
+\begin{tabular}{c c c c c c c c c c}
+\toprule
+\toprule
+Name & $\nu$ & $D_{\mathrm{mean}}$ & $\overline{\varphi}_{ba}$ & $\overline{\varphi}_{cb}$ & $\zeta$ & $\overline{\mathrm{AR}}$ & $\varrho_{\mathrm{frac}}$ & $\alpha_{\varphi}$ & $\beta_{\varphi}$ \\
+\midrule
+Irregular & 1 & 2.0 mm & 0.75 & 0.75 & 0.6 & 0.59 & 0.02  &  --- & ---\\
+Hexagonal Columns & 3 & 0.75 mm & --- & 0.95 & 0.5 & 0.65 & 0.03 & 0.2201 & -0.5\\
+%Hexagonal Plates & 3 & 0.75 mm & --- & --- & --- & 0.65 & 0.03 &  0.0392 & 0.398 \\
+%Dendrites & 4 & 1.0 mm & --- & --- & --- & 0.3 & 0.05 & --- & ---  &  & \\
+%Needles & & & & & & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{table:ellip_dist_params}
+\end{table}
+\FloatBarrier
+% NEW !
+
+% ORIGINAL!
+%\FloatBarrier
+%\begin{table}[ht]
+%\centering
+%\caption{Ellipsoid and STL distribution parameters used for tests.}
+%\begin{tabular}{c c c c c c c c c c c c}
+%\toprule
+%\toprule
+%Name & $\nu$ & $D_{\mathrm{mean}}$ & $\overline{\varphi}_{ba}$ & $\overline{\varphi}_{cb}$ & $\zeta$ & $\overline{\rho}$ & $\varrho_{\mathrm{frac}}$ & $a_{\varphi}$ & $a_{\rho}$ & $\alpha_{c}$ & $\beta_{c}$ \\
+%\midrule
+%Irregular & 8 & 0.6 mm & 0.75 & 0.75 & 0.6 & 0.8 & 0.12 & 2 & 4/3 & --- & ---\\
+%%Hexagonal Columns & 4 & 0.5 mm & --- & --- & --- & 0.75 & 0.05 & --- & 4 & 0.1973 & 0.414\\
+%%Hexagonal Plates & 4 & 0.5 mm & --- & --- & --- & 0.75 & 0.05 &  --- & --- & 0.0392 & 0.398 \\
+%%Dendrites & 4 & 1.0 mm & --- & --- & --- & 0.3 & 0.05 & --- & ---  &  & \\
+%%Needles & & & & & & & & & & & \\
+%\bottomrule
+%\end{tabular}
+%\label{table:ellip_dist_params}
+%\end{table}
+%\FloatBarrier
+% ORIGNAL !
+
+% Sphericity values: BR03 = 0.5628, BR04 = 0.5463, BR08 = 0.4764, Dendrite = 0.1378, Needle = 0.5472, Capped Column = 0.4469
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\caption{STL models and orientations used in \cref{sect:simulations} with size distributions specified in \cref{table:ellip_dist_params}. Particle aspect ratios ($\varphi$) are defined in terms of the ratio of the prism facet length over the basal facet length. In this way, oblate particles like plates and dendrites have $\varphi < 1.0$ whereas prolate particles like columns and needles have $\varphi > 1.0$.}
+\begin{tabular}{c c c c c c}
+\toprule
+\toprule
+Habit Type (\# Const.) & $\varphi$ & $\varphi_{ba}$ $(\varphi_{cb})$ & Ellipsoid Volume Frac. & Orient. & Size Dist. \\
+\midrule
+Irregular (1) &   0.2** -- 0.9** & --- & --- & Irregular 2020 & Irregular \\
+%Bullet Rosette (3) & 4$^{\ast}$ &   0.9124 (0.2660)& 0.1375 & Irregular 2020 & Fixed 1 mm \\
+%Bullet Rosette (4) & 4$^{\ast}$  & 0.9148 (0.6892) & 0.1082 & Irregular 2020 & Fixed 1 mm \\
+%Bullet Rosette (8) &  4$^{\ast}$  & 0.9678 (0.8666) & 0.1671 & Irregular 2020 & Fixed 1 mm \\
+Hexagonal Plates (1) &  D74 &  --- & --- & Planar Flutter & Hex. Plates \\
+Hexagonal Columns (1) & MA94 & --- & --- &  Columns 2022-2023 & Hex. Columns \\
+Dendrite (1) &  ---  & 0.9588 (0.0203) & 0.1283 & Planar Flutter & Fixed 1 mm\\
+Needle (1) &  10 & 0.0816 (0.866) & 0.4775 & Columns 2020 & Fixed 1 mm \\
+Capped Column (3) & 0.1$^{\ast}$ caps / 4$^{\ast}$ col. & 0.5573 (0.9556)& 0.217 & Columns 2020 & Fixed 1 mm  \\
+\bottomrule
+\multicolumn{6}{c}{$^{\ast}$ Constituent crystal aspect ratio}\\
+\multicolumn{6}{c}{$^{\ast\ast}$ SHPSG $E_{i}/F_{i}$ aspect ratios}\\
+\end{tabular}
+\label{table:sim_tests}
+\end{table}
+\FloatBarrier
+
+%\FloatBarrier
+%\begin{table}[ht]
+%\centering
+%\caption{STL models used in this section.}
+%\begin{tabular}{m{0.5cm} c c c c c c}
+%\toprule
+%\toprule
+%STL Num. & Habit Type & \# Constituents & AR & Sphericity & $\varphi_{ba}$ $(\varphi_{cb})$ & Ellip. Frac. \\
+%\midrule
+%1& Irregular &  1 &  0.75$^{\ast\ast}$/0.75$^{\ast\ast}$ & --- & --- & --- \\
+%2& Bullet Rosette & 3 & 4$^{\ast}$ &  0.5628 &   0.9124 (0.2660)& 0.1375 \\
+%3& Bullet Rosette & 4 & 4$^{\ast}$ & 0.5463 & 0.9148 (0.6892) & 0.1082  \\
+%4& Bullet Rosette & 8 & 4$^{\ast}$  & 0.4764 & 0.9678 (0.8666) & 0.1671 \\
+%5& Plates & 1 &  0.01 & 0.1209  & 0.8660 (0.0141) & 0.4775\\
+%5 & Plates & 1 & D74 & --- & --- & --- \\
+%6& Dendrite & 1 &  --- & 0.1378 & 0.9588 (0.0203) & 0.1283\\
+%7& Column & 1 & 0.4 & 0.6964 & 0.2041 (0.866) & 0.4775  \\
+%7& Hexagonal Columns & 1 & AV70  & --- & --- & ---  \\
+%8& Needle & 1 &  10 & 0.5472 & 0.0816 (0.866) & 0.4775  \\
+%9 & Capped Column & 3 & 0.1$^{\ast}$ caps / 4$^{\ast}$ col. & 0.4469 & 0.5573 (0.9556)& 0.217  \\
+%\bottomrule
+%\multicolumn{7}{c}{$^{\ast}$ Constituent crystal %aspect ratio}\\
+%\multicolumn{7}{c}{$^{\ast\ast}$ SHPSG $E_{i}/F_{i}$ aspect ratios}\\
+%\end{tabular}
+%\label{table:sim_tests}
+%\end{table}
+%\FloatBarrier
+
+
+
+%\FloatBarrier
+%\begin{table}[ht]
+%\centering
+%\caption{STL tests.}
+%\begin{tabular}{c c c c c c c}
+%\toprule
+%\toprule
+%Name & STL Num. & Orientation & Size Distribution  \%\
+%\midrule
+%Irregular 2020 & 1 & Irregular 2020 & Irregular \\
+%Columns 2020 & 7 & Columns 2020 & Columns MA94\\
+%Plate & 5 & Planar flutter & D74\\
+%Needle & 8 & Columns 2020 & Fixed 1 mm\\
+%Dendrite & 6 & Planar flutter & Fixed 1 mm \\
+%Capped Column & 9 & Columns 2020 & Fixed 1 mm\\
+%BR03 & 2 & Irregular 2020 & fixed 1 mm\\
+%%BR04 & 3 & Irregular 2020 & fixed 1 mm \\
+%BR08 & 4 & Irregular 2020& fixed 1 mm \\
+%\bottomrule
+%\end{tabular}
+%\label{table:sim_test_dist_params}
+%\end{table}
+%\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{STL_IMPACTS_COMP.png}
+\caption{STL models for simulation tests in \cref{table:sim_tests} along with similar cloud probe images from IMPACTS for each habit type. Irregular particle images are from the PHIPS imager whereas the others are from the CPI.}
+\label{fig:stl_ex}
+\end{figure}
+\FloatBarrier
+
+\subsection{Monte Carlo simulation methodology}
+
+Monte Carlo simulations are performed using both the analytical ellipsoid formulation and the STL model methodology outlined in \cref{methods:math} and \cref{sect:STL}, respectively, where orientations are randomly drawn from the Fisher and von Mises distributions with parameters shown in \cref{table:ellip_orient_tests}. The 2D ellipse projection geometries are used to filter the particles in these simulations to mimic the 2D-S filtering outlined in \cref{sect:2DS_processing}. The probability that the projection is not entirely in the buffer is determined from
+\begin{equation}
+P_{\mathrm{in}} = \frac{\max\left(0,W_{\mathrm{array}}-W_{\mathrm{cross}}\right)}{W_{\mathrm{array}}}
+\end{equation}
+where
+\begin{equation}\label{W_cross}
+W_{\mathrm{cross}} = 2 \sqrt{\left( r_{a} \sin \theta_{\mathrm{proj}} \right)^{2} + (r_{b} \cos \theta_{\mathrm{proj}})^{2}},
+\end{equation}
+$W_{\mathrm{array}}=1.28$ mm, $r_{a}$ and $r_{b}$ are the semi-major and semi-minor ellipse axes, respectively, and $\theta_{\mathrm{proj}}$ is the ellipse angle as defined in Appendix A. Modified sigmoid functions are used to simulate a smooth transition in the filtering for the size, aspect ratio, area ratio, and pixel number thresholds. These sigmoid functions are defined as
+\begin{equation}
+P({x|k}) = \frac{1}{1+e^{-k \left( x-x_{\mathrm{thresh}} \right)}},
+\end{equation}
+where $k=50$ for the projected ellipse maximum dimension $D_{\mathrm{major}} = 2 r_{a}$, $k=50$ for the projected aspect ratio $\varphi_{\mathrm{proj}}\equiv r_{b}/r_{a}$, $k=30$ for the projected area ratio AR, and $k=0.1$ for the number of projected pixels $N_{\mathrm{pixel}}$. The thresholds ($x_{\mathrm{thresh}}$) mimic the 2D-S thresholds in \cref{sect:2DS_processing} where $D_{\mathrm{thresh}}=0.35$ mm, $\varphi_{\mathrm{thresh}}=0.1$, $\mathrm{AR}_{\mathrm{thresh}}=0.2$, and $N_{\mathrm{thresh}}=800$. These probabilities are multiplied together for each sampled particle
+\begin{equation}
+P_{\mathrm{keep}} = \prod_{c \in \{xy, xz\}} \left(P_{\mathrm{in},c} \prod_{x} P_{x,c}\right),
+\end{equation}
+where $x \in \{D_{\mathrm{major}}, \varphi_{\mathrm{proj}},\mathrm{AR},N_{\mathrm{pixel}}\}$. A corresponding stochastic detection threshold $U$ is also drawn from a uniform distribution [$U \sim \mathrm{Uniform}(0,1)$] such that the particle is rejected if $U > P_{\mathrm{keep}}$. 
+
+An STL particle is also instantly rejected before these probabilities are calculated if the X-Y or X-Z projections of the enclosing ellipsoid meets any of the following three criteria
+\begin{enumerate}
+\item The projection maximum dimension $2 r_{a}$ is less than $0.5D_{\mathrm{thresh}}$.
+\item The cross-track width exceeds the array width plus a 0.5 mm tolerance: $W_{\mathrm{cross}} >W_{\mathrm{array}}+0.5\mathrm{mm} = 1.78\mathrm{mm}$
+\item The maximum theoretical pixel count falls below the threshold: $N_{\mathrm{max}} < N_{\mathrm{thresh}}$,
+\end{enumerate} 
+where 
+\begin{equation}\label{eq:N_max}
+N_{\max} = \frac{\pi r_{a} r_{b}}{A_{\mathrm{pixel}}},
+\end{equation}
+and $A_{\mathrm{pixel}}= 0.0001\, \mathrm{mm}^{2}$ represents the 10 $\mu$m $\times$ 10 $\mu$m 2D-S pixel resolution. This best-fit ellipsoid prefiltering is included to reduce the number of computationally intensive voxel calculations used in the STL projection and corresponding CGAL ellipse fitting.
+
+Each Monte Carlo simulation consists of randomly sampling and performing the rotations and projection calculations from the database of 10,000 randomly-generated STL models a total of 1,000,000 times. However, the synthetic 2D-S filtering procedure leads to a roughly 5\%-15\% success frequency depending upon each STL habit. This, along with any \citet{Schima2024} habit restrictions therefore leads to fewer simulated H and V counts.
+ 
+%500,000 times for joint histograms and 200,000 times for univariate histograms. 
+
+% STL orientations
+
+
+
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\textwidth]%{IMPACTS_2DS_SHPSG_Simulation_PCGL_Irregular_2020_exp.png}
+%\caption{As in \cref{fig:EllipSim_Irreg_2020} but using SHPSG-generated irregular particles.}
+%\label{fig:SHPSG_irreg_PCGL_2020}
+%\end{figure}
+%\FloatBarrier
+
+
+
+%For this study, we only use UIOOP particle statistics generated by the \citet{Holroyd1987} habit classification algorithm and the ellipse fit data. 
+
+
+
+
+\section{NASA IMPACTS Observations}\label{sect:obs}
+%\subsection{NASA IMPACTS Campaign}
+
+\cref{table:cases} provides the number of 2D-S ellipse fits that were performed on particles from various temperature regions for each case. Temperature regions are determined using the convention and conceptual model of \citet{Varcie2023} where the Polycrystalline Growth Layer (PCGL) are temperatures colder than -18$^{\circ}$C, the Dendritic Growth Layer (DGL) are temperatures between $-12^{\circ}$C and $-18^{\circ}$C, the Plate Growth Layer (PGL) are temperatures between $-8^{\circ}$C and $-12^{\circ}$C, the Needle Growth Layer (NGL) are temperatures between $-3^{\circ}$C and $-8^{\circ}$C, and the aggregation layer (AGG) are temperatures between $0^{\circ}$C and $-3^{\circ}$C. Overall, there are substantially more particles/images at lower temperatures than higher temperatures where more than half of all data comes from the DGL and PCGL. \cref{fig:temp_height} shows timeseries of 2D-S-derived habit fractions from each of the 26 cases using the \citet{Schima2024} algorithm. Irregular particles overwhelmingly dominate almost all time periods except periods in the aggregation layer (e.g., 20200201, 20200220, and 20230209) where large supercooled liquid droplets and early-onset melting can produce liquid droplets. There are also a number of NGL periods throughout where there is a notable increase in linear classified particles (e.g., 20200125). There are overall very few dendrites or hexagonal particles that the \citet{Schima2024} identifies. This likely is due to the limited resolution of the 2D-S and the impact that orientation has on these particles; that is, dendrites and hexagonal particles would be best identified if viewed along the basal facet whereas these particles would likely be identified as linear particles if viewed along the prism facet. Furthermore, various studies such as \citet{Korolev2000}, \citet{Korolev2003}, and \citet{Dunnavan2022} demonstrate that midlatitude cloud systems are dominated by irregular particles. Graupel particles are identified sporadically throughout various cases with peaks in graupel habit fractions occurring in different layers. Oriented particles were rarely identified. \cref{fig:CPI_54ex} shows fifty-four example CPI 5-second panels of representative habits throughout the 26 cases shown in \cref{fig:temp_height}. These CPI images show that these irregular particles have various forms such as bullet rosettes and side planes and potentially aggregates of such forms. Linear particles show a variety of different kinds of columns such as panels 7, 13, 28 and 36. Needles also appear in panels 2, 33, 39, 46, 47, 48, 49 and 50. Capped columns occasionally appear such as demonstrated in panels 3 and 25 and these linear particles are sometimes rimed as shown in panels 5 and 37. Pristine dendrites, while rare, do appear with different stellar structures as shown in panels 1, 11, 19, 32, 35, and 38. More complicated and irregular-looking dendrites and spatial planar particles also appear in these regions as shown in panels 34 and 52. Hexagonal particles often are not pristine as shown in panels 17 and 30; the \citet{Schima2024} algorithm will often characterize these more irregular-like particles as hexagonals or dendrites if viewed along the basal facet of one of the branches. Two different types of graupel periods are shown in panels 24 and 26. Panel 24 shows heavily rimed, quasi-spherical particles whereas panel 26 shows lighter rimed particles with some rimed columns. Therefore, it would seem that periods with graupel particles might or might not exhibit low aspect ratios due to whether columns are present.
+
+\FloatBarrier
+\begin{sidewaystable}[ht]
+    \centering
+        \caption{List of IMPACTS cases used in this study and the total number of horizontal and vertical ellipse fits used in different temperature ranges. Vertical channel 2D-S ellipse fit counts are in parentheses whereas horizontal channel counts are not. }
+%\resizebox{\textheight}{!}{%
+  %  \begin{tabular}{>{\centering\arraybackslash}m{1.1cm} >{\centering\arraybackslash}m{2.3cm} >{\centering\arraybackslash}m{2.3cm} >{\centering\arraybackslash}m{2.3cm} >{\centering\arraybackslash}m{2.3cm} >{\centering\arraybackslash}m{2.3cm}}
+    
+   \begin{tabular}{c c c c c c}
+    \toprule 
+    \toprule
+ %       &   \multicolumn{5}{c}{\large Number of Horizontal (Vertical) Channel Particle Images}\tabularnewline
+%        \midrule
+          Date    &  AGG&  NGL  & PGL & DGL & PCGL\tabularnewline
+          \midrule
+        01/18/2020  & 26,148 (26,478)  & 67,419 (73,677)  & 69,422 (69,293) & 76,579 (77,659) &  37,781 (38,229) \tabularnewline
+        01/25/2020  & 4,995 (4,954)  & 81,058 (82,210) & 16,852 (17,220)  & 78,143 (78,235)& 214,290 (219,425) \tabularnewline
+        02/01/2020  & 31,417 (32,838)  & 47,324 (49,987) & 69,749 (70,990) & 13,445 (13,665) & 1,168 (1,141) \tabularnewline
+        02/05/2020  & 23,864 (24,571)  & 38,807 (39,592) & 89,908 (90,736)  & 99,466 (101,214) & 50,630 (52,445) \tabularnewline
+        02/07/2020 & 22,768 (22,939) & 79,219 (78,894) & 38,992 (39,552) & 116,599 (116,067)&  81,171 (83,575) \tabularnewline
+        02/13/2020 & 17,170 (17,274) & 28,938 (29,917) & 9,919 (10,190) & 92,513 (93,864) & 4,487 (4,465)  \tabularnewline
+        02/18/2020 & 10,784 (10,713)  & 48,077 (48,914) & 25,734 (25,542) & 33,272 (34,335) & 96,247 (98,626) \tabularnewline
+        02/20/2020 & 11,086 (11,505)  & 27,255 (26,974) & 45,129 (44,364) & 16,957 (16,593) & 267,728 (272,820)  \tabularnewline
+        02/08/2022 & 202 (202)  & 51,087 (50,633) & 12,721 (12,175) & 32,344 (31,239) &  4,875 (4,626) \tabularnewline
+        02/13/2022 & 0 (0)  & 0 (0) & 0 (0) & 8,718 (8,669) & 34,668 (34,388) \tabularnewline
+        02/17/2022 & 2 (5,780)  & 1,694 (8,881) & 16,947 (16,912)  & 98,173 (100,645) &  266,905 (269,369) \tabularnewline
+        02/19/2022 & 0 (0)  & 0 (0) & 0 (0)  & 128,292 (149,362) & 84,468 (108,727) \tabularnewline
+        02/25/2022 & 8,533 (8,905) & 22,299 (22,693) & 4,278 (4,390)  & 8,129 (8,242) &  62,116 (64,644) \tabularnewline
+        01/13/2023 & 7,890 (7,300)  & 54,158 (54,353) & 49,758 (49,872) & 116,599 (109,114) &  70,663 (69,866) \tabularnewline
+        01/15/2023 & 2 (5) & 67,023 (70,667) & 204,338 (218,536) & 68,316 (71,066) & 122,288 (130,399) \tabularnewline
+        01/19/2023 & 12,669 (12,804) & 29,624 (29,451) & 83,145 (84,904) & 94,291 (96,691) &  20,835 (21,240)  \tabularnewline
+        01/23/2023 & 7,472 (7,751) & 55,433 (56,875) & 62,516 (63,393) & 145,406 (150,590) & 15,116 (15,232)  \tabularnewline
+        01/25/2023 & 4,158 (4,051)  & 46,692 (49,125) & 13,512 (13,733) & 86,008 (89,358) & 58,486 (59,502) \tabularnewline
+        01/29/2023 & 7,415 (7,460)  & 13,195 (13,474) & 9,120 (9,041) & 82,439 (83,558) & 107,838 (110,401)  \tabularnewline
+        02/05/2023 & 0 (0) & 5,382 (5,770) & 9,962 (10,049) & 12,161 (12,903) &  113,197 (116,051) \tabularnewline
+        02/09/2023 & 9,336 (9,509) & 77,162 (78,426) & 8,096 (8,337)  & 69,896 (72,046) & 33,898 (34,996)  \tabularnewline
+        02/12/2023 & 48,876 (49,496) & 83,623 (84,206) & 71,290 (73,249) & 290,067 (298,069) & 65,845 (68,248)  \tabularnewline
+        02/14/2023 & 0 (0) & 26,779 (27,178) & 53,465 (54,344) & 259,414 (265,656) & 177,678 (182,187) \tabularnewline
+        02/16/2023 & 9,941 (10,382) & 19,298 (20,349) & 47,043 (47,983) & 191,976 (201,284) & 159,196 (169,656)  \tabularnewline
+        02/23/2023 & 0 (0) & 4,328 (4,483) & 38,970 (40,147) & 74,273 (76,097) &  2,554 (2,692) \tabularnewline
+        02/28/2023 & 6,002 (6,331) & 56,689 (57,739) & 4,849 (5,282) & 313 (328) & 5,824 (5,944)   \tabularnewline
+       \midrule 
+       \textbf{Total} & \textbf{270,730 (281,248)}  & \textbf{1,032,563 (1,064,468)}  & \textbf{1,055,715 (1,080,234)}  & \textbf{2,293,789 (2,356,549)} & \textbf{2,159,952 (2,238,894)} \tabularnewline
+       \midrule 
+       $\mathbf{T<\, 0\, ^{\circ}\mathrm{C}}:$& \multicolumn{5}{c}{ \textbf{6,812,749 (7,021,393)}}\tabularnewline
+       \bottomrule
+ \end{tabular}
+    \label{table:cases}
+\end{sidewaystable}
+\FloatBarrier
+
+%\textbf{270,730}\par \textbf{(281,248)} 
+
+\cref{fig:2DS_habit_examples} shows examples for how each \citet{Schima2024} habit generally appears as 2D-S images in the horizontal and vertical channels along with the UIOOPS CGAL ellipse fits. Irregular particles are generally small and often around $0.5$ mm in maximum dimensions. Dendrites often represent larger irregular types like side planes or are indeed  dendrites. Hexagonal particles often appear hollow due to optical transmittance if hexagonal prisms are viewed along their basal facet. Some hexagonal particles are more pristine with more intricate patterns whereas some have little to no branching. Graupel particles appear much like irregular particles but generally appear more circular with perimeters that have noticeable quasi-periodicity irregularities. Aggregates observed by the 2D-S are often linear chain aggregates as those particles can more easily stay fully within the 2D-S buffer strips if they are oriented horizontally (i.e., with ellipse angles around $0^{\circ}$). Spheres are characterized by high aspect ratios with area ratios close to unity.
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_Habit_Fraction_26flights_56ex.pdf}
+    \caption{Time series of habit fractions for the 2D-S (vertical channel) during each of the 26 IMPACTS flights. Shaded regions correspond to the colors indicate various habit growth regions based on the temperature ranges outlined in \cref{table:cases} for various 2D-S habits: PCGL (irregular; black), DGL (dendrite; blue), PGL (hexagonal; teal), NDL (linear; orange) and AGG (aggregate; green). Regions where  $T_{c}>0\, ^{\circ}\mathrm{C}$ are shown with the color of the ``sphere''  category (dark red). Temperature regions are smoothed with a 20-minute moving average to better highlight various regions.}
+    \label{fig:temp_height}
+\end{figure}
+\FloatBarrier
+
+
+
+\FloatBarrier
+\begin{figure}[ht]
+   \centering
+    \includegraphics[width=0.85\textwidth]{Figures/CPI_54ex_IMPACTS_9x6.png}
+    \caption{Cloud Particle Imager (CPI) 5-second image collage from each of the 54 times shown in \cref{fig:temp_height}.}
+    \label{fig:CPI_54ex}
+\end{figure}
+
+\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[ht]
+   \centering
+    \includegraphics[width=\textwidth]{Figures/2DS_example_images_habits.pdf}
+    \caption{Example 2D-S images for various habits identified by the \citet{Schima2024} 2D-S habit classification algorithm.}
+    \label{fig:2DS_habit_examples}
+\end{figure}
+\FloatBarrier
+
+\cref{fig:habit_heatmaps} shows the fraction of each \citet{Schima2024} identified habit from each of the five temperature layers. Most habit classifications are consistent with their respective temperature layers. Most irregular particles were classified in the PCGL and DGL whereas dendrites and linear particles were predominantly identified in the DGL and NGL, respectively. Other habits such as spheres appear mostly at colder temperatures, probably due to the larger number concentration of small particles at those temperatures compared to the lower number concentrations of supercooled liquid droplets in the AGG layer. Aggregates are identified mostly in the DGL, PGL, and NGL rather than the PCGL or AGG layers. The habit fractions are overall very  consistent between both H and V channels.
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{IMPACTS_all_habit_layer_heatmap.pdf}
+\caption{Heatmaps of \citet{Schima2024} habit classifications from the horizontal (top) and vertical (bottom) 2D-S channels for all 26 IMPACTS cases within each of the temperature layer shown in  \cref{table:cases}. Numbers in each cell represent the total number of images in the layer and \citet{Schima2024} habit category. Colors indicate the fraction of each habit in each layer such that the summation of all habit counts in each row for a column gives the total number of particles for that column (shown below AGG cells).}
+\label{fig:habit_heatmaps}
+\end{figure}
+\FloatBarrier
+
+
+
+%\section{In situ ellipse fit results}\label{sect:insitu_results}
+
+\cref{fig:ellipse_fit_joint2_2020,fig:ellipse_fit_joint2_2022_2023} show joint distributions for ellipse aspect ratios, ellipse major dimensions, ellipse orientation angles, and ellipse area ratios for all cases during the 2020, 2022\footnote{It is worth noting that the 2022 data is generally of lower quality due to occasional optical fogging and pressurization issues after the 2D-S was re-installed in 2021. These instrumental issues were resolved before the 2023 flights.}, and 2023 campaigns. The distributions among all cases show nearly identical 2D ellipse aspect ratios, area ratios, and major dimensions in both the H and V channels. There are also at least four separate regions of particle habits which shows the ellipse characteristics of irregular, linear, aggregate, and spherical particles. 
+
+The vast majority of irregular particles, which dominate all particles as demonstrated in \cref{fig:temp_height}, have ellipse aspect ratios between about 0.6 and 0.9 with a mode around 0.75 in both channels. Similarly, the ellipse area ratios for irregular particles concentrate between 0.65 and 0.7 and major ellipse dimensions are between 0.4 mm and 0.7 mm. The irregular particle orientation angles however show a remarkable difference between 2020 and 2022-2023 campaigns. While the irregular ellipse orientations in 2020 are roughly symmetric with mean orientations at -45$^{\circ}$ and $+45^{\circ}$ from the H and V channels, respectively, the 2022 and 2023 vertical channels instead show a mean orientation angle closer to $0^{\circ}$ with some images exhibiting slightly negative orientations. The stark difference between the 2020 and 2022-2023 distributions and the extraordinarily similar orientation distributions between the 2022 and 2023 are quite surprising and difficult to explain on first glance. However, it appears that these differences can be, at least in part, explained by a mislabeling and rotation of the 2D-S channels either before or after the 2020 deployments. This is described in more detail in Appendix B.
+
+% The difference in the equilibrium orientation angle location between the 2020 and 2022-2023 cases appears to be the result of a mislabeling and rotation of the 2D-S channels that occurred after the 2020 campaign. \cref{sect:discuss_King} provides compelling evidence to support this claim.
+
+Linear particles are characterized in both the H and V channel distributions by a power-law-like ``tail'' of ellipse aspect ratio with increasing ellipse major axis lengths. These tails are apparent for 2020, 2022, and 2023 and appear generally the same in the H and V channel. The area ratios of these linear are similar to that of irregular particles as seen in the area ratio and aspect ratio joint distributions. Like the ellipse aspect ratio and ellipse major dimension joint distributions, the area ratio/aspect ratio joint distributions are also consistent between the H and V channels. The linear particle orientation angles show up most clearly in the 2020 vertical channel and the 2022-2023 horizontal channels where the joint aspect ratio/orientation distributions show notable dips. The orientations associated with these linear particles in the opposite channels are generally more disperse but seem to be generally more concentrated around $\pm 90$ rather than around $0^{\circ}$. It is worth noting that previous studies such as \citet{King1985c,King1985d} and \citet{Obrien2016} have found that columns, when viewed from the vertical channel, have a preferential orientation of about $60^{\circ}$. This preferred orientation theoretically results as an equilibrium due to the net torque exerted on the particles due to the aircraft vortices generated near wing tips \citep{King1985d}. The analytical model proposed by  \citet{King1985d} suggests that the location of the probe under the wing can change this expected equilibrium angle increases with probe placements that are farther in front of the wing and closer to the aircraft. The slightly larger equilibrium orientation of $70^{\circ}$ shown in  \cref{fig:ellipse_fit_joint2_2020} can be explained in terms of the extended pylon used during the IMPACTS campaign. 
+
+
+
+The ellipse aspect ratios and area ratios show an apparent slight size dependence for the irregular particles that is most apparent for major axis lengths larger than 1.0 mm. 2D-S images indicate that these particles are largely aggregates or large spatial crystals. These larger particles exhibit near $0^{\circ}$ orientation in both the H and V channels. It is important to note that these orientations are almost certainly influenced by the 2D-S probe limitations as the maximum size along the photodiode dimension (i.e., the z and y axes in the H and V channels, respectively, see \cref{fig:P3}b) is only 128 elements (1.28 mm) long. Therefore, any particle with a 2D projected ellipse maximum dimension as large or larger than this dimension will necessarily have to have low orientation angles in order for the particle to stay fully inside the buffer strips shown in \cref{fig:2DS_habit_examples}. As a result, the joint distributions for the largest particles are predominantly millimeter-sized linear chain aggregates. 
+
+Spherical particles appear in these joint distributions in small parameter regions. This is most apparent in the joint aspect ratio/area ratio figures where these supercooled liquid droplets and/or raindrops are concentrated in a somewhat circular region centered on an ellipse aspect ratio of about 0.8 with area ratios between 0.9 and 1.0. These droplets also appear distinct in the area ratio/ellipse angle joint distributions where it is clear that these particles are nearly horizontally oriented in both the H and V channels.
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+%\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_2020_6panel.png}
+\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_MultiFlight_2020_All_JointDists_3x2_enlarged.pdf}
+\caption{Joint ellipse fit parameter distributions for all eight 2020 cases from \cref{table:cases} involving ellipse aspect ratios and major dimension (top left), ellipse aspect ratio and angle (top right), ellipse area ratio and major dimension (middle left), ellipse area ratio and angle (middle right), ellipse aspect ratio and area ratio (bottom left), and ellipse major dimension and angle (bottom right).  }
+\label{fig:ellipse_fit_joint2_2020}
+\end{figure}
+\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+%\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_2022_joint_distributions_all.png}
+\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_MultiFlight_2022_2023_All_JointDists_3x2_enlarged.pdf}
+\caption{As in \cref{fig:ellipse_fit_joint2_2020} but for all 2022 and 2023 cases (18 in total; 5 from 2022 and 13 from 2023).}
+\label{fig:ellipse_fit_joint2_2022_2023}
+\end{figure}
+\FloatBarrier
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_2023_joint_distributions_all.png}
+%\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_MultiFlight_2023_All_JointDists_3x2.pdf}
+%\caption{As in \cref{fig:ellipse_fit_joint2_2020} but for all 13 2023 cases.}
+%\label{fig:ellipse_fit_test}
+%\end{figure}
+%\FloatBarrier
+
+% 20220225, 20230115, 20230228 show potential rimed particles with angles ~ 0 deg.
+
+One notable difference between the 2020 and 2022-2023 joint distributions is the presence of low aspect ratio particles with near $0^{\circ}$ orientations in both the horizontal and vertical planes. Because there are only 5 cases where the 2D-S was operational during the 2022 campaign, the vast majority of these particles seem to come from only one case: 20220225. This particular case is somewhat of an outlier as most of the ellipse fit orientations were approximately $0^{\circ}$ in both 2D-S channels. CPI images (see CPI panel 26 in \cref{fig:CPI_54ex}) suggest that there was significant riming throughout this case with many of the rimed particles seemingly columnar. Interestingly enough, the NASA ER-2 airborne triple-frequency radar analysis performed by \citet{Dunnavan2023} for this case (performed hours earlier than the P-3 flight legs) suggested that the snow for this particular case was dominated by needle aggregates, possibly resulting from rime splintering. Despite the temporal and spatial differences between the ER-2 airborne radar measurements and the P-3 measurements, it is reasonable to speculate that this particular case had prevalent riming. Thus, it appears that graupel particles could possibly be identified from the near $0^{\circ}$ ellipse orientations in either 2D-S channel.
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{IMPACTS_boxplots_ellipse_params_all_enlarged.pdf}
+\caption{Boxplots of (left) ellipse aspect ratios, (middle) ellipse orientation angles, and (right) ellipse area ratios for all 26 cases and for both H (blue) and V (orange) channels. Whiskers represent $\pm$ 1.5 IQR from the 75th and 25th percentiles, respectively.}
+\label{fig:boxplots}
+\end{figure}
+\FloatBarrier
+
+Most cases individually illustrate a characteristic set of ellipse fit parameter values. This can be seen in \cref{fig:boxplots} where most cases show median ellipse aspect ratios and area ratios around 0.7. The ellipse orientation angles are extremely similar to one another, but only for the 2020 cases; the joint distributions shown in  \cref{fig:ellipse_fit_joint2_2020} do indeed suggest that these parameters are apparently universal even for the individual cases themselves rather than a smoothing that results from mixing disparate distributions. Some cases do show deviations which are particularly evident for cases such as 20220208, 20220225, and 20230228 where the interquartile range of aspect ratios are generally larger and the median aspect ratios are lower. These cases are generally warmer as seen in \cref{fig:temp_height} which suggests the prevalence of low aspect ratio habits such as columns and plates. In particular, the vast majority of 20230228 particles come from the NGL \cref{table:cases} which suggests that many of these particles are most likely needles or columns. In general, these low aspect ratio particles can be identified from the joint distributions  of ellipse parameters in the five different temperature levels shown in \cref{table:cases}. This temperature dependence is shown in \cref{fig:ar_angle_2020_temp} for the 2022-2023 aspect ratio/orientation joint distribution. As temperature increases, the irregular particle population from the PCGL slowly becomes more disperse and lower aspect ratio particles become more prominent. These lower aspect ratios in the horizontal channel are concentrated at $-70^{\circ}$ whereas these lower aspect ratios have a much broader distribution of orientation angles in the vertical channel where the angles are predominantly peaked around $\pm 90^{\circ}$. These lower aspect ratio particles appear most prominently in the NGL which suggests that these linear particles are likely columns or needles. The aggregation layer shows the appearance of supercooled liquid droplets with high aspect ratios around 0.8 to 0.9 and orientations close $0^{\circ}$ in both H and V channels. 
+
+%The 2020 cases similarly show these temperature dependencies as well and some cases such as 20220208 and 20230228 have a more pronounced transition between irregular particles and linear particles.
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+%\includegraphics[width=0.75\textwidth]{IMPACTS_2DS_AspectRatio_EllipseAngle_2020_temp_levels.png}
+\includegraphics[width=0.7\textwidth]{IMPACTS_2DS_AspectRatio_EllipseAngle_2022_2023_All.pdf}
+\caption{Joint distributions of ellipse aspect ratios and orientations for the five temperature regions shown in \cref{table:cases} for all eighteen 2022 and 2023 cases.}
+\label{fig:ar_angle_2020_temp}
+\end{figure}
+\FloatBarrier
+
+\section{Simulations}\label{sect:simulations}
+
+
+
+%\subsection{Idealized triaxial ellipsoids}\label{sim:ellipsoids}
+
+%The purpose of this section is to understand the nature of the ellipsoid projection problem for the proposed analytical distributions given in \cref{methods:math}. We also answer the question as to what ellipsoid characteristics can and can not explain the joint distribution characteristics between H and V channels as shown in \cref{fig:ellipse_fit_joint2_2020,fig:ellipse_fit_joint2_2022,fig:ellipse_fit_joint2_2022,fig:ellipse_fit_test} for the \citet{Schima2024} habit types.
+% \cref{table:ellip_dist_params} provides the ellipsoid parameters used to represent various habits.
+
+%%The tests given in the next two sections can be easily replicated using the ``MultipleEllipsoidProjections'' Matlab App provided in S1.
+
+%1.) What triaxial ellipsoid characteristics \textit{could plausibly} explain the observed joint distributions shown in \cref{sect:insitu_results} and 2.) What triaxial ellipsoid characteristics \textit{can not plausibly} explain the observed joint distributions shown in \cref{sect:insitu_results}. As shown in \cref{fig:ellipse_fit_joint2_2020,fig:ellipse_fit_joint2_2022,fig:ellipse_fit_test}, there are certain parameters that simply would not explain the observed distributions. For example, the observed non-uniform ellipse angle distributions rules out the possibility that the particles are randomly oriented as is sometimes assumed for in situ cloud probes. This issue of simulating plausible ellipsoid characteristics is quite challenging considering the vast parameter space of the analytical ellipsoid model described in \cref{methods:math}. As such, we utilize \cref{eq:ret_orient} to determine plausible sets of orientation parameters for different habits. 
+
+
+%\FloatBarrier
+%\begin{table}[ht]
+%\centering
+%\caption{Ellipsoid orientation tests.}
+%\begin{tabular}{c c c c}
+%\toprule
+%\toprule
+%Variable & PCGL Irregular 2020 & NGL Linear 2020 & DGL Dendrite 2020\\
+%\midrule
+%$\nu$ & $8$ & $4$ & $6$ \\
+%$D_{\mathrm{mean}}$ & 0.6 mm& 0.7 mm & 1.0 mm  \\
+%$\overline{\varphi}_{ba}$ & 0.8 & --- & --- \\
+%$\overline{\varphi}_{cb}$ & 0.8 & --- & --- \\
+%$\zeta$ & 0.5 & --- & --- \\
+%$\theta_{\mathrm{proj},h}$ & -35$^{\circ}$ & %-70$^{\circ}$ & --- \\
+%$\theta_{\mathrm{proj},v}$ & 45$^{\circ}$  & %80$^{\circ}$ & ---\\
+%$\overline{\phi}_{p}$ & 45$^{\circ}$ & %80$^{\circ}$ & $0^{\circ}$ \\
+%$\overline{\theta}_{p}$ & $116.341^{\circ}$ & %$115.506^{\circ}$ & $90^{\circ}$ \\
+%$\kappa$ & 5 & 3 & 3 \\
+%$\overline{\psi}_{p}$ & $0^{\circ}$ & $0^{\circ}$ %& $0^{\circ}$  \\
+%$\kappa_{\psi}$ & 0.001 & 0.001 &  \\
+%$\overline{\rho}$ & 0.8 & 0.75 & \\
+%$\varrho_{\mathrm{frac}}$ & 0.12 & 0.05 &  \\
+%$a_{\varphi}$ & 2 & --- & \\
+%$a_{\mathrm{\rho}}$ & 4/3 & 4 &  \\
+%$\alpha_{c}$ & --- & 0.1673 & \\
+%$\beta_{c}$ & --- & 0.4 & \\
+%\bottomrule
+%\end{tabular}
+%\label{table:ellip_irreg_params}
+%\end{table}
+%\FloatBarrier
+
+\cref{fig:EllipSim_Irreg_2020} compares the observed ellipse fit parameters of irregular-identified particles from the 2020 PCGL  data with the irregular ellipsoid and STL tests described in \cref{table:ellip_dist_params}.
+ As shown in \cref{fig:EllipSim_Irreg_2020}, the triaxial ellipsoid beta distribution of aspect ratios from the Irregular parameters in \cref{table:ellip_dist_params} can accurately simulate the observed sizes, aspect ratios, area ratios, and orientations from the 2020 PCGL cases. In particular, the Fisher orientations from both the ellipsoid distributions and STL models do a remarkable job explaining the observed mirrored ellipse angles. The bivariate beta aspect ratio distributions and quasi-random SHPSG-generated STL models also explain the beta-like ellipse aspect ratio distributions due to the quasi-random spatial configurations present in various irregular particles. There are overall two main discrepancies between the simulated and observed joint distributions. First, there is a notable transition to near $0^{\circ}$ ellipse angles for particles larger than about 1.5 mm in the observations. As stated before, however, this can be simply explained by the inability for the larger particles to stay fully within the 2D-S buffer strips unless these large particles are oriented horizontally. The second main discrepancy comes from the observed beta-like area ratio distribution about the mean area ratio at each ellipse major dimension. There is a slight decrease in area ratio for increasing sizes that can be somewhat captured by the exponential density modulation factor used for the ellipsoid simulation. However, it is more difficult to simulate the symmetric nature of the observed area ratios with this modulation factor. The STL simulation does a better job simulating this symmetric area ratio distribution, however the area ratio distribution is still somewhat negatively skewed like the ellipsoid simulation.  
+ 
+While the tests in \cref{fig:EllipSim_Irreg_2020} can adequately explain many of the ellipse distribution characteristics for irregular particles, there is an outstanding question as to how many similar ellipsoid distributions could also yield these features. Of note is the nearly identical H and V aspect ratio projection distributions for the observed mirrored ellipse orientation distributions. \cref{fig:EllipSim_Irreg_AR_2020_hists} provides several tests of various oblate-like and prolate-like distributions with consistent mean aspect ratios using the necessary orientation parameters from the Irregular 2020  \cref{table:ellip_orient_tests} test. In addition, three other orientation distributions (Parallel $\overline{\psi}_{p}$, Skewed $\overline{\psi}_{p}$, and Orthogonal $\overline{\psi}_{p}$) are used to investigate the effects that various $\psi_{p}$ orientations other than random might have on the projections. Oblate-like distributions (top row) have the most sensitivity to these various orientation sets for $\psi_{p}$. For these ellipsoids, the random $\psi_{p}$ orientations that were used for the ellipsoids in \cref{fig:EllipSim_Irreg_2020} produce an unobserved bimodality in the projected H and V ellipse aspect ratios. The parallel and orthogonal $\psi_{p}$ orientations produce asymmetric projected ellipse aspect ratio distributions where the parallel $\overline{\psi}_{p}$ orientations peaks at around 0.6 in the horizontal channel whereas aspect ratios peak near unity in vertical channel. The reverse behavior occurs with the orthogonal $\overline{\psi}_{p}$ where the $a$ and $b$ axes are predominantly orthogonal to the horizontal channel but parallel to the vertical channel. As similarly demonstrated in \citet{Dunnavan2022}, the only way to reasonably yield the observed symmetric, nearly identical H and V aspect ratio distributions for oblate-like shapes is if the $\psi_{p}$ is skewed with respect to the orientation both channels. However, in this case the distribution in the vertical channel becomes much more narrow than in the horizontal channel. Overall, it is not probable that these irregular particles are best represented by oblate-like or even prolate-like ellipsoids.
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    %\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_Simulation_STL_Irregular_ellipsoids_6x3.png}
+        \includegraphics[width=\textwidth]{Figures/IMPACTS_2020_ellipse_fit_joint_dists_stack_OBS_ELLIPSOIDS_NEW.pdf}
+    \caption{Comparison of PCGL irregular particle ellipse parameters (left column) and simulated ellipsoids (right column) using parameters provided in the text for all eight 2020 cases. Log-scaled colormap values and ranges for each panel are consistent with \cref{fig:ellipse_fit_joint2_2020}.}
+    \label{fig:EllipSim_Irreg_2020}
+\end{figure}
+\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=\textwidth]{Figures/IMPACTS_2020_ellipse_fit_joint_dists_stack_OBS_SHPSG_fused_NEW.pdf}
+    \caption{As in \cref{fig:EllipSim_Irreg_2020} but with SHPSG-generated irregular particles.}
+    \label{fig:SHPSG_Irreg_2020}
+\end{figure}
+\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    %\includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_Simulation_STL_Irregular_ellipsoids_6x3.png}
+        \includegraphics[width=\textwidth]{Figures/IMPACTS_2022_2023_ellipse_fit_joint_dists_stack_OBS_ELLIPSOIDS_NEW.pdf}
+    \caption{As in \cref{fig:EllipSim_Irreg_2020} but for all eighteen 2022 and 2023 cases.}
+    \label{fig:EllipSim_Irreg_2022_2023}
+\end{figure}
+\FloatBarrier
+
+Prolate-like distributions (bottom row of \cref{fig:EllipSim_Irreg_AR_2020_hists}) show the least amount of sensitivity to various $\psi_{p}$ distributions. There would be no sensitivity if each ellipsoid was a prolate spheroid as the $\psi_{p}$ rotation (as shown in \cref{fig:ellip_orient}) is about the $a$ axis, which is an axis of symmetry for prolate spheroids. All projection variability when using $\psi_{p}$ distributions therefore comes from slight deviations in the 3D ellipsoids from prolate form. While prolate-like ellipsoid distributions better explain the Irregular IMPACTS 2020 observations due to more symmetric forms in both H and V channels, there are some notable deviations that are most prominent when the projected ellipse aspect ratios are closest to unity. For the horizontal channel, the projection distributions switch from concave up to concave down for each $\psi_{p}$ orientation set. This non-beta behavior is inconsistent with both the IMPACTS PCGL irregular observations and the triaxial ellipsoid distribution tests used in \cref{fig:EllipSim_Irreg_2020}. Furthermore, there are slight shifts between the H and V distribution modes which are inconsistent with observations. The $\psi_{p}$ orientation tests for the $\overline{\varphi}_{ba}=\overline{\varphi}_{cb}=0.75$ ellipsoids (middle row) show the same behaviors as both the oblate-like and prolate-like distributions but with a sensitivity in between each spheroid. As such, the only plausible set of ellipsoid and orientation distributions exists when $\overline{\varphi}_{ba}=\overline{\varphi}_{cb}$ and $\psi_{p}$ is randomly distributed. 
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Irregular_2020_ellipsoid_tests_hists_new2.png}
+    \caption{Ellipsoid distribution projected aspect ratio tests using parameters in \cref{table:ellip_orient_tests} and \cref{table:ellip_dist_params}. Horizontal and vertical projected aspect ratio distributions are shown in the left and middle columns, respectively. Each row consists of a separate set of ellipsoid distribution mean aspect ratios with the right column showing the Monte Carlo joint distribution of sampled $\varphi_{ba}$ and $\varphi_{ca}$ values. IMPACTS 2020 distributions (filled) represent the \citet{Schima2024} identified irregular particles for all eight 2020 cases in the PCGL.}
+    \label{fig:EllipSim_Irreg_AR_2020_hists}
+\end{figure}
+\FloatBarrier
+
+\cref{fig:EllipSim_Linear_2022_2023} compares the 2022-2023 NGL \citet{Schima2024} identified ``Linear'' ellipse fit parameters with ellipsoid simulations using the ``Hexagonal Columns'' STL models in \cref{table:sim_tests}. The simulated ellipse aspect ratio and ellipse major axis length joint distributions shows a similar power-law-like dependence as the observations but with less variability due to the idealized nature of the prolate spheroids used. Area ratios between the simulations and observations are largely consistent with a majority of projections having area ratios between 0.6 and 0.7. The prolate distributions also capture the peaks at $70^{\circ}$ in the vertical channel whereas there is a similar peak at $-60^{\circ}$ in the horizontal channel. In general, it is more difficult to interpret the linear observations because of its discontinuous nature where there are local orientation peaks of particles at approximately $-90^{\circ}$, $-50^{\circ}$, and $0^{\circ}$. This behavior appears to result from the decision tree logic of the \citet{Schima2024} habit identification algorithm. From individual cases, it appears that this behavior is generally consistent among the 2020, 2022, and 2023 individual cases. In fact, using the \citet{Schima2024} algorithm on the simulated hexagonal columns shows the same ellipse angle discontinuities as from the observations. 
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+  %  \includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_Simulation_STL_Columns_ellipsoids_6x3.png}
+    \includegraphics[width=\textwidth]{Figures/IMPACTS_2022_2023_linear_ellipse_fit_joint_dists_stack_OBS_ELLIPSOIDS_STL_NEW.pdf}
+    \caption{As in \cref{fig:EllipSim_Irreg_2022_2023} but for ``Linear'' NGL particles using the Hexagonal Columns parameters from \cref{table:ellip_dist_params}.}
+    \label{fig:EllipSim_Linear_2022_2023}
+\end{figure}
+\FloatBarrier
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=0.85\textwidth]{Figures/IMPACTS_2DS_Simulation_STL_Columns_NGL_linear_comp.png}
+%    \caption{As in \cref{fig:EllipSim_Linear_2020} but for the NGL ``Linear'' particles and the Hexagonal Columns AV70 particles identified as ``Linear'' using the \citet{Schima2024} algorithm.}
+%    \label{fig:STL_Linear_2020}
+%\end{figure}
+%\FloatBarrier
+
+\cref{fig:STL_MISC_tests} shows a suite of simulations using the STL models from \cref{fig:stl_ex}. Needle ellipse aspect and area ratios are generally consistent with the ``Linear'' results from \cref{fig:EllipSim_Linear_2022_2023} but with aspect ratios that peak at values slightly above 0.1. Dendrite and hexagonal plates with planar flutter orientations have low aspect ratios that peak close to the 3D STL model aspect ratios as viewed in the horizontal channel but high, near unity aspect ratio values in the vertical channel. Area ratios in the horizontal are much broader than in the vertical channel. The capped column STL simulations are generally consistent with the irregular distributions shown in \cref{fig:EllipSim_Irreg_AR_2020_hists} where a majority of the values span from approximately 0.6 to 0.8 and 0.4 to 0.8 for aspect ratios and area ratios, respectively. This suggests that capped column particles might be difficult to identify from their ellipse fit parameters compared to irregular particles. Bullet rosettes show a wide range of different ellipse fit parameter distributions depending on the number of bullets. BR03 has the broadest distributions where the 1.0 mm BR03 STL model can have ellipse aspect ratio fits that range from 0.2 to 1.0 and area ratios that range from 0.3 to 0.7. BR04 has a slightly lower range of ellipse aspect ratio values but very narrow values of area ratios whereas BR08 has a narrower range of aspect ratio values but a broader distribution of area ratio. Overall, the bullet rosette simulations illustrate how variable ellipse fit parameters are for only three various manifestations. Much of this variability inevitably stems from how the 3D ellipsoid fit itself does not accurately characterize the intricate bullet rosette morphology.  
+
+\FloatBarrier
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/STL_MISC_histogram_comp.pdf}
+    \caption{Histograms of ellipse fit aspect ratios and area ratios for STL models from \cref{fig:stl_ex} with parameters from \cref{table:sim_tests}.}
+    \label{fig:STL_MISC_tests}
+\end{figure}
+\FloatBarrier
+
+
+
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=\textwidth]{Figures/IMPACTS_2DS_Ellipsoid_Simulation_NGL_Linear_2020.png}
+%    \caption{As in \cref{fig:EllipSim_Irreg_2020} but for linear NGL particles using the Hexagonal Columns parameters from %\cref{table:ellip_dist_params}.}
+%    \label{fig:EllipSim_Linear_2020}
+%\end{figure}
+%\FloatBarrier
+
+
+
+
+
+%We use \cref{}
+
+% 1.) 
+
+
+%\subsubsection{Spheroid-like distributions}
+
+% Oblate-like
+
+% Prolate-like
+
+
+%\subsubsection{Triaxial ellipsoid distributions}
+
+%\subsection{Single ellipsoids}\label{sim:single}
+
+
+
+
+% MAIN POINTS:
+% 1.) b/a and c/b determine where the local peaks are in the projections. This is apparently true regardless of orientation (with some exceptions).
+% 2.) Distributions of aspect ratio projections look highly unrealistic: they look too peaked and not smoothed enough. Distributions of orientation angle look more-or-less what the observations look like (i.e., governed by a von Mises distribution) and what the beta-distributed 3D aspect ratios look like in next section.
+% 3.) Results from Jiang et al. 2016 and Dunnavan and Jiang 2019 are reiterated here for single spheroids. 
+
+
+%\subsection{Distributions of ellipsoids}
+
+% MAIN POINTS:
+% 1.) If random psi, then we can relatively accurately retrieve the 3D orientation parameters through the following equations.
+% 2.) Projected Orientation angles are roughly independent of the shapes of the ellipsoids and are approximately distributed as von Mises Distributions themselves with circular mean values that are consistent with the 3D orientation projections of the major axis direction.
+% 3.) Any asymmetry in psi reflects into the X-Y and X-Z projected aspect ratio asymmetry. The fact that we don't see this in the in situ observations suggests that psi is probably symmetric (or uniform). (psi asymmetry reflects between H and V in narrowness/broadness of distribution) phiba/phicb asymmetry reflects in H and V distribution asymmetry.
+% 4.) In order to have a symmetry in the H/V aspect ratio distributions for irregular particles, the orientations either have to be random or the ellipsoids themselves have to be symmetric in b/a and c/b (which seems to me to be much more likely).
+% 5.)  
+
+
+% x-z and y-z plane 3D retrieval estimates
+%\begin{subequations}
+%    \begin{equation}
+%        \overline{\phi}_{p} \approx \mathrm{atan2}(\tan \overline{\theta}_{\mathrm{proj},xz},\tan \overline{\theta}_{\mathrm{proj},yz})
+%    \end{equation}
+%    \begin{equation}
+%        \overline{\theta}_{p} \approx \mathrm{atan2}(\sec \overline{\phi}_{p},\tan \overline{\theta}_{\mathrm{proj},xz})
+%    \end{equation}
+%\end{subequations}
+
+
+%\subsubsection{Random $\psi_p$ distribution}\label{sim:random_dist}
+
+
+%\subsubsection{Retrieval of mean 3D angles from H-V projections}
+
+%\Cref{sim:random_dist} illustrates that ellipsoids with random $\psi_p$ angles have projected orientation angles that are distributed similarly to a von Mises distribution. 
+
+
+
+%    \overline{\phi}_{p} \approx	\begin{cases}
+%       \overline{\theta}_{\mathrm{proj},v} & \overline{\theta}_{\mathrm{proj},v} \leq 90^{\circ} \\
+%       \overline{\theta}_{\mathrm{proj},v} -180^{\circ} & (\overline{\theta}_{\mathrm{proj},v} > 90^{\circ}) \&  %(\overline{\theta}_{\mathrm{proj},v} \leq 270^{\circ})\\
+%                          \overline{\theta}_{\mathrm{proj},v} -  360^{\circ} & (\overline{\theta}_{\mathrm{proj},v} > 270^{\circ}) \&  (\overline{\theta}%_{\mathrm{proj},v} \leq 360^{\circ})\\
+%        \end{cases}
+
+
+
+
+
+%\subsubsection{Von mises $\psi_p$ distribution}
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=\textwidth]{Figures/IMPACTS_EllipProj_Simulations_Obs_Irregular.png}
+%    \caption{Joint distributions of ellipse fit angles and aspect %ratios for each 2020 IMPACTS case and for $T_{c}\leq -10\, ^{\circ}\mathrm{C}$. Theoretical ellipsoid simulations for $\overline{\varphi}_{ba}=\overline{\varphi}_{cb}=0.75$ and $\zeta=0.25$. }
+%    \label{fig:IMPACTS_irregular_jointdist_2020}
+%\end{figure}
+%\FloatBarrier
+
+
+
+
+
+
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\textwidth]{IMPACTS_2DS_SHPSG_Simulation_NGL_Linear_2020_MA94.png}
+%\caption{As in \cref{fig:SHPSG_irreg_PCGL_2020} but for hexagonal columns.}
+%\label{fig:SHPSG_linear_NGL_2020}
+%\end{figure}
+%\FloatBarrier
+
+
+
+%% Generate marginal ellipse distribution histograms for suite of STL simulation tests.
+
+% Figure 1: Ellipse parameters
+
+% Figure 2: Difference between ellipse parameters and 3D ellipsoid parameters (e.g., a kind of error)
+
+% Figure 3: Complexity parameters?
+
+
+
+
+
+
+
+
+
+%\subsection{Implications for in situ observations}
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=\textwidth]%{Figures/P3_WFF_IMPACTS_0123.png}
+%    \caption{3D model of the P3 aircraft with cloud probes}
+%    \label{fig:P3}
+%\end{figure}
+%\FloatBarrier
+
+
+
+%\subsection{Implications for microphysics models and in situ observations}
+
+%Currently, both microphysics models and in situ observations commonly will assume single-aspect-ratio spheroidal shapes in order to perform various calculations. What are the implications for such calculations if instead  
+
+%\FloatBarrier
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\textwidth]{Figures/Irregular_2020_SHPSG_ellip_arcomp.png}
+%\caption{Joint density comparison of SHPSG-generated ellipsoid aspect ratios for irregular particles (filled) with the bivariate beta distribution of ellipsoid aspect ratios used to generate ellipsoid results from \cref{fig:EllipSim_Irreg_2020} (black contours).}
+%\label{fig:SHPSG_irreg_PCGL_2020_ellip_ar_comp}
+%\end{figure}
+%\FloatBarrier
+
+
+\conclusions  %% \conclusions[modified heading if necessary]
+%% Generate summary figure of joint ellipse parameters with boxes and example 2D-S images within boxes
+
+%The results shown in this study, both from the 2D-S and from Monte Carlo simulations, suggests that many of the common assumptions regarding ice particle shapes and orientations in both models and inferred from observations are inconsistent with 3D considerations of ellipsoidal shapes and orientations. 
+
+The results shown in this study, both from the 2D-S and from Monte Carlo simulations, suggest that many of the common spheroidal modeling assumptions are inconsistent with plausible 3D considerations of ellipsoidal shapes and orientations. NWP models and retrieval relations have traditionally treated ice particle shapes for a variety of habits, such as irregular particles or snow aggregates, as oblate spheroids with either a fixed aspect ratio or aspect ratios that vary with size. This choice has historically stemmed from the need to introduce particle asymmetry into various microphysical or radiative calculations while assuming that particles have major axes that are randomly oriented in the horizontal. For example, dual polarization radar signatures in the DGL often show enhancements in differential reflectivity and specific differential phase. This polarimetric signature has been shown by \citet{Dunnavan2022} to result from local increases in irregular particle concentrations. However, irregular particles, like snow aggregates, apparently are not best represented as single aspect ratio oblate spheroids. Instead, there is a near-universal Beta-like variability in both aspect ratios and area ratios for both H and V projections. This random variability about both the mean ellipsoid aspect ratios and mean area ratios strongly suggests that the 3D shape and densities similarly exhibit a form of random, but symmetric, variability. These $\varphi_{ba}$ and $\varphi_{ca}$ values are rather concentrated for irregular particles where $\overline{\varphi}_{ba}= \overline{\varphi}_{cb}=0.75$ and $\zeta = 0.6$ provide good estimates. Perhaps most surprising is the lack of any size dependence needed to explain the in situ-derived ellipse aspect ratios. This is in contrast to other studies such as \citet{Korolev2000,Korolev2003} who found a slight aspect ratio dependence in their data. However, as indicated in \cref{fig:EllipSim_Irreg_2020}, this behavior is a reflection of the in situ cloud probe processing itself, with larger particles more likely to not completely fit within the 1.28 mm buffer width window.
+
+It appears that many particles such as irregular particles, aggregates, hexagonal columns (needles), and liquid droplets can be identified by their 2D ellipse fits. Perhaps surprising is the common symmetry and similarity in ellipse properties exhibited between the 2D-S H and V channels. While this observed symmetry for all ellipse parameters except for orientations would necessarily result from complete random particle orientations, as is sometimes assumed when using cloud probe instruments, it appears that this symmetry actually results from several other factors. For irregular particles, both ellipsoidal aspect ratio symmetry through $\overline{\varphi}_{ba}$ and $\overline{\varphi}_{cb}$ as well as $\psi_{p}$ uniformity is necessary to explain the behavior of the joint ellipse distributions of aspect ratio and orientation. This observation confirms the generality of similar 2D-S ellipsoid simulation results from \citet{Dunnavan2022} which only considered one leg of the 20200207 IMPACTS case. In particular, irregular particles as viewed by the 2D-S are not randomly oriented at all, as the mirrored, unimodal orientation distributions from \cref{fig:ellipse_fit_joint2_2020,fig:ellipse_fit_joint2_2022_2023} show, but instead appear to be preferentially oriented at rather specific angles. For the 2020 IMPACTS cases, the mean orientation of the major axis appears to be $\overline{\phi}_{p} = 45^{\circ}$ and $\overline{\theta}_{p}\approx 116^{\circ}$ for each case. These mean orientations result primarily from irregular particles. Any deviation, regardless of underlying shape, is not capable of capturing these orientation distributions. This is true when using both triaxial ellipsoids and more realistic and explicit randomly generated STL irregular-like particles. In fact, the spherical harmonic randomness associated with the SHPSG particles appears to explain why beta distributions are capable of producing similar ellipse distributions as deviations from the mean aspect ratio and density could themselves be considered somewhat random due to different habits and forms.     
+
+While it is somewhat difficult to infer planar crystals (hexagonal plates and dendrites) from H and V joint distributions, hexagonal columns and needles have characteristic distributions that can be immediately inferred.  As demonstrated in several other studies, the column/needle orientations in the vertical plane are quite specific and are anywhere from $60^{\circ}$ to $70^{\circ}$ depending on the mounting location of the probe below and in front of the wing tip. It also appears that slight changes to probe configurations and/or pylons can lead to significant changes in ellipse fit orientation angles. It is not clear why, for example, the 2022-2023 orientation distribution from the horizontal channel (labeled as the vertical channel during the 2022-2023 campaigns) deviates from the 2020 horizontal channel orientations. However, it appears that the P-3 modifications must have, in some way, altered the viewing direction and/or airflow around the 2D-S probe. Appendix B provides CFD simulations that explores the possibility of airflow differences as well as a hypothesis regarding different 2D-S mounting rotations. However, at this point, we still cannot explain the discrepancies between the 2020 and 2022-2023 ellipse fit orientations. Therefore, future in situ  studies will have to be mindful of such aircraft changes as these changes can apparently lead to different ice particle orientations as viewed from the 2D-S and potentially other instruments.   
+
+%Similarly, the horizontal projections for the particles are roughly $-70^{\circ}$ or $-80^{\circ}$ but with more variability due to the increased gradients of torque exerted on the columns as a result of vortices generated by the aircraft wingtips in the vertical direction (\cref{fig:King_tests}).
+
+%Planar crystals such as hexagonal plates and dendrites are difficult to identify both their aspect ratios and habit type. This is because planar crystals appear and will be classified as linear if viewed along their prism facets. However, proper identification requires a view parallel to planar crystal basal facets. If planar crystals flutter such that their basal facets are generally parallel to the vertical channel and their prism facets are generally parallel to the horizontal channel, then there will be asymmetric ellipse joint distributions between the H and V channels. However, the observed joint distributions are remarkably consistent between channels as demonstrated in
+%\cref{fig:ellipse_fit_joint2_2020,fig:ellipse_fit_joint2_2022,fig:ellipse_fit_test,fig:boxplots}. It is possible that the lack of observed planar crystals  (\cref{fig:habit_heatmaps}) compared to irregular and columnar particles  explains why the ellipse distributions are consistent across the H and V channels. Future studies will have to consider these orientation effects when inferring planar crystal properties from OAP images.
+
+Bullet rosettes have highly variable ellipse fit properties and can therefore appear in many different places within the joint distributions diagrams for ellipse major axis lengths, aspect ratios, orientations, and area ratios. Much of this complexity comes from bullet rosettes with only a few branches as the best-fit ellipsoids depends crucially on the geometry of these branches. This suggests that complexity parameters, in conjunction with ellipse fit properties, can be used to infer the 3D morphologies of bullet rosettes and similarly complex irregular-like particles. Studies such as \citet{Schmitt2014} have similarly found success using such complexity parameters in describing irregular particles. The incorporation of ellipse fits however provides more information regarding the type and complexity of bullet rosettes since rosettes with more branches tend to appear more spherical in order to accommodate each additional branch. Therefore, rosettes with only a few branches can be quite elongated such that this information can be better identified using ellipse fit data. 
+
+Both numerical weather prediction models and observations that assume underlying 3D geometries in their derivations of microphysical properties \citep[e.g.,][]{Heymsfield2004} do not consider the variability of 3D irregular particle shapes and their cloud-probe-measured orientations. This is because such studies and their techniques assume a unique 1-1 relationship between 2D particle length scales and 3D particle properties such as mass, volume, and density. \citet{Heymsfield2004} in particular derives empirical power-law relations for effective densities of bullet rosettes using simplistic theoretical particle geometries. This suggests that these semi-empirical studies are probably very limited in the applicability of these relations for various, diverse bullet rosettes with different branches and branch orientations. However, it appears that much of the variability that results from different habit types can potentially be captured analytically using beta distribution functions or other similar functions.
+
+%% The following commands are for the statements about the availability of data sets and/or software code corresponding to the manuscript.
+%% It is strongly recommended to make use of these sections in case data sets and/or software code have been part of your research the article is based on.
+
+%\codeavailability{TEXT} %% use this section when having only software code available
+
+
+%\dataavailability{TEXT} %% use this section when having only data sets available
+
+
+%\sampleavailability{TEXT} %% use this section when having geoscientific samples available
+
+
+%\videosupplement{TEXT} %% use this section when having video supplements available
+
+
+\appendix
+\section{Ellipsoid projection equations}\label{appen}   %% Appendix A
+
+
+The canonical equation for a triaxial ellipsoid can be described by
+\begin{equation}\label{d}
+    \left(\frac{x}{c}\right)^{2} + \left(\frac{y}{b}\right)^{2} + \left( \frac{z}{a}\right)^{2} = 1. 
+\end{equation}
+
+The $Z-Y-Z$ Euler angle intrinsic rotation matrix using the convention in \cref{fig:ellip_orient} gives 
+\begin{equation}
+\mathbf{A} = 
+\begin{bmatrix}
+\cos\phi_{p}\cos\theta_{p}\cos\psi_{p}-\sin\phi_p\sin\psi_p & -\cos\psi_p\sin\phi_p-\cos\phi_p\cos\theta_p\sin\psi_p & \cos\phi_p\sin\theta_p \\
+\cos\phi_p\sin\psi_p+\cos\theta_p\cos\psi_p\sin\phi_p & \cos\phi_p\cos\psi_p-\cos\theta_p\sin\phi_p\sin\psi_p & \sin\phi_p\sin\theta_p \\
+-\cos\psi_p\sin\theta_p & \sin\theta_p\sin\psi_p & \cos\theta_p
+\end{bmatrix}.
+\end{equation}
+Ellipsoids projected onto a 2D $x^{\prime}$-$y^{\prime}$ plane will have rotated ellipses represented in the form
+\begin{equation}
+    C_{xx} {x^{\prime}}^{2} + C_{yy} {y^{\prime}}^{2} + C_{xy} x^{\prime} y^{\prime} = 1.
+\end{equation}
+
+Ellipsoids projected on the x-y plane will have corresponding ellipses with the parameters
+
+\begin{subequations}\label{ellip_eq_vert}
+    \begin{equation}
+        C_{xx} = D_{22} - \frac{D_{23}^{2}}{D_{33}}
+    \end{equation}
+    \begin{equation}
+        C_{yy} = D_{11} - \frac{D_{13}^{2}}{D_{33}}
+    \end{equation}
+    \begin{equation}
+        C_{xy} = 2 \left( D_{12} - D_{13} \frac{D_{23}}{D_{33}}\right)
+    \end{equation}
+\end{subequations}
+whereas ellipsoids projected onto the x-z plane will have corresponding ellipses with the parameters
+\begin{subequations}\label{ellip_eq_horz}
+    \begin{equation}
+        C_{xx} = D_{33} - \frac{D_{23}^{2}}{D_{22}}
+    \end{equation}
+    \begin{equation}
+        C_{yy} = D_{11} - \frac{D_{12}^{2}}{D_{22}}
+    \end{equation}
+    \begin{equation}
+        C_{xy} = 2 \left( D_{13} - D_{12} \frac{D_{23}}{D_{22}}\right),
+    \end{equation}
+\end{subequations}
+and ellipsoids projected onto the y-z plane will have the ellipse parameters
+\begin{subequations}\label{ellip_eq_yz}
+    \begin{equation}
+        C_{xx} = D_{33} - \frac{D_{13}^{2}}{D_{11}}
+    \end{equation}
+    \begin{equation}
+        C_{yy} = D_{22} - \frac{D_{12}^{2}}{D_{11}}
+    \end{equation}
+    \begin{equation}
+        C_{xy} = 2 \left( D_{23} - D_{12} \frac{D_{13}}{D_{11}}\right),
+    \end{equation}
+\end{subequations}
+
+where 
+\begin{equation}
+    D_{ij} = \left(\frac{A_{i1} A_{j1}}{c}\right)^{2} +  \left(\frac{A_{i2} A_{j2}}{b}\right)^{2} +  \left(\frac{A_{i3} A_{j3}}{a}\right)^{2}.
+\end{equation}
+
+The semi-major ($r_{a}$) and semi-minor ($r_{b}$) ellipse can then be expressed as
+\begin{subequations}
+\begin{equation}
+r_{a} = \sqrt{\frac{2 \left( C_{yy} + C_{xx} + \sqrt{C_{xy}^{2} + (C_{yy}-C_{xx})^{2}}\right)}{4 C_{xx} C_{yy} - C_{xy}^{2}}}
+\end{equation}
+\begin{equation}
+r_{b} = \sqrt{\frac{2 \left( C_{yy} + C_{xx} - \sqrt{C_{xy}^{2} + (C_{yy}-C_{xx})^{2}}\right)}{4 C_{xx} C_{yy} - C_{xy}^{2}}}.
+\end{equation}
+\end{subequations}
+The projected ellipse aspect ratio $\varphi_{\mathrm{proj}}$ and angle deviation from horizontal $\theta_{\mathrm{proj}}$ can then be retrieved as
+
+\begin{equation}
+    \varphi_{\mathrm{proj}} = \frac{r_{b}}{r_{a}} = \sqrt{\frac{C_{yy} + C_{xx} - \sqrt{C_{xy}^{2} + (C_{yy}-C_{xx})^{2}}}{C_{yy} + C_{xx} + \sqrt{C_{xy}^{2} + (C_{yy}-C_{xx})^{2}}}},
+\end{equation}
+
+and
+\begin{equation}
+ \theta_{\mathrm{proj}} = 
+\begin{cases}
+   \arctan\left(\frac{C_{xy}}{C_{yy}-C_{xx} - \sqrt{(C_{xx}-C_{yy})^{2}+C_{xy}^{2}}}\right), & C_{xy} \neq 0\\
+   90^{\circ}, & (C_{xy} =0) \land (C_{xx} < C_{yy})\\
+   0^{\circ}, & (C_{xy} =0) \land (C_{xx} > C_{yy}).
+\end{cases}
+\end{equation}
+
+
+\section{Plausible explanations for 2020 to 2022-2023 projection differences}\label{sect:discuss_King}
+
+%\subsection{2D-S Simulations}
+
+%\subsection{Plausible explanations for 2020 to 2022-2023 projection differences}\label{sect:discuss_King}
+
+The stark difference in orientation angles between the 2020 and 2022-2023 campaigns and the striking similarity between the 2022 and 2023 campaigns suggest that there might have been differences in the 2D-S installation between the 2020 and 2022-2023 deployments. While it might seem possible that these differences are purely coincidental, due perhaps to different meteorological environments between the 2020 and 2022-2023 campaigns, there happens to be several pieces of strong evidence that these differences most likely resulted from the modifications to the aircraft and probe themselves. This is because in 2021, between the 2020 and 2022 IMPACTS campaign IOPs, the NASA GSFC Wallops Flight Facility (WFF) team found cracks in the P-3 starboard wing aileron (Mike Cropper WFF, personal communication). This prompted WFF engineers to add a fairing that was placed on the extended pylon from which the 2D-S was mounted. \cref{fig:pylon_comp} shows images of the P-3 wing before (panel c) and after (panel d) these modifications. As seen in \cref{fig:pylon_comp}, this additional fairing (red dotted ellipse) covered the topmost portion of the extended pylon nearest to the wing. Computer-Aided Design (CAD) measurements (panels e and f in \cref{fig:pylon_comp}) suggest that the total displacement of the 2D-S between the 2020 and 2022-2023 campaigns was only 3.4 inches as well as a 2.8$^{\circ}$ rotation downward. In this section, we explore plausible hypotheses for these discrepancies by utilizing these detailed CAD measurements of the P-3 aircraft and installed 2D-S locations for the 2020 and 2022-2023 configurations alongside Computational Fluid Dynamic (CFD) simulations of expected equilibrium orientation angles.
+
+\FloatBarrier 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{Pylon_faring_comp_2020_2022_w_coords.png}
+\caption{P-3 aircraft coordinates in the X-Z (a) and X-Y (b) planes (note that this is a different basis than what is shown in \cref{fig:P3}). Panels c and d show pictures of the P-3 station 18 pylons and probes for the IMPACTS 2020 (c) and IMPACTS 2022 (d) campaigns. The dotted red ellipse shows the additional fairing added in 2021 to the extended pylon. Panels e and f show the differences in 2D-S probe location between the 2020 campaign (blue) and the 2022-2023 campaigns (green) in the Y-Z (e) and X-Z (f) planes. The purple canister, probes and pylon shown in panel e represent the configuration of the original pylon before the IMPACTS 2020 campaign whereas the blue and green configurations represent the extended pylons used during the IMPACTS campaign for 2020 and 2022-2023 campaigns. Purple circles in panels a and b indicate the origin of the aircraft used in \cref{fig:CFD_tests}. More information regarding the P-3 CAD measurements can be found in \citet{Hunter2025}.}
+\label{fig:pylon_comp}
+\end{figure}
+\FloatBarrier
+
+%Because of how slight these changes are, 
+
+%It would seem that these slight changes shouldn't significantly alter the particle orientation behaviors. However, it is possible that these slight changes are meaningful due to the sensitivity of the equilibrium orientation angles with subtle displacements of the 2D-S. 
+
+The NASA Langley TetrUSS computational fluid dynamics (CFD) system (\url{https://tetruss.larc.nasa.gov}) with the USM3D Mixed Element (USM3D-ME) flow solver component was used to simulate the background fields of velocity, pressure, and density describing ambient airflow around the P-3 aircraft and the 2D-S volume. TetrUSS is a CFD software suite developed at NASA Langley over the last 35 years. It has become an aerodynamic tool of choice, with a wide user base inside and outside of NASA. Simulations were run as viscous, steady state, turbulent, Reynolds-averaged Navier-Stokes (RANS). The P-3’s four co-rotating propellers were simulated using a force-term source distribution in the Navier-Stokes equations. The computational domain stretched approximately 10 fuselage lengths from the P-3 aircraft to the far field in all directions. Preliminary grid resolution studies were conducted and showed acceptable convergence at a nominal grid size of 95 million cells. While numerous flight conditions were analyzed in support of the IMPACTS missions, the analysis here focused on high altitude (approximately 24,000 feet) and mid-altitude (approximately 10,000 feet) flight at cruise Mach numbers ranging from 0.44 to 0.53.  These conditions are representative of long-duration portions of the IMPACTS mission flights where 2D-S data were sampled. CFD solutions were run until iterative convergence was demonstrated over at least 1000 iterations, with steady forces and moments having under 2\% standard deviation. CFD solutions were run on the Pleiades supercomputer at NASA Ames Research Center, using 2000 cores and 1.5-2.0 hours of wall-clock time per case. Most solutions met convergence criteria in 4000 iterations using the HANIM acceleration methodology in USM3D-ME. Follow on computations with a separate 3-DOF solver were used to simulate two sets of 4,000 ice particle trajectories -- one for each 2D-S channel. Ice particles were modeled as point masses, using characteristics of a 1 mm rod with a drag coefficient of 0.8. With the assumption that the rod would always turn broadside to the local wind (i.e., the maximum drag direction), orientations were computed based on each particle’s three velocity components. As a check, initial 3-DOF orientation results were compared to the King theory \citep{King1985d}, and good agreement was seen in the far field and mid field away from the aircraft, before the effects of propeller swirl and local aerodynamic interference became strong (such effects are not included in the King theory).
+
+%We simulated $4,000$ Lagrangian trajectories for both the H and V 2D-S channels using winds predicted by a 3 degree of freedom (3-DOF) CFD model to test the sensitivity of the slight 2D-S changes from 2020 to 2022-2023. Each trajectory was used to determine the hypothetical orientation of an assumed 1 mm rod with a drag coefficient assumed to be 0.8 and an angle of attack of 0.5 degrees. We assumed that each simulated rod continuously reorients itself to maximize its projected area with respect to the wind direction as in the column orientation model of \citet{King1985d}.
+
+These Lagrangian trajectory results are shown in \cref{fig:CFD_tests} alongside the ellipse fit angles from all 2020 and 2023 flights in the NGL. The 2020 configuration CFD H channel equilibrium mode occurs at roughly -70$^{\circ}$ whereas the V mode occurs at approximately -80$^{\circ}$. The IMPACTS H and V channel ellipse fit data for columns/needles however indicate modes at -70$^{\circ}$ and $+70^{\circ}$. Furthermore, CFD simulations strongly suggest that these equilibrium orientations would not substantially deviate from this preferred orientation. Similarly, the 2022-2023 CFD simulations in the H (V) channel peak at approximately $-80^{\circ}$ ($\pm 90^{\circ}$) compared to the $-70$ ($\pm 90^{\circ}$) from the IMPACTS ellipse data. \cref{fig:CFD_tests} also show the CFD trajectory depth positions within the H and V channels in order to determine orientation sensitivity to particle positions within the 2D-S H and V channel volumes. While there is some positional bias in the equilibrium orientations within each channel, this bias is overall insufficient to explain the observed ellipse fit orientation modes for either the 2020 or 2022-2023 configurations. Therefore, while there are deviations in the angle modes for both configurations, the 2022-2023 appears to be much closer to the CFD simulations, particularly in the V channel. Pictures from the 2022 and 2023 campaigns (not shown) show physical ``Vertical'' and ``Horizontal'' labels that are on the correct 2D-S arms; such labels were not present during the 2020 campaign.  
+
+%We set the origin of the P-3 aircraft approximately along the quarter-chord line of the P-3 aircraft as shown by the purple dots in \cref{fig:pylon_comp}a,b and we reorient the (x,y,z) coordinate system as described in \citet{King1985d}. \cref{fig:King_tests} shows the predicted $\theta_{\mathrm{proj},h}$ and $\theta_{\mathrm{proj},v}$ equilibrium angles for columns based on the 2D-S locations with respect to the P-3 origin. Dashed lines shown the 2D-S location in this coordinate system during the 2020 (black) and 2022-2023 (gray) campaigns. Overall, the predicted $\theta_{\mathrm{proj},v}\approx 70^{\circ}$ and $\theta_{\mathrm{proj},h}\approx -70^{\circ}$ for columns shown at warmer temperatures in \cref{fig:ar_angle_2020_temp} is well predicted by the \citet{King1985d} model. Furthermore, the approximate 3 in. displacement between the 2020 and 2022-2023 campaigns seems to have a minimal impact on the resulting equilibrium orientation angles. In particular, $\theta_{\mathrm{proj},h}$ would theoretically provide the biggest sensitivity to depth as indicated by the sharper gradients in panels a and b. $\theta_{\mathrm{proj},v}$ on the other hand is very insensitive to lateral displacements. The \citet{King1985d} model also explains why the observed $\theta_{\mathrm{proj},v}$ angles are much more concentrated at the predicted $70^{\circ}$ angle whereas the $\theta_{\mathrm{proj},h}$ has a much broader distribution. This can be seen in panels b and c where the tighter gradients in $\theta_{\mathrm{proj},h}$ suggests that there is a larger sensitivity to small changes in environmental conditions. The \citet{King1985d} model also explains why the observed $\theta_{\mathrm{proj},v}$ is slightly higher than previous studies such as \citet{Obrien2016} which found a slightly lower equilibrium angle of $60^{\circ}$. The IMPACTS campaign used an extended pylon which increased the distance the 2D-S was from the quarter-chord line. Therefore, while previous studies like \citet{Obrien2016} used a pylon like the purple one shown in panel e of \cref{fig:pylon_comp}, the extended pylon used during IMPACTS was farther separated from the aircraft wing which leads to a more negative orientation angle as shown in \cref{fig:King_tests}f. It is worth noting that the differences between the 2020 and 2022-2023 data can't be explained even if the true origin was different by a full meter in any direction. 
+
+%\FloatBarrier 
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\textwidth]{King_P3_orientation_tests_w_cbar.pdf}
+%\caption{Output from the \citet{King1985d} orientation model. Panels b (c) shows the predicted equilibrium angles for $\theta_{h,\mathrm{proj}}$ ($\theta_{v,\mathrm{proj}}$) based on the $x$ distance  from the quarter-chord line and the $z$  depth ($y$ spanwise distance) from the aircraft origin at $x=600\, \mathrm{in.}$, $y=0\, \mathrm{in.}$ and $z=200\, \mathrm{in.}$ based on the coordinate system in panels a and b of \cref{fig:pylon_comp}. $\theta_{v,\mathrm{proj}}$ and $\theta_{h,\mathrm{proj}}$ represent angles in the 2D-S basis (see \cref{fig:P3}).}
+%\label{fig:King_tests}
+%\end{figure}
+%\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{IMPACTS_2DS_angle_CFD_comp_4k_freq_newcoords.pdf}
+\caption{Frequency distribution comparison of equlibrium angles between CFD trajectory calculations and the IMPACTS ellipse fit data for all eight 2020 flights (top row) and all thirteen 2023 flights (middle row). (Bottom row) Scatterplot of the y position (left) and z position (right) from the center of the simulated 2D-S volume and corresponding equilibrium angle for all $4,000$ CFD trajectories for 2020 (blue) and 2023 (orange) configurations in the H and V channels. Only aspect ratios less than 0.4 in the NGL were included in order to better highlight the $\pm 70^{\circ}$ needle/column mode in the IMPACTS ellipse fit data.}
+\label{fig:CFD_tests}
+\end{figure}
+\FloatBarrier
+
+%It would seem that these modifications would not explain all the discrepancies shown in the particle orientation joint distributions from \cref{fig:ellipse_fit_joint2_2020} and \cref{fig:ellipse_fit_joint2_2022,fig:ellipse_fit_test}.
+
+%An additional possibility is that the H and V channels were somehow flipped between the 2020 and 2022 deployments after the 2D-S was reinstalled. While this might seem improbable, it is noteworthy that the well-known $70^{\circ}$ preferred orientation of columns in the vertical plane is quite apparent in 2020 but not during the 2022 or 2023 campaigns (see \cref{fig:ellipse_fit_joint2_2020,fig:ellipse_fit_joint2_2022_2023}). 
+
+%The fact that the $70^{\circ}$ columns appear in the vertical channel only for the 2020 cases strongly suggests that the 2020 2D-S was properly labeled. 
+
+Interestingly, it appears that reversing the 2020 V channel angles produces an ellipse fit aspect ratio/orientation joint distribution that is shockingly similar to the 2023 H channel distribution. This is shown in \cref{fig:rot_ex_discrep} for all 13 cases from the 2023 campaign and for all 8 cases from the 2020 campaign. This similarity can be explained if the 2D-S was incorrectly rotated by 90$^{\circ}$ clockwise in the probe coordinate system (see panel b in \cref{fig:P3}). As shown in \cref{fig:rot_ex_discrep} in this situation, the 2020 V channel plane would actual be in the H channel plane and the H channel plane would be in the V channel plane but with the V channel photodiode array rotated 180$^{\circ}$ with respect to the 2023 H channel (i.e., the 2020 labeled ``V'' photodiode array appearing on the port horizontal side rather than on the bottom 2D-S arm). This effectively would reverse the orientation angles if particle orientations were truly consistent among all 26 cases. While the above analysis fully explains the discrepancy in the labeled ``V'' channel for the 2020 flights, it is harder to reconcile the discrepancies between the 2020 labeled ``H'' channel (likely actually oriented in the 2022-2023 V channel location as shown in \cref{fig:rot_ex_discrep}). 
+
+%We hypothesize that the addition of the pylon fairing (as shown in \cref{fig:King_tests}) disturbed the airflow around the probe such that the Froude number went from supercritical to critical. 
+
+%The Lagrangian trajectories in \cref{fig:CFD_tests} however suggests that 
+
+%the free stream velocity would have to be quite low ($\sim 1.0$ m/s) in order for the equilibrium $\theta_{\mathrm{proj},h}$ angle for columns to be close to $0^{\circ}$. Even if the fairing blocked the free air velocity, it seems unlikely that the effect near the 2D-S probe would be disturbed to this degree. 
+
+%Tests using the \citet{King1985d} model however suggests that the free stream velocity would have to be quite low ($\sim 1.0$ m/s) in order for the equilibrium $\theta_{\mathrm{proj},h}$ angle for columns to be close to $0^{\circ}$. Even if the fairing blocked the free air velocity, it seems unlikely that the effect near the 2D-S probe would be disturbed to this degree. 
+
+%Instead, it is possible that the 2022-2023 IMPACTS cases had more instances of rimed particles which c
+
+\FloatBarrier 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{IMPACTS_2DS_AspectRatio_EllipseAngle_ROT_comp_newcoords.pdf}
+\caption{(Top row) Original joint distributions of ellipse fit aspect ratio and angle for all 8 V-channel 2020 cases (left) and all 13 H-channel 2023 cases (right) where $T_{c}<0^{\circ}\mathrm{C}$. (Middle row) As in the top row but with the 2020 angles flipped. The bottom row shows how hypothetically this reversal could happen if the 2020 IMPACTS flights had the 2D-S probe rotated 90$^{\circ}$ counter-clockwise compared to the 2022 and 2023 flights.}
+\label{fig:rot_ex_discrep}
+\end{figure}
+\FloatBarrier
+
+
+\noappendix       %% use this to mark the end of the appendix section. Otherwise the figures might be numbered incorrectly (e.g. 10 instead of 1).
+
+%% Regarding figures and tables in appendices, the following two options are possible depending on your general handling of figures and tables in the manuscript environment:
+
+%% Option 1: If you sorted all figures and tables into the sections of the text, please also sort the appendix figures and appendix tables into the respective appendix sections.
+%% They will be correctly named automatically.
+
+%% Option 2: If you put all figures after the reference list, please insert appendix tables and figures after the normal tables and figures.
+%% To rename them correctly to A1, A2, etc., please add the following commands in front of them:
+
+\appendixfigures  %% needs to be added in front of appendix figures
+
+\appendixtables   %% needs to be added in front of appendix tables
+
+%% Please add \clearpage between each table and/or figure. Further guidelines on figures and tables can be found below.
+
+\codedataavailability{The 2D-S ellipse fit NASA IMPACTS data is available from \url{https://zenodo.org/records/19338927} as a .mat file. The SHPSG code is available from \url{https://github.com/budizhao/SHPSG}.} %% use this section when having data sets and software code available
+
+
+\authorcontribution{ELD conceived of the study, developed and performed the simulations, calculated the statistics for the IMPACTS data and simulations, and wrote the manuscript. ELD processed the ellipse fit data using the UIOOPS software and JAF assisted in incorporating quality control measures for 2D-S particle images. DJD and CN collected the 2D-S probe data during the IMPACTS campaign and contributed to the analysis in section 5. AB provided SODA-2 image output using the simulations performed in this study. CH produced panels a and b in \cref{fig:pylon_comp} as well as performed CFD-based trajectories used in Appendix B. All authors contributed to the discussion and improvement of the initial paper.} %% this section is mandatory
+
+\competinginterests{The authors assert no conflicts of interest.} %% this section is mandatory even if you declare that no competing interests are present
+
+%\disclaimer{TEXT} %% optional section
+
+\begin{acknowledgements}\label{acknowledgements}
+The authors would like to thank Mike Cropper (NASA Langley) and Joseph O'Brien (Argonne National Laboratory) for their help understanding the 2D-S probe and technical aspects of the 2D-S during the IMPACTS campaign, Julian Schima (Penn State) for providing the \citet{Schima2024} habit identification algorithm, Emma J{\"a}rvinen and Martin Schnaiter (University of Wuppertal) for their PHIPS images, Lee Thornhill (NASA Langley) for providing angle of attack data during IMPACTS, and Greg McFarquhar (CIWRO/OU) for his suggestions that improved this paper. The authors acknowledge the use of Google Gemini Pro as a tool for refactoring the Matlab and Python code used to generate the plots used in this paper. Funding for this work was provided by the NOAA/Office of Oceanic and Atmospheric Research under NOAA–University of Oklahoma Cooperative Agreement NA21OAR4320204, U.S. Department of Commerce.
+\end{acknowledgements}
+
+
+
+
+%% REFERENCES
+
+%% The reference list is compiled as follows:
+
+%\begin{thebibliography}{}
+
+%\bibitem[AUTHOR(YEAR)]{LABEL1}
+%REFERENCE 1
+
+%\bibitem[AUTHOR(YEAR)]{LABEL2}
+%REFERENCE 2
+
+%\end{thebibliography}
+
+%% Since the Copernicus LaTeX package includes the BibTeX style file copernicus.bst,
+%% authors experienced with BibTeX only have to include the following two lines:
+%%
+\bibliographystyle{copernicus}
+\bibliography{references.bib}
+%%
+%% URLs and DOIs can be entered in your BibTeX file as:
+%%
+%% URL = {http://www.xyz.org/~jones/idx_g.htm}
+%% DOI = {10.5194/xyz}
+
+
+%% LITERATURE CITATIONS
+%%
+%% command                        & example result
+%% \citet{jones90}|               & Jones et al. (1990)
+%% \citep{jones90}|               & (Jones et al., 1990)
+%% \citep{jones90,jones93}|       & (Jones et al., 1990, 1993)
+%% \citep[p.~32]{jones90}|        & (Jones et al., 1990, p.~32)
+%% \citep[e.g.,][]{jones90}|      & (e.g., Jones et al., 1990)
+%% \citep[e.g.,][p.~32]{jones90}| & (e.g., Jones et al., 1990, p.~32)
+%% \citeauthor{jones90}|          & Jones et al.
+%% \citeyear{jones90}|            & 1990
+
+
+
+%% FIGURES
+
+%% When figures and tables are placed at the end of the MS (article in one-column style), please add \clearpage
+%% between bibliography and first table and/or figure as well as between each table and/or figure.
+
+% The figure files should be labelled correctly with Arabic numerals (e.g. fig01.jpg, fig02.png).
+
+
+%% ONE-COLUMN FIGURES
+
+%%f
+%\begin{figure}[t]
+%\includegraphics[width=8.3cm]{FILE NAME}
+%\caption{TEXT}
+%\end{figure}
+%
+%%% TWO-COLUMN FIGURES
+%
+%%f
+%\begin{figure*}[t]
+%\includegraphics[width=12cm]{FILE NAME}
+%\caption{TEXT}
+%\end{figure*}
+%
+%
+%%% TABLES
+%%%
+%%% The different columns must be seperated with a & command and should
+%%% end with \\ to identify the column brake.
+%
+%%% ONE-COLUMN TABLE
+%
+%%t
+%\begin{table}[t]
+%\caption{TEXT}
+%\begin{tabular}{column = lcr}
+%\tophline
+%
+%\middlehline
+%
+%\bottomhline
+%\end{tabular}
+%\belowtable{} % Table Footnotes
+%\end{table}
+%
+%%% TWO-COLUMN TABLE
+%
+%%t
+%\begin{table*}[t]
+%\caption{TEXT}
+%\begin{tabular}{column = lcr}
+%\tophline
+%
+%\middlehline
+%
+%\bottomhline
+%\end{tabular}
+%\belowtable{} % Table Footnotes
+%\end{table*}
+%
+%%% LANDSCAPE TABLE
+%
+%%t
+%\begin{sidewaystable*}[t]
+%\caption{TEXT}
+%\begin{tabular}{column = lcr}
+%\tophline
+%
+%\middlehline
+%
+%\bottomhline
+%\end{tabular}
+%\belowtable{} % Table Footnotes
+%\end{sidewaystable*}
+%
+%
+%%% MATHEMATICAL EXPRESSIONS
+%
+%%% All papers typeset by Copernicus Publications follow the math typesetting regulations
+%%% given by the IUPAC Green Book (IUPAC: Quantities, Units and Symbols in Physical Chemistry,
+%%% 2nd Edn., Blackwell Science, available at: http://old.iupac.org/publications/books/gbook/green_book_2ed.pdf, 1993).
+%%%
+%%% Physical quantities/variables are typeset in italic font (t for time, T for Temperature)
+%%% Indices which are not defined are typeset in italic font (x, y, z, a, b, c)
+%%% Items/objects which are defined are typeset in roman font (Car A, Car B)
+%%% Descriptions/specifications which are defined by itself are typeset in roman font (abs, rel, ref, tot, net, ice)
+%%% Abbreviations from 2 letters are typeset in roman font (RH, LAI)
+%%% Vectors are identified in bold italic font using \vec{x}
+%%% Matrices are identified in bold roman font
+%%% Multiplication signs are typeset using the LaTeX commands \times (for vector products, grids, and exponential notations) or \cdot
+%%% The character * should not be applied as mutliplication sign
+%
+%
+%%% EQUATIONS
+%
+%%% Single-row equation
+%
+%\begin{equation}
+%
+%\end{equation}
+%
+%%% Multiline equation
+%
+%\begin{align}
+%& 3 + 5 = 8\\
+%& 3 + 5 = 8\\
+%& 3 + 5 = 8
+%\end{align}
+%
+%
+%%% MATRICES
+%
+%\begin{matrix}
+%x & y & z\\
+%x & y & z\\
+%x & y & z\\
+%\end{matrix}
+%
+%
+%%% ALGORITHM
+%
+%\begin{algorithm}
+%\caption{...}
+%\label{a1}
+%\begin{algorithmic}
+%...
+%\end{algorithmic}
+%\end{algorithm}
+%
+%
+%%% CHEMICAL FORMULAS AND REACTIONS
+%
+%%% For formulas embedded in the text, please use \chem{}
+%
+%%% The reaction environment creates labels including the letter R, i.e. (R1), (R2), etc.
+%
+%\begin{reaction}
+%%% \rightarrow should be used for normal (one-way) chemical reactions
+%%% \rightleftharpoons should be used for equilibria
+%%% \leftrightarrow should be used for resonance structures
+%\end{reaction}
+%
+%
+%%% PHYSICAL UNITS
+%%%
+%%% Please use \unit{} and apply the exponential notation
+
+
+\end{document}

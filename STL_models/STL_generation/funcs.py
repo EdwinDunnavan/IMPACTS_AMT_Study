@@ -1,10 +1,55 @@
 import numpy as np
-from scipy.special import sph_harm
+#from scipy.special import sph_harm
+from scipy.special import lpmv
+from math import factorial
 from ellipsoid_fit import ellipsoid_fit, ellipsoid_plot
 
 import os
 
-# calcualte coordinates with SH expansion
+def align_mesh_to_pca(mesh):
+    """
+    Aligns the mesh's principal axes to Cartesian axes while guaranteeing 
+    a right-handed transformation to prevent inverted face normals.
+    """
+    transform = mesh.principal_inertia_transform
+    
+    # If determinant is negative, matrix contains a reflection that inverts face normals
+    if np.linalg.det(transform[:3, :3]) < 0:
+        transform[:3, 0] *= -1  # Flip X-axis orientation to enforce SO(3) rotation
+        
+    mesh.apply_transform(transform)
+    mesh.fix_normals()
+    return mesh
+
+def robust_sph_harm(m, n, theta, phi):
+    """
+    Version-proof Spherical Harmonic generator to replace missing scipy.special.sph_harm.
+    m: order
+    n: degree
+    theta: azimuthal angle [0, 2*pi]
+    phi: polar angle [0, pi]
+    """
+    x = np.cos(phi)
+    abs_m = abs(m)
+    
+    # Evaluate Associated Legendre Polynomial
+    p = lpmv(abs_m, n, x)
+    
+    # Normalization constant
+    norm = np.sqrt(((2*n + 1) / (4 * np.pi)) * (factorial(n - abs_m) / factorial(n + abs_m)))
+    
+    if m >= 0:
+        # Include Condon-Shortley phase for m > 0
+        phase = (-1)**m if m > 0 else 1.0
+        y = phase * norm * p * np.exp(1j * m * theta)
+    else:
+        # Conjugate property for negative m
+        pos_y = ((-1)**abs_m) * norm * p * np.exp(1j * abs_m * theta)
+        y = ((-1)**abs_m) * np.conj(pos_y)
+        
+    return y
+
+# calculate coordinates with SH expansion
 def sph2cart(coeff, phi, theta):
     x = 0
     y = 0
@@ -13,11 +58,27 @@ def sph2cart(coeff, phi, theta):
     for n in range(9):
         order = [*range(-n,n+1)]
         for m in range(2*n+1):
-            x += coeff[index,0]*sph_harm(order[m], n, theta, phi)
-            y += coeff[index,1]*sph_harm(order[m], n, theta, phi)
-            z += coeff[index,2]*sph_harm(order[m], n, theta, phi)
+            # Swap out the old sph_harm for our robust_sph_harm
+            x += coeff[index,0]*robust_sph_harm(order[m], n, theta, phi)
+            y += coeff[index,1]*robust_sph_harm(order[m], n, theta, phi)
+            z += coeff[index,2]*robust_sph_harm(order[m], n, theta, phi)
             index += 1
     return x, y, z
+
+# # calcualte coordinates with SH expansion
+# def sph2cart(coeff, phi, theta):
+#     x = 0
+#     y = 0
+#     z = 0
+#     index = 0
+#     for n in range(9):
+#         order = [*range(-n,n+1)]
+#         for m in range(2*n+1):
+#             x += coeff[index,0]*sph_harm(order[m], n, theta, phi)
+#             y += coeff[index,1]*sph_harm(order[m], n, theta, phi)
+#             z += coeff[index,2]*sph_harm(order[m], n, theta, phi)
+#             index += 1
+#     return x, y, z
 
 # define hexagonal prism surface
 def hexagonal():
@@ -196,9 +257,22 @@ def plotstl(stlpath,figpath):
 def sh2stl(coeff, sph_cor, vertices, faces,stlpath):
     # update vertices by SH expansion
     for i in range(3):
-        vertices[:,i] = sph2cart(coeff,sph_cor[:,4],sph_cor[:,5])[i]
-
-    #vertices = vertices - np.nanmean(vertices,1)
+        vertices[:,i] = np.real(sph2cart(coeff,sph_cor[:,4],sph_cor[:,5])[i])
+    
+    # 2. THE RADIAL FLOOR FIX
+    # Calculate the exact distance of every vertex from the center (0,0,0)
+    r = np.linalg.norm(vertices, axis=1)
+    
+    # Set a solid core boundary (e.g., radius of 0.05)
+    min_r = 0.05
+    
+    # Identify any vertices that punched too deep and crossed the threshold
+    mask = r < min_r
+    
+    # Push those inverted vertices back out along their vector to rest on the core
+    # (The 1e-12 prevents division by zero if a vertex hit exactly 0.0)
+    vertices[mask] = (vertices[mask] / (r[mask, None] + 1e-12)) * min_r    
+    
     
     # Create the mesh
     cube = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))

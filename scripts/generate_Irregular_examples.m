@@ -6,18 +6,23 @@ projections of STL models along with the ellipse data.
 %}
 
 %% Set up paths based on Github Parent location
-paths = get_project_paths();
+paths = init_project();
 
 DataDir = paths.data;
 utilsDir = paths.utils;
 simDir = paths.simulations;
 
 %% IRREGULAR: Set up folder and config
-particleDir = 'Irregular_10k_random_gaussian'; % Directory where STL particle files and particle parameter .nc file are located.
+particleDir = 'Irregular_1k_fuse_TEST3'; % Directory where STL particle files and particle parameter .nc file are located.
+%particleDir = 'CappedColumns_10k';
+%particleDir = 'Rosettes_10k';
+%test_folder = 'Irregular_10k_ALL';
 %test_folder     = 'Random_Gamma_Example';
-test_folder = 'Irregular_2020_1e5';
+test_folder  = 'Irregular_2020_1k_1e6';
+%test_folder = 'Random_1e5_randsamp';
 
-Nsim = 1e5;
+Nsim = 1e6;
+use_instrument_filter = true;
 fit_ellipsoids = false;
 simulate_data = true;
 save_pngs = false;
@@ -38,7 +43,9 @@ Dm = 2.0;
 Dlow = 0.35;
 Dhigh = 5.0;
 
-ang_xz = -48;
+%% IRREGULAR 2020
+%ang_xz = -48;
+ang_xz = -40;
 ang_xy = 45;
 kappa = 4.5;
 psimean = 0;
@@ -46,6 +53,15 @@ varpsi = 0.001;
 
 [phimean, thetamean, ~, ~] = ret_angle_3D_proj(ang_xz, ang_xy);
 
+
+% %% RANDOM
+% phimean = 0;
+% thetamean = 90;
+% kappa = 0.001;
+% psimean = 0.;
+% varpsi = 0.001;
+
+%% Store orientations in structure
 orientations = struct('phimean',phimean, ...
                       'thetamean',thetamean,... 
                       'kappa',kappa,...
@@ -72,7 +88,7 @@ config.particles2sim = particles2sim;
 config.orientations = orientations;
 
 %% Instrument Filters for 2D-S
-config.use_instrument_filter = true;
+config.use_instrument_filter = use_instrument_filter;
 config.W_array       = 1.28;  
 config.Dthresh       = 0.35;   
 config.ar_thresh     = 0.1;   

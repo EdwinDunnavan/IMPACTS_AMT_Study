@@ -42,7 +42,6 @@ function m = fwd_project_ellipsoids(varargin)
     default_pop.pcb_exponent = [];
     default_pop.abatog = 0.6; 
     default_pop.rhovar_frac = 0.02;
-    %default_pop.use_3D_density_scaling = false; % NEW: Toggle for rho^(2/3) postulate
     default_pop.ang_xz = -40; 
     default_pop.ang_xy = 45; 
     default_pop.kappa = 4;
