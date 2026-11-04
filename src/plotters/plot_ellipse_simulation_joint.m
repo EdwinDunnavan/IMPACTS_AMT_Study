@@ -1,7 +1,5 @@
 function [fig,ax] = plot_ellipse_simulation_joint(sobj,varargin)
 
-addpath /home/edwin.dunnavan/Documents/UIOPS/
-
 normalization = 'pdf';
 
 ang_edges = -90:2.5:90;

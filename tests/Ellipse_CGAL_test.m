@@ -1,327 +1,147 @@
-% Ellipse_CGAL_test.m
+% Ellipse_CGAL_test_random.m
 
-%clear all
+function results = Ellipse_CGAL_test_random(N_tests, show_plots)
+    if nargin < 1, N_tests = 50; end
+    if nargin < 2, show_plots = true; end
 
-function [L,W,Ang,xct,yct,mask_new] = Ellipse_CGAL_test(major_start,minor_start,ang_start,x0,y0)
+    % Define grid size based on classic OAP buffer strip dimensions
+    m = 1700;
+    n = 128;
+    [Xt, Yt] = meshgrid(1:m, 1:n);
 
-%buf = 50;
+    % Define how many particles to composite into the example figure
+    N_vis = min(6, N_tests); 
+    composite_mask = false(n, m);
 
-m = 1700;
-n = 128;
+    % Pre-allocate results table
+    results = zeros(N_tests, 10); 
+    % Columns: [True_L, True_W, True_Ang, True_X, True_Y, CGAL_L, CGAL_W, CGAL_Ang, CGAL_X, CGAL_Y]
 
-%m = major_start+buf;
-%n = major_start+buf;
-
-[Xt,Yt] = meshgrid(1:m,1:n);
-
-%major_start = 120.0;
-%minor_start = 30.0;
-
-ra = major_start./2;
-rb = minor_start./2;
-%ang_start = -30;
-%x0 = 50.0;
-%y0 = 50.0;
-
-ang_start = -ang_start;
-
-a = ra.^2.*sind(ang_start).^2 + rb.^2.*cosd(ang_start).^2;
-b = 2.*(ra.^2 - rb.^2).*sind(ang_start).*cosd(ang_start);
-c = ra.^2.*cosd(ang_start).^2 + rb.^2 .* sind(ang_start).^2;
-d = -2.*a.*x0 - b.*y0;
-f = -b.*x0 - 2.*c.*y0;
-g = a.*x0.^2+b.*x0.*y0+c.*y0.^2 - ra.^2 .* rb.^2;
-
-
-major=2.*sqrt((2.*(a.*(f./2).^2+c.*(d./2).^2+g.*(b./2).^2-b.*d.*f./4-a.*c.*g))./(((b./2).^2-a.*c).*(sqrt((a-c).^2+(b).^2)-(a+c))));
-minor=2.*sqrt((2.*(a.*(f./2).^2+c.*(d./2).^2+g.*(b./2).^2-b.*d.*f./4-a.*c.*g))./(((b./2).^2-a.*c).*(-sqrt((a-c).^2+(b).^2)-(a+c))));
+    fprintf('Generating and testing %d random ellipses...\n', N_tests);
     
-
-xc = (2.*c.*d-b.*f)./(b.^2-4.*a.*c);
-yc = (2.*a.*f-b.*d)./(b.^2-4.*a.*c);
-
-
-% OLD C++ version
-%     if (0==b && a<c)
-%         ang=0; 
-%     elseif ((0==b && a>c))
-%         ang=pi/2;
-%     elseif (0 ~= b && a<c)
-%         ang=(atan(b/(a-c)))/2;
-%     elseif (0 ~= b && a>c)
-%         ang=(atan(b/(a-c)))/2+pi/2;
-%     else
-%         ang=0;
-% 
-%     end
-%     
-%     if (ang > 3.1415926/2)
-%         ang = ang - 3.141592653;
-%     end
-%     
-%     if (ang < -3.1415926/2)
-%         ang = ang + 3.141592653;
-%     end
-
-% NEW version
-    if (0==b && a<c)
-        ang=0; 
-    elseif ((0==b && a>c))
-        ang=pi/2;
-    elseif (0 ~= b && a<c)
-        ang=(atan(b/(a-c)))/2;
-        %ang=(atan(b./(c-a-sqrt((a-c).^2+b.^2))));
-    elseif (0 ~= b && a>c)
-        ang=(atan(b/(a-c)))/2+pi/2;
-        %ang=(atan(b./(c-a-sqrt((a-c).^2+b.^2))))+pi/2;
-    elseif (a==c && b<0)
-        ang = pi./4;
-
-    elseif (a==c && b>0)
-        ang = -pi./4;
-    else
-        ang=0;
-
-    end
-    
-    if (ang > pi/2)
-        ang = ang - pi;
-    end
-    
-    if (ang < -pi/2)
-        ang = ang + pi;
-    end
-
-
-    ang = rad2deg(ang);
-
-    fprintf('major = %f\n',major)
-    fprintf('minor = %f\n',minor)
-    fprintf('aspect ratio = %f\n',minor./major)
-    fprintf('ellipse angle = %f\n',ang)
-    fprintf('x center = %f\n',xc)
-    fprintf('y center = %f\n',yc)
-
-    hfig = figure('units','normalized','position',[0.1656 0.6361 0.7260 0.1296]);
-    %set(hfig,'color','w')
-    fimplicit(@(x,y) a.*(x).^2 + c.*(y).^2 + b.*(x).*(y)+d.*(x)+f.*(y)+g,[1 m 1 n],'linewidth',5)
-    %hold on;
-    %scatter(xc,yc,'o','filled')
-    hold on;
-    [xt,yt] =plot_ellipse(gca,major./2,minor./2,xc,yc,ang,'k');
-
-    %ellipse(major./2,minor./2,deg2rad(ang),xc,yc,'r',50)
-    axis equal
-    %axis off
-
-    xlim([0 m]);
-    ylim([0 n])
-
-
-    mask = a.*(Xt).^2 + c.*(Yt).^2 + b.*(Xt).*(Yt)+d.*(Xt)+f.*(Yt)+g<=1;
-
-    %mask = mask;
-
-    [sa,sb] = size(mask);
-
-    for ii = 1 : sa
-        for jj = 1 :sb
-            mask_new(ii,jj) = num2str(~mask(ii,jj));
+    tic;
+    for i = 1:N_tests
+        % 1. Randomize Ellipse Parameters
+        major_start = 20 + rand() * 80;           % Length: 20 to 100
+        minor_start = 10 + rand() * (major_start - 10); % Width: 10 to major_start
+        ang_start_orig = -90 + rand() * 180;       % Angle: -90 to 90 degrees
+        y0 = 64;                                   % Lock Y to center of the 128 strip
+        
+        % Evenly space the visual examples to prevent overlap; randomize the rest
+        if i <= N_vis
+            x0 = (m / (N_vis + 1)) * i;
+        else
+            x0 = 150 + rand() * (m - 300);
         end
+        
+        ra = major_start / 2;
+        rb = minor_start / 2;
+        ang_start = -ang_start_orig;
+
+        % 2. Analytical Ellipse Math
+        a = ra.^2.*sind(ang_start).^2 + rb.^2.*cosd(ang_start).^2;
+        b = 2.*(ra.^2 - rb.^2).*sind(ang_start).*cosd(ang_start);
+        c = ra.^2.*cosd(ang_start).^2 + rb.^2 .* sind(ang_start).^2;
+        d = -2.*a.*x0 - b.*y0;
+        f = -b.*x0 - 2.*c.*y0;
+        g = a.*x0.^2 + b.*x0.*y0 + c.*y0.^2 - ra.^2 .* rb.^2;
+
+        % 3. Create Binary Mask 
+        mask = (a.*(Xt).^2 + c.*(Yt).^2 + b.*(Xt).*(Yt) + d.*(Xt) + f.*(Yt) + g) <= 1;
+        
+        % Add to composite strip if it's one of our display particles
+        if i <= N_vis
+            composite_mask = composite_mask | mask;
+        end
+        
+        % Convert to character array of '1's (background) and '0's (object)
+        mask_new = char('1' - mask); 
+
+        % 4. Call CGAL
+        try
+            [L_cgal, W_cgal, Ang_cgal_raw, xct, yct] = CGAL_EllipseSize_UIOPS(mask_new');
+            
+            % APPLY TRANSPOSE CORRECTION
+            if Ang_cgal_raw >= 0
+                Ang_cgal = pi/2 - Ang_cgal_raw;
+            else
+                Ang_cgal = -(pi/2 - abs(Ang_cgal_raw));
+            end
+            
+            Ang_cgal = rad2deg(Ang_cgal);
+            
+        catch
+            L_cgal = NaN; W_cgal = NaN; Ang_cgal = NaN; xct = NaN; yct = NaN;
+        end
+
+        % 5. Store Results
+        results(i, :) = [major_start, minor_start, ang_start_orig, x0, y0, ...
+                         L_cgal, W_cgal, Ang_cgal, xct, yct];
     end
+    toc;
+    
+    fprintf('Testing complete.\n');
 
-    tic
-    [L, W, Ang, xct, yct]       = CGAL_EllipseSize_UIOPS(mask_new');
-    toc
-
-    Ang = -rad2deg(Ang);
-
-    ellipse(L./2,W./2,-deg2rad(Ang),x0,y0,'g',50)
-
-    fprintf('L = %f\n',L)
-    fprintf('W = %f\n',W)
-    fprintf('CGAL aspect ratio = %f\n',W./L)
-    fprintf('CGAL angle = %f\n',-Ang)
-    fprintf('CGAL xc = %f\n',xct)
-    fprintf('CGAL yc = %f\n',yct)
-    %fprintf('CGAL a = %f\n',ac)
-    %fprintf('CGAL c = %f\n',cc)
-    %fprintf('CGAL b = %f\n',bc)
-    %fprintf('CGAL d = %f\n',dc)
-    %fprintf('CGAL f = %f\n',fc)
-    %fprintf('CGAL g = %f\n',gc)
-
-    tightfig(hfig);
-
-end
-
-
-function [L, W, Ang, xct, yct,ac,cc,bc,dc,fc,gc] = call_EllipseCGAL(mask_new)
-
- [L, W, Ang, xct, yct,ac,cc,bc,dc,fc,gc]       = CGAL_EllipseSize_new(mask_new);
-
-
-end
-
-
-function [x,y] =plot_ellipse(ax,a,b,cx,cy,angle,color)
-
-
-r = linspace(0,360,50);
-
-p = [(a.*cosd(r))' (b.*sind(r))'];
-
-alpha = [cosd(angle) -sind(angle); sind(angle) cosd(angle)]';
-
-p1 = p*alpha;
-
-x = cx+p1(:,1);
-y = cy+p1(:,2);
-
-
-patch(ax,x,y,color,'EdgeColor','None','FaceAlpha',1.0);
-
-
-end
-
-
-
-
-function h=ellipse(ra,rb,ang,x0,y0,C,Nb)
-% Ellipse adds ellipses to the current plot
-%
-% ELLIPSE(ra,rb,ang,x0,y0) adds an ellipse with semimajor axis of ra,
-% a semiminor axis of radius rb, and an orientation of the semimajor
-% axis with an angle of ang (in radians) rotated counter-clockwise 
-% from the x-axis.  The ellipse is centered at the point x0,y0.
-%
-% The length of ra, rb, and ang should be the same. 
-% If ra is a vector of length L and x0,y0 scalars, L ellipses
-% are added at point x0,y0.
-% If ra is a scalar and x0,y0 vectors of length M, M ellipse are with the same 
-% radii are added at the points x0,y0.
-% If ra, x0, y0 are vectors of the same length L=M, M ellipses are added.
-% If ra is a vector of length L and x0, y0 are  vectors of length
-% M~=L, L*M ellipses are added, at each point x0,y0, L ellipses of radius ra.
-%
-% ELLIPSE(ra,rb,ang,x0,y0,C)
-% adds ellipses of color C. C may be a string ('r','b',...) or the RGB value. 
-% If no color is specified, it makes automatic use of the colors specified by 
-% the axes ColorOrder property. For several ellipses C may be a vector.
-%
-% ELLIPSE(ra,rb,ang,x0,y0,C,Nb), Nb specifies the number of points
-% used to draw the ellipse. The default value is 300. Nb may be specified
-% for each ellipse individually, in which case it should be the same
-% length as ra, rb, etc.
-%
-% h=ELLIPSE(...) returns the handles to the ellipses.
-%
-% usage exmple: the following produces a red ellipse centered at 1,1
-% and tipped down at a 45 deg axis from the x axis
-% ellipse(1,2,pi/4,1,1,'r')
-%
-% note that if ra=rb, ELLIPSE plots a circle
-%
-% written by D.G. Long, Brigham Young University, based on the
-% CIRCLES.m original written by Peter Blattner, Institute of 
-% Microtechnology, University of Neuchatel, Switzerland, blattner@imt.unine.ch
-% Check the number of input arguments 
-if nargin<1
-  ra=[];
-end
-if nargin<2
-  rb=[];
-end
-if nargin<3
-  ang=[];
-end
-if nargin<5
-  x0=[];
-  y0=[];
-end
- 
-if nargin<6
-  C=[];
-end
-if nargin<7
-  Nb=[];
-end
-% set up the default values
-if isempty(ra),ra=1;end
-if isempty(rb),rb=1;end
-if isempty(ang),ang=0;end
-if isempty(x0),x0=0;end
-if isempty(y0),y0=0;end
-if isempty(Nb),Nb=300;end
-if isempty(C),C=get(gca,'colororder');end
-% work on the variable sizes
-x0=x0(:);
-y0=y0(:);
-ra=ra(:);
-rb=rb(:);
-ang=ang(:);
-Nb=Nb(:);
-if isstr(C),C=C(:);end
-if length(ra)~=length(rb)
-  error('length(ra)~=length(rb)');
-end
-if length(x0)~=length(y0)
-  error('length(x0)~=length(y0)');
-end
-% how many inscribed elllipses are plotted
-if length(ra)~=length(x0)
-  maxk=length(ra)*length(x0);
-else
-  maxk=length(ra);
-end
-% drawing loop
-for k=1:maxk
-  
-  if length(x0)==1
-    xpos=x0;
-    ypos=y0;
-    radm=ra(k);
-    radn=rb(k);
-    if length(ang)==1
-      an=ang;
-    else
-      an=ang(k);
+    % 6. Plotting
+    if show_plots
+        % --- FIGURE 1: Composite Buffer Strip ---
+        fig_strip = figure('units','normalized','position',[0.1656 0.6361 0.7260 0.1296]);
+        
+        % Plot accumulated binary shadows
+        pcolor(Xt, Yt, double(~composite_mask));
+        colormap(gray); shading flat; hold on;
+        
+        % Loop through and draw outlines for the first N_vis particles
+        for k = 1:N_vis
+            % Overlay Analytical (Red Outline)
+            plot_ellipse_outline(gca, results(k,1)/2, results(k,2)/2, results(k,4), results(k,5), results(k,3), 'r');
+            % Overlay CGAL (Green Outline)
+            plot_ellipse_outline(gca, results(k,6)/2, results(k,7)/2, results(k,9), results(k,10), results(k,8), 'g');
+        end
+        
+        axis equal; xlim([0 m]); ylim([0 n]);
+        title(sprintf('Example Buffer Strip (%d Particles | Red: Analytical, Green: CGAL)', N_vis), 'Interpreter', 'latex', 'FontSize', 16);
+        xlabel('Pixels', 'Interpreter', 'latex');
+        set(gca, 'TickLabelInterpreter', 'latex');
+        drawnow;
+        
+        % --- FIGURE 2: Scatter Performance ---
+        fig_perf = figure('units','normalized','position',[0.1 0.1 0.8 0.4]);
+        
+        % Major Axis
+        subplot(1,3,1); hold on; box on; grid on;
+        scatter(results(:,1), results(:,6), 40, 'b', 'filled', 'MarkerEdgeColor', 'k');
+        plot([0, 150], [0, 150], 'r--', 'LineWidth', 2);
+        xlabel('Analytical Major Axis'); ylabel('CGAL Major Axis');
+        title('Major Axis ($L$)', 'Interpreter', 'latex');
+        axis equal; xlim([0 150]); ylim([0 150]);
+        
+        % Minor Axis
+        subplot(1,3,2); hold on; box on; grid on;
+        scatter(results(:,2), results(:,7), 40, 'g', 'filled', 'MarkerEdgeColor', 'k');
+        plot([0, 150], [0, 150], 'r--', 'LineWidth', 2);
+        xlabel('Analytical Minor Axis'); ylabel('CGAL Minor Axis');
+        title('Minor Axis ($W$)', 'Interpreter', 'latex');
+        axis equal; xlim([0 150]); ylim([0 150]);
+        
+        % Angle
+        subplot(1,3,3); hold on; box on; grid on;
+        scatter(results(:,3), results(:,8), 40, 'm', 'filled', 'MarkerEdgeColor', 'k');
+        plot([-90, 90], [-90, 90], 'r--', 'LineWidth', 2);
+        xlabel('Analytical Angle (deg)'); ylabel('CGAL Angle (deg)');
+        title('Orientation Angle ($\theta$)', 'Interpreter', 'latex');
+        axis equal; xlim([-90 90]); ylim([-90 90]);
+        
+        sgtitle('CGAL Ellipse Fitting Performance (Monte Carlo)', 'Interpreter', 'latex', 'FontSize', 16);
     end
-  elseif length(ra)==1
-    xpos=x0(k);
-    ypos=y0(k);
-    radm=ra;
-    radn=rb;
-    an=ang;
-  elseif length(x0)==length(ra)
-    xpos=x0(k);
-    ypos=y0(k);
-    radm=ra(k);
-    radn=rb(k);
-    an=ang(k);
-  else
-    rada=ra(fix((k-1)/size(x0,1))+1);
-    radb=rb(fix((k-1)/size(x0,1))+1);
-    an=ang(fix((k-1)/size(x0,1))+1);
-    xpos=x0(rem(k-1,size(x0,1))+1);
-    ypos=y0(rem(k-1,size(y0,1))+1);
-  end
-  % draw ellipse
-  
-  co=cos(an);
-  si=sin(an);
-  the=linspace(0,2*pi,Nb(rem(k-1,size(Nb,1))+1,:)+1);
-  %  x=radm*cos(the)*co-si*radn*sin(the)+xpos;
-  %  y=radm*cos(the)*si+co*radn*sin(the)+ypos;
-  p=line(radm*cos(the)*co-si*radn*sin(the)+xpos,radm*cos(the)*si+co*radn*sin(the)+ypos);
-  set(p,'color',C(rem(k-1,size(C,1))+1,:));
-  
-  % output handles to each ellipse if output variable specified
-  
-  if nargout > 0
-    h(k)=p;
-  end
-  
 end
 
+%% Helper Functions
+function plot_ellipse_outline(ax, a, b, cx, cy, angle, color)
+    % Draws a clean un-filled outline to overlay on the binary pcolor grid
+    r = linspace(0, 360, 100);
+    p = [(a.*cosd(r))' (b.*sind(r))'];
+    alpha = [cosd(angle) -sind(angle); sind(angle) cosd(angle)]';
+    p1 = p*alpha;
+    plot(ax, cx+p1(:,1), cy+p1(:,2), 'Color', color, 'LineWidth', 2.5);
 end

@@ -24,6 +24,7 @@ end
 N = length(sobj.ellipsoid.a);
 
 %nccreate(fileout,'N','Datatype','single');
+nccreate(fileout,'fill_holes','Datatype','int8');
 nccreate(fileout,'phimean','Datatype','single');
 nccreate(fileout,'thetamean','Datatype','single');
 nccreate(fileout,'kappa','Datatype','single');
@@ -98,6 +99,7 @@ nccreate(fileout,'grid_bound','Dimensions',{'partNum',N},'Datatype','single');
 ncwriteatt(fileout,'/','folder',sobj.folder)
 ncwriteatt(fileout,'/','test_folder',sobj.test_folder)
 
+ncwrite(fileout,'fill_holes',1*sobj.fill_holes)
 ncwrite(fileout,'phimean',sobj.phimean)
 ncwrite(fileout,'thetamean',sobj.thetamean)
 ncwrite(fileout,'kappa',sobj.kappa)

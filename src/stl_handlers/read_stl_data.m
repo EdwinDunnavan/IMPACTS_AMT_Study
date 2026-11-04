@@ -90,6 +90,12 @@ for ff = 1 : N
         obj.psimean = ncread(ftemp,'psimean');
         obj.varpsi = ncread(ftemp,'varpsi');
 
+        try
+            obj.fill_holes = logical(ncread(ftemp, 'fill_holes'));
+        catch
+            obj.fill_holes = false; % Fallback for older legacy files
+        end
+
 
     end
 

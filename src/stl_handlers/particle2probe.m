@@ -1,6 +1,6 @@
 
 
-function sobj = particle2probe(sobj,pix_size,calculate_ellipses)
+function sobj = particle2probe(sobj,pix_size,calculate_ellipses,do_fill_holes)
 
 if nargin < 3 
 
@@ -8,6 +8,10 @@ if nargin < 3
 
 end
 
+% Default to true for backward compatibility with old scripts
+if nargin < 4
+    do_fill_holes = true;
+end
 
 %% Dynamically size grid to fit the scaled particle
 %max_radius = sobj.particle.max_dim / 2.0;
@@ -56,8 +60,10 @@ OUTPUTgrid = VOXELISE(gridX,gridY,gridZ,xco,yco,zco);
 GRID_xy = squeeze(sum(OUTPUTgrid,3));
 GRID_xy(GRID_xy>0) = 1;
 
+if do_fill_holes
 GRID_xy = imclose(GRID_xy, strel('disk', 2));
 GRID_xy = imfill(GRID_xy,4,'holes');
+end
 
 sobj.particle.projection.area.xy = sum(GRID_xy(:)).*pix_size.^2;
 sobj.particle.projection.perimeter.xy = sum(bwperim(GRID_xy,4),'all').*pix_size;
@@ -68,8 +74,10 @@ GRID_xz = squeeze(sum(OUTPUTgrid,2));
 
 GRID_xz(GRID_xz>0) = 1;
 
+if do_fill_holes
 GRID_xz = imclose(GRID_xz, strel('disk', 2));
 GRID_xz = imfill(GRID_xz,4,'holes');
+end
 
 sobj.particle.projection.area.xz = sum(GRID_xz(:)).*pix_size.^2;
 sobj.particle.projection.perimeter.xz = sum(bwperim(GRID_xz,4),'all').*pix_size;

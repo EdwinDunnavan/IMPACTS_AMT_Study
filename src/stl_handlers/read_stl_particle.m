@@ -9,6 +9,11 @@ sobj.folder = obj.folder;
 sobj.test_folder = folder;
 sobj.index = obj.index(ind);
 sobj.particle_number = obj.particle_number(ind);
+try 
+    sobj.fill_holes = obj.fill_holes;
+catch
+    sobj.fill_holes = false;
+end
 sobj.phimean = obj.phimean;
 sobj.thetamean = obj.thetamean;
 sobj.psimean = obj.psimean;
@@ -87,7 +92,7 @@ if exist(Hproj_file,'file') && exist(Vproj_file,'file')
     sobj.particle.projection.grid.xy = imread(Vproj_file);
 else
     pix_size = 0.01; 
-    temp_sobj = particle2probe(sobj, pix_size, false);
+    temp_sobj = particle2probe(sobj, pix_size, false, sobj.fill_holes);
 
     sobj.particle.projection.grid.xy = temp_sobj.particle.projection.grid.xy;
     sobj.particle.projection.grid.xz = temp_sobj.particle.projection.grid.xz;

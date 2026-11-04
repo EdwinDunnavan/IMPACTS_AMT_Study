@@ -379,6 +379,8 @@ function [fig, ax] = plot_universal_joint(data, dataType, varargin)
             ax_p4 = ax_stack(7:8); ax_p5 = ax_stack(9:10); ax_p6 = ax_stack(11:12);
         end
 
+        ax = ax_stack;
+
     else
        % fs_title = 32; fs_label = 26; fs_tick = 22; fs_cbar = 22;
 

@@ -18,6 +18,7 @@ test_folder   = config.test_folder;
 orientations  = config.orientations;
 
 use_instrument_filter = config.use_instrument_filter;
+do_fill_holes    = logical(config.fill_holes);
 W_array       = config.W_array;
 Dthresh       = config.Dthresh;
 ar_thresh     = config.ar_thresh;
@@ -404,6 +405,8 @@ parfor pp = 1 : length(subfiles)
     spart.folder = folder;
     spart.test_folder = test_folder;
 
+    spart.fill_holes = do_fill_holes;
+
     spart.N = Nt;
     spart.phimean = phimean;
     spart.thetamean = thetamean;
@@ -563,9 +566,8 @@ for ff = 1 : Nt
     %     end
     % end
 
-
     %% Calculate probe arrays and ellipse statistics
-    sobj = particle2probe(sobj,pix_size);
+    sobj = particle2probe(sobj,pix_size,true,do_fill_holes);
 
     %% STAGE 2: EXACT PHYSICAL FILTER
     % Apply the smooth logistic thresholds using the true STL shadow metrics
@@ -740,7 +742,9 @@ particle_folder = fullfile(folder,test_folder,'/');
 
 stemp = read_stl_data(particle_folder);
 
-plot_ellipse_simulation_joint(stemp,'outdir',particle_folder,'save_fig',true,'show_fig',false);
+%plot_ellipse_simulation_joint(stemp,'outdir',particle_folder,'save_fig',true,'show_fig',false);
+
+plot_universal_joint(stemp, 'sim', 'habit', 'all', 'outdir', particle_folder, 'save_fig', true, 'show_fig', false);
 
 end
 

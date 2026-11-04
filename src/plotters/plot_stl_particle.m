@@ -6,7 +6,14 @@ pix_size = 0.01;
 
 %% 1. Ensure projection grids exist
 if ~isfield(sobj.particle.projection, 'grid') || ~isfield(sobj.particle.projection.grid, 'xz') || isempty(sobj.particle.projection.grid.xz)
-    temp_sobj = particle2probe(sobj, pix_size, false);
+    % Check if the file specified fill_holes; default to true if missing
+    if isfield(sobj, 'fill_holes')
+        do_fill_holes = sobj.fill_holes;
+    else
+        do_fill_holes = false;
+    end
+    
+    temp_sobj = particle2probe(sobj, pix_size, false, do_fill_holes);
     sobj.particle.projection.grid.xy = temp_sobj.particle.projection.grid.xy;
     sobj.particle.projection.grid.xz = temp_sobj.particle.projection.grid.xz;
     sobj.grid_bound = temp_sobj.grid_bound;

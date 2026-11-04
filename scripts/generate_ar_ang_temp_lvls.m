@@ -1,15 +1,13 @@
 %% make_figure_14.m
 % Generates the 5 temperature-binned joint distributions for Figure 14.
 
-%paths = get_project_paths();
-
 paths = init_project();
 
-%fyear = {'2020'};
-fyear = {'2022','2023'};
+fyear = {'2020'};
+%fyear = {'2022','2023'};
 
-save_figs = true;
-show_figs = false;
+save_figs = false;
+show_figs = true;
 
 if ~exist('m','var')
 load(paths.ellipse_file,'-mat')

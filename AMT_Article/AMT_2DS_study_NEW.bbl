@@ -1,4 +1,4 @@
-\begin{thebibliography}{59}
+\begin{thebibliography}{60}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{}
@@ -27,10 +27,6 @@ Bailey, M.~P. and Hallett, J.: A comprehensive habit diagram for atmospheric
   ice crystals: {C}onfirmation from the laboratory, {AIRS II}, and other field
   studies, J.\ Atmos.\ Sci., 66, 2888--2899, \doi{10.1175/2009JAS2883.1}, 2009.
 
-\bibitem[{Davis(1974)}]{Davis1974}
-Davis, C.~I.: Ice nucleating characteristics of various AgI aerosols, Ph.D.
-  thesis, University of Wyoming, 1974.
-
 \bibitem[{Dunnavan and Jiang(2019)}]{Dunnavan2019a}
 Dunnavan, E.~L. and Jiang, Z.: A General Method for Estimating Bulk 2D
   Projections of Ice Particle Shape: {T}heory and Applications, J.\ Atmos.\
@@ -56,11 +52,24 @@ Dunnavan, E.~L., Carlin, J.~T., Schvartzman, D., Ryzhkov, A.~V., Bluestein, H.,
   Emmerson, S., McFarquhar, G.~M., Heymsfield, G.~M., and Yorks, J.: {},
   Geophys.\ Res.\ Lett., 50, e2023GL103\,692, \doi{10.1029/2023GL103692}, 2023.
 
+\bibitem[{Garcia et~al.(2026)Garcia, Rauber, McMurdie, Finlon, and
+  Schima}]{Garcia2026}
+Garcia, V., Rauber, R.~M., McMurdie, L.~A., Finlon, J.~A., and Schima, J.~C.:
+  Radar and Microphysical Properties in the “Dendritic Growth” Layer of
+  Winter Storms: {F}indings from the {IMPACTS} Field Campaign, J.\ Atmos.\
+  Sci., 83, 1833–1870, \doi{10.1175/JAS-D-25-0118.1}, 2026.
+
 \bibitem[{Garrett et~al.(2015)Garrett, Yuter, Fallgatter, Shukurko, Rhodes, and
   Endries}]{Garrett2015}
 Garrett, T.~J., Yuter, S.~E., Fallgatter, C., Shukurko, K., Rhodes, S.~R., and
   Endries, J.~L.: Orientations and aspect ratios of falling snow, Geophys.\
   Res.\ Lett., 42, 4617--4622, \doi{10.1002/2015GL064040}, 2015.
+
+\bibitem[{Gretton et~al.(2012)Gretton, Borgwardt, Rasch, Sch{\"o}lkopf, and
+  Smola}]{Gretton2012}
+Gretton, A., Borgwardt, K.~M., Rasch, M.~J., Sch{\"o}lkopf, B., and Smola, A.:
+  A kernel two-sample test, The journal of machine learning research, 13,
+  723--773, \urlprefix\url{http://jmlr.org/papers/v13/gretton12a.html}, 2012.
 
 \bibitem[{Heymsfield et~al.(2004)Heymsfield, Bansemer, Schmitt, Twohy, and
   Poellot}]{Heymsfield2004}
@@ -235,6 +244,12 @@ McMurdie, L.~A., Heymsfield, G.~M., Yorks, J.~E., Braun, S.~A.,
   Coast-Threatening Snowstorms (IMPACTS) campaign}, Bull.\ Amer.\ Meteor.\
   Soc., 103, E1243--E1269, \doi{10.1175/BAMS-D-20-0246.1}, 2022.
 
+\bibitem[{Mitchell and Arnott(1994)}]{Mitchell1994a}
+Mitchell, D.~L. and Arnott, W.~P.: {A model predicting the evolution of ice
+  particle size spectra and radiative properties of cirrus clouds. Part II:
+  Dependence of absorption and extinction on ice crystal morphology}, J.\
+  Atmos.\ Sci., 51, 817--832, 1994.
+
 \bibitem[{Moshtagh(2024)}]{Moshtagh2024}
 Moshtagh, N.: {Minimum Volume Envlosing Ellipsoid}, 2024.
 
@@ -272,11 +287,6 @@ Przybylo, V.~M., Sulia, K.~J., Schmitt, C.~G., and Lebo, Z.~J.: {Classification
 Ryzhkov, A., Pinsky, M., Pokrovsky, A., and Khain, A.: Polarimetric radar
   observation operator for a cloud model with spectral microphysics, J.\ Appl.\
   Meteor.\ Climatol., 50, 873--894, \doi{10.1175/2010JAMC2363.1}, 2011.
-
-\bibitem[{Sand(2024)}]{Sand2024}
-Sand, K.~R.: Investigation Of The Existence Of Vertically Oriented Ice Crystals
-  In Winter Storms, Master's thesis, University of North Dakota,
-  \urlprefix\url{https://commons.und.edu/theses/6567}, 2024.
 
 \bibitem[{Schima et~al.(2024)Schima, McFarquhar, Delene, Heymsfield, Bansemer,
   Schnaiter, Finlon, J\"{a}rvinen, and Nehlert}]{Schima2024}

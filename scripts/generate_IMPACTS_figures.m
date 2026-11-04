@@ -2,7 +2,8 @@
 %{
 % generate_IMPACTS_figures.m
 
-Description: This script generates figures 
+Description: This script generates arbitrary ellipse joint distributions
+from IMPACTS dataset.
 
 %}
 
@@ -34,6 +35,7 @@ dates = [dates_2020,dates_2022,dates_2023];
 %Tc_max = [-18,-12,-8,-3,0];
 %Tc_min = [-9999,-18,-12,-8,-3];
 
+% PCGL Example
 Tc_max = -18;
 Tc_min = -9999;
 
@@ -41,6 +43,15 @@ outdir_ranges = {'Below_neg_18C/'};
 
 habit = {'all','i','d','h','g','l','a','o','s'};
 habit_names = {'All','Irregular','Dendrite','Hexagonal','Graupel','Linear','Aggregate','Oriented','Sphere'};
+
+% 
+% Tc_max = 0;
+% Tc_min = -9999;
+% 
+% outdir_ranges = {'ALL/'};
+% 
+% habit = {'all'};
+% habit_names = {'All'};
 
 
 %% Plot/Save Figures
@@ -63,7 +74,8 @@ for ff = 1 : length(dates)
 
 if joint_dist
 
-out_temp = strcat(outdir,outdir_joint{dd},outdir_ranges{tt},habit_names{hh},'/');
+%out_temp = strcat(outdir,outdir_joint{dd},outdir_ranges{tt},habit_names{hh},'/');
+out_temp = fullfile(outdir,outdir_joint{dd},outdir_ranges{tt},habit_names{hh},'/');
 
 switch outdir_joint{dd}
 
@@ -117,11 +129,6 @@ end
 plot_ellipse_joint(m.(fnames{ff}),'save_fig',true,'outdir',out_temp,'habit',habit{hh},'EllipseAngle',EllipseAngle,'Dmajor',Dmajor,'AspectRatio',AspectRatio,'AreaRatio',AreaRatio,'Temp_max',Tc_max(tt),'Temp_min',Tc_min(tt),'show_fig',false);
 
 end
-
-% if habit_fraction
-% 
-% plot_habit_fractions(m.(fnames{ff}),'save_fig',true,'outdir','/localdata/edunnavan/P3_probe_data/IMPACTS/Figures/Habit_Fractions/','show_fig',false);
-% end
 
 
 end
