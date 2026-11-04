@@ -113,7 +113,7 @@ cd ..
 
 *This will automatically generate a localized `vcpkg_installed/` directory inside your project root, packed with your required calculation headers and compiled math binaries.*
 
-> [!WARNING]
+> [!CAUTION]
 > The `vcpkg` package is quite large (> 1 GB) and can take quite a while to install into `/IMPACTS_AMT_study/`. On a Windows 11 laptop, it takes longer than 40 minutes to install everything.
 
 ### Linux (Using Ubuntu/Debian)
@@ -132,8 +132,6 @@ sudo apt install build-essential libcgal-dev libgmp-dev libmpfr-dev
    ```bash
    brew install cgal gmp mpfr
    ```
-
-
 ---
 
 ### Step 2: Run the Automated MEX Compiler
@@ -157,6 +155,9 @@ Matlab's command window will show the following message if the mex files were su
 🎉 [SUCCESS] All MEX binaries successfully generated in source tree!
 ===================================================
 ``` 
+
+The `/tests/Ellipse_CGAL_test.m` matlab script can be used to test the installation of 
+the CGAL ellipse fitting code.
 
 ---
 
