@@ -5,44 +5,44 @@ Reallocating 'name_of_file' (item size: 1) to 11 items.
 The style file: copernicus.bst
 Reallocating 'name_of_file' (item size: 1) to 15 items.
 Database file #1: references.bib
-You've used 60 entries,
+You've used 67 entries,
             2932 wiz_defined-function locations,
-            1572 strings with 23504 characters,
-and the built_in function-call counts, 67449 in all, are:
-= -- 8074
-> -- 2299
-< -- 27
-+ -- 1146
-- -- 712
-* -- 3997
-:= -- 6309
-add.period$ -- 60
-call.type$ -- 60
-change.case$ -- 360
-chr.to.int$ -- 61
-cite$ -- 180
-duplicate$ -- 6967
-empty$ -- 3261
-format.name$ -- 903
-if$ -- 13323
-int.to.chr$ -- 4
+            1616 strings with 24870 characters,
+and the built_in function-call counts, 69507 in all, are:
+= -- 8195
+> -- 2391
+< -- 32
++ -- 1177
+- -- 739
+* -- 4167
+:= -- 6651
+add.period$ -- 67
+call.type$ -- 67
+change.case$ -- 389
+chr.to.int$ -- 68
+cite$ -- 201
+duplicate$ -- 7135
+empty$ -- 3443
+format.name$ -- 937
+if$ -- 13716
+int.to.chr$ -- 5
 int.to.str$ -- 1
-missing$ -- 648
-newline$ -- 189
-num.names$ -- 240
-pop$ -- 2789
+missing$ -- 691
+newline$ -- 210
+num.names$ -- 268
+pop$ -- 2879
 preamble$ -- 1
-purify$ -- 357
+purify$ -- 380
 quote$ -- 0
-skip$ -- 4437
+skip$ -- 4452
 stack$ -- 0
-substring$ -- 3170
-swap$ -- 6293
+substring$ -- 3166
+swap$ -- 6331
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 534
+type$ -- 597
 warning$ -- 0
-while$ -- 332
+while$ -- 354
 width$ -- 0
-write$ -- 714
+write$ -- 796

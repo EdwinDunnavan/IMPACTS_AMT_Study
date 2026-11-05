@@ -1,4 +1,4 @@
-\begin{thebibliography}{60}
+\begin{thebibliography}{67}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{}
@@ -15,7 +15,9 @@ Abdelmonem, A., adn D.~Duft, E.~J., Hirst, E., Vogt, S., Leisner, T., and
   3131--3144, \doi{10.5194/amt-9-3131-2016}, 2016.
 
 \bibitem[{Aitkenhead(2024)}]{Aitkenhead2024}
-Aitkenhead, A.: Mesh voxelisation, 2024.
+Aitkenhead, A.: Mesh voxelisation, MATLAB Central File Exchange [code],
+  \url{https://www.mathworks.com/matlabcentral/fileexchange/27390-mesh-voxelisation},
+  2024.
 
 \bibitem[{Auer and Veal(1970)}]{Auer1970}
 Auer, A.~H. and Veal, D.~L.: The dimension of ice crystals in natural clouds,
@@ -26,6 +28,20 @@ Auer, A.~H. and Veal, D.~L.: The dimension of ice crystals in natural clouds,
 Bailey, M.~P. and Hallett, J.: A comprehensive habit diagram for atmospheric
   ice crystals: {C}onfirmation from the laboratory, {AIRS II}, and other field
   studies, J.\ Atmos.\ Sci., 66, 2888--2899, \doi{10.1175/2009JAS2883.1}, 2009.
+
+\bibitem[{Bansemer(2026)}]{Bansemer2026}
+Bansemer, A.: SODA-2: Software for Optical Array Probe Data Analysis, GitHub
+  repository [code], \url{https://github.com/abansemer/soda2}, 2026.
+
+\bibitem[{Dunnavan(2026{\natexlab{a}})}]{Dunnavan2026a}
+Dunnavan, E.: EdwinDunnavan/IMPACTS\_AMT\_Study: v1.0.1 - AMT Submission
+  Snapshot, Zenodo [code], \doi{10.5281/zenodo.23961854}, 2026{\natexlab{a}}.
+
+\bibitem[{Dunnavan(2026{\natexlab{b}})}]{Dunnavan2026c}
+Dunnavan, E.~L.: Monte Carlo STL Projection Simulations for: "Universality of
+  ice particle shapes, densities, and orientations as revealed by the 2D-S in
+  situ cloud probe", Zenodo [data], \doi{10.5281/zenodo.23930290},
+  2026{\natexlab{b}}.
 
 \bibitem[{Dunnavan and Jiang(2019)}]{Dunnavan2019a}
 Dunnavan, E.~L. and Jiang, Z.: A General Method for Estimating Bulk 2D
@@ -46,11 +62,18 @@ Dunnavan, E.~L., Carlin, J.~T., Hu, J., Bukov\v{c}i\'{c}, P., Ryzhkov, A.~V.,
   signatures in a winter storm, J.\ Appl.\ Meteor.\ Climatol., 61, 1685--1711,
   \doi{10.1175/JAMC-D-21-0220.1}, 2022.
 
-\bibitem[{Dunnavan et~al.(2023)Dunnavan, Carlin, Schvartzman, Ryzhkov,
-  Bluestein, Emmerson, McFarquhar, Heymsfield, and Yorks}]{Dunnavan2023}
-Dunnavan, E.~L., Carlin, J.~T., Schvartzman, D., Ryzhkov, A.~V., Bluestein, H.,
-  Emmerson, S., McFarquhar, G.~M., Heymsfield, G.~M., and Yorks, J.: {},
-  Geophys.\ Res.\ Lett., 50, e2023GL103\,692, \doi{10.1029/2023GL103692}, 2023.
+\bibitem[{Dunnavan et~al.(2026)Dunnavan, Finlon, Delene, and
+  Nairy}]{Dunnavan2026b}
+Dunnavan, E.~L., Finlon, J., Delene, D., and Nairy, C.: Ellipse fit data for:
+  "Universality of ice particle shapes, densities, and orientations as revealed
+  by the 2D-S in situ cloud probe", Zenodo [data],
+  \doi{10.5281/zenodo.19338927}, 2026.
+
+\bibitem[{Frink et~al.(2000)Frink, Pirzadeh, Parikh, Pandya, and
+  Bhat}]{Frink2000}
+Frink, N.~T., Pirzadeh, S.~Z., Parikh, P.~C., Pandya, M.~J., and Bhat, M.~K.:
+  The {NASA} Tetrahedral Unstructured Software System, The Aeronautical
+  Journal, 104, 491--499, \doi{10.1017/S0001924000091995}, 2000.
 
 \bibitem[{Garcia et~al.(2026)Garcia, Rauber, McMurdie, Finlon, and
   Schima}]{Garcia2026}
@@ -94,9 +117,9 @@ Holroyd, E.~W.: {Some techniques and uses of 2D-C classification software for
 Hunter, C.: Development of Instrument Pylon Fairings for the {NASA} {W}allops
   {P}-3 {O}rion / {IMPACTS}-22, Presentation NASA/TM-20250010296, NASA Langley
   Research Center, Hampton, VA, United States,
-  \doi{ntrs.nasa.gov/citations/20250010296}, presented at the NASA Langley
-  Research Directorate Presentation, May 17, 2022. Document ID: 20250010296,
-  2025.
+  \urlprefix\url{https://ntrs.nasa.gov/citations/20250010296}, presented at the
+  NASA Langley Research Directorate Presentation, May 17, 2022. Document ID:
+  20250010296, 2025.
 
 \bibitem[{Jaffeux et~al.(2022)Jaffeux, Schwarzenb{\"o}ck, Coutris, and
   Duroure}]{Jaffeux2022}
@@ -248,15 +271,32 @@ McMurdie, L.~A., Heymsfield, G.~M., Yorks, J.~E., Braun, S.~A.,
 Mitchell, D.~L. and Arnott, W.~P.: {A model predicting the evolution of ice
   particle size spectra and radiative properties of cirrus clouds. Part II:
   Dependence of absorption and extinction on ice crystal morphology}, J.\
-  Atmos.\ Sci., 51, 817--832, 1994.
+  Atmos.\ Sci., 51, 817--832,
+  \doi{10.1175/1520-0469(1994)051<0817:AMPTEO>2.0.CO;2}, 1994.
 
 \bibitem[{Moshtagh(2024)}]{Moshtagh2024}
-Moshtagh, N.: {Minimum Volume Envlosing Ellipsoid}, 2024.
+Moshtagh, N.: {Minimum Volume Enclosing Ellipsoid}, MATLAB Central File
+  Exchange [code],
+  \url{www.mathworks.com/matlabcentral/fileexchange/9542-minimum-volume-enclosing-ellipsoid},
+  2024.
+
+\bibitem[{{NASA Airborne Science Program}(2024)}]{NASAP3Model}
+{NASA Airborne Science Program}: 3D Models Gallery: {P-3 - WFF (IMPACTS)}
+  Aircraft Model (Version {AIR\_0824}), NASA Airborne Infrastructure Digital
+  Asset [data],
+  \url{https://airbornescience.nasa.gov/content/3D_Models_Gallery}, 2024.
 
 \bibitem[{O'Brien(2016)}]{Obrien2016}
 O'Brien, J.~R.: {Sensitivity of Two-Dimensional Stereo (2DS) probe derived
   parameters to particle orientation}, Master's thesis, University of North
   Dakota, 2016.
+
+\bibitem[{Pandya et~al.(2021)Pandya, Jespersen, Diskin, Thomas, and
+  Frink}]{Pandya2021}
+Pandya, M.~J., Jespersen, D.~C., Diskin, B., Thomas, J.~L., and Frink, N.~T.:
+  Verification and Scalability of Mixed-Element {USM3D} for Benchmark
+  Three-Dimensional Flows, {AIAA} Journal, 59, 1260--1275,
+  \doi{10.2514/1.J060064}, 2021.
 
 \bibitem[{Praz et~al.(2018)Praz, Ding, McFarquhar, and Berne}]{Praz2018}
 Praz, C., Ding, S., McFarquhar, G.~M., and Berne, A.: {A Versatile Method for
@@ -296,11 +336,6 @@ Schima, J., McFarquhar, G.~M., Delene, D., Heymsfield, A., Bansemer, A.,
   IMPACTS campaign}, J.\ Geophys.\ Res.\ Atmos., 129, e2024JD040\,895,
   \doi{10.1029/2024JD040895}, 2024.
 
-\bibitem[{Schmitt and Heymsfield(2014)}]{Schmitt2014}
-Schmitt, C.~G. and Heymsfield, A.~J.: Observational quantification of the
-  separation of simple and complex atmospheric ice particles, Geophys.\ Res.\
-  Lett., 41, 1301--1307, \doi{10.1002/2013GL058781}, 2014.
-
 \bibitem[{Schrom and Kumjian(2018)}]{Schrom2018b}
 Schrom, R.~S. and Kumjian, M.~R.: Bulk-density representations of branched
   planar ice crystals: {Errors} in the polarimetric radar variables, J.\ Appl.\
@@ -321,6 +356,10 @@ Schrom, R.~S., Munchak, S.~J., and Adams, I.~S.: The polarimetric radar
 Stoelinga, M.~T., Locatelli, J.~D., and Woods, C.~P.: The Occurrence of
   ``irregular'' ice particles in stratiform clouds, J.\ Atmos.\ Sci., 64,
   2740--2750, \doi{10.1175/JAS3962.1}, 2007.
+
+\bibitem[{{The CGAL Project}(2026)}]{CGAL2026}
+{The CGAL Project}: {CGAL}: Computational Geometry Algorithms Library,
+  Geometric Software Suite [code], \url{https://www.cgal.org}, 2026.
 
 \bibitem[{Um and McFarquhar(2009)}]{Um2009}
 Um, J. and McFarquhar, G.~M.: Single-scattering properties of aggregates of
@@ -355,6 +394,10 @@ Zhang, R., Xiao, H., Gao, Y., Su, H., Li, D., Wei, L., Li, J., and Li, H.:
   {Shape classification of cloud particles recorded by the 2D-S imaging probe
   using a convolutional neural network}, J. Meteorol. Res., 37, 521--535,
   \doi{10.1007/s13351-023-2146-2}, 2023.
+
+\bibitem[{Zhao(2026)}]{Zhao_SHPSG}
+Zhao, B.: SHPSG: Spherical Harmonics Particle Shape Generator, GitHub
+  repository [code], \url{https://github.com/budizhao/SHPSG}, 2026.
 
 \bibitem[{Zhao and Wang(2015)}]{Zhao2015}
 Zhao, B. and Wang, J.: Random generation of natural sand assembly using micro

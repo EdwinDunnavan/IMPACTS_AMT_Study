@@ -23,7 +23,7 @@ Users will need to download the above Zenodo .mat file and put it in `/Data/proc
 > If users would like to run the STL projection simulations themselves, which use the CGAL library 
  for the 2D ellipse fitting, then they will have
 to install the [CGAL library](https://www.cgal.org/) onto their machines and 
-compile the C++ files: CGAL_Ellipse_UIOPS.cpp and CGAL_minR.cpp in /src/mex_source/. 
+compile the C++ files: CGAL_Ellipse_UIOPS.cpp and CGAL_minR.cpp in `/src/mex_source/`. 
 Instructions for compiling the Mex files can be found on the [Mathworks website](https://www.mathworks.com/help/matlab/matlab_external/build-c-mex-programs.html).
 See below for instructions on how to install these libraries on different operating systems.
 
@@ -81,7 +81,7 @@ To make compilation painless and identical across different machines, dependenci
 
 ---
 
-> [!CRUCIAL]
+> [!IMPORTANT]
 > Ensure your local project directory path **does not contain any spaces** (e.g., use `C:\src\IMPACTS_AMT_Study\` instead of `C:\Users\Name\My Documents\Project Files\`). Spaces in the directory path will cause internal parsing crashes in the underlying CMake/Ninja build utilities.
 
 ---
