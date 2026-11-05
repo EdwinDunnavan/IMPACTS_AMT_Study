@@ -203,7 +203,7 @@ paper can be calculated by running `/scripts/IMPACTS_KS_test.m`.
 
 ## How to load and use the ellipse fit data
 Once the ellipse fit data is downloaded from [Zenodo](https://zenodo.org/records/19338927) and put 
-into the ./Data/processed/ folder, users can load this data
+into the `/Data/processed/` folder, users can load this data
 using Matlab by simply using the load function
 ```matlab
 load('./Data/processed/IMPACTS_EllipseFits_2020_2023.mat')

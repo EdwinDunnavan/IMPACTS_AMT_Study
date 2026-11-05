@@ -1,4 +1,4 @@
-\begin{thebibliography}{67}
+\begin{thebibliography}{71}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{}
@@ -32,6 +32,12 @@ Bailey, M.~P. and Hallett, J.: A comprehensive habit diagram for atmospheric
 \bibitem[{Bansemer(2026)}]{Bansemer2026}
 Bansemer, A.: SODA-2: Software for Optical Array Probe Data Analysis, GitHub
   repository [code], \url{https://github.com/abansemer/soda2}, 2026.
+
+\bibitem[{Bukov\v{c}i\'{c} et~al.(2020)Bukov\v{c}i\'{c}, Ryzhkov, and
+  Zrni\'{c}}]{Bukovcic2020}
+Bukov\v{c}i\'{c}, P., Ryzhkov, A.~V., and Zrni\'{c}, D.: Polarimetric relations
+  for snow estimation -- radar verification, J.\ Appl.\ Meteor.\ Climatol., 59,
+  1--52, \doi{10.1175/JAMC-D-19-0140.1}, 2020.
 
 \bibitem[{Dunnavan(2026{\natexlab{a}})}]{Dunnavan2026a}
 Dunnavan, E.: EdwinDunnavan/IMPACTS\_AMT\_Study: v1.0.1 - AMT Submission
@@ -128,6 +134,12 @@ Jaffeux, L., Schwarzenb{\"o}ck, A., Coutris, P., and Duroure, C.: {Ice crystal
   networks}, Atmos.\ Meas.\ Tech., 15, 5141--5157,
   \doi{10.5194/amt-15-5141-2022}, 2022.
 
+\bibitem[{Jensen et~al.(2017)Jensen, Harrington, Morrison, and
+  Milbrandt}]{Jensen2017}
+Jensen, A.~A., Harrington, J.~Y., Morrison, H., and Milbrandt, J.~A.:
+  Predicting ice shape evolution in a bulk microphysics model, J.\ Atmos.\
+  Sci., 74, 2081--2104, \doi{10.1175/JAS-D-16-0350.1}, 2017.
+
 \bibitem[{Jiang et~al.(2019)Jiang, Verlinde, Clothiaux, Aydin, and
   Schmitt}]{Jiang2019}
 Jiang, Z., Verlinde, J., Clothiaux, E.~E., Aydin, K., and Schmitt, C.: Shapes
@@ -171,6 +183,10 @@ Korolev, A., Isaac, G.~A., and Hallett, J.: Ice particle habits in {A}rctic
 Korolev, A., Isaac, G.~A., and Hallett, J.: Ice particle habits in stratiform
   clouds, Quart.\ J.\ Roy.\ Meteor.\ Soc., 126, 2873--2902,
   \doi{10.1002/qj.49712656913}, 2000.
+
+\bibitem[{Lalish(2026)}]{Manifold3d2026}
+Lalish, E.: manifold3d: Geometry Library for Topological Robustness, PyPI
+  package [code], \url{https://pypi.org/project/manifold3d}, 2026.
 
 \bibitem[{Lamb and Verlinde(2011)}]{Lambbook}
 Lamb, D. and Verlinde, J.: Physics and chemistry of clouds, Cambridge
@@ -360,6 +376,12 @@ Stoelinga, M.~T., Locatelli, J.~D., and Woods, C.~P.: The Occurrence of
 \bibitem[{{The CGAL Project}(2026)}]{CGAL2026}
 {The CGAL Project}: {CGAL}: Computational Geometry Algorithms Library,
   Geometric Software Suite [code], \url{https://www.cgal.org}, 2026.
+
+\bibitem[{Tsai and Chen(2020)}]{Tsai2020}
+Tsai, T.-C. and Chen, J.-P.: Multimoment ice bulk microphysics scheme with
+  consideration for particle shape and apparent density. {Part I: Methodology}
+  and idealized simulation, J.\ Atmos.\ Sci., 77, 1821–1850,
+  \doi{10.1175/JAS-D-19-0125.1}, 2020.
 
 \bibitem[{Um and McFarquhar(2009)}]{Um2009}
 Um, J. and McFarquhar, G.~M.: Single-scattering properties of aggregates of
